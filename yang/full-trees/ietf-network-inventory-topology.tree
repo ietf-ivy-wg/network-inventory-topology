@@ -1,0 +1,17 @@
+
+module: ietf-network-inventory-topology
+  augment /nw:networks/nw:network/nw:network-types:
+    +--rw network-inventory-mapping!
+  augment /nw:networks/nw:network/nw:node:
+    +--rw inventory-mapping-attributes
+       +--ro ne-ref?                  ne-ref
+       +--rw policies-target-point
+  augment /nw:networks/nw:network/nt:link:
+    +--rw inventory-mapping-attributes
+       +--ro cable-name?   string
+       +--ro link-type?    string
+  augment /nw:networks/nw:network/nw:node/nt:termination-point:
+    +--rw inventory-mapping-attributes
+       +--ro port-component-ref?      leafref
+       +--ro interface-name*          string
+       +--rw policies-target-point
