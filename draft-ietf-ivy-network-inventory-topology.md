@@ -203,7 +203,7 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 
 This section is modeled after the template described in {{Section 3.7 of ?I-D.ietf-netmod-rfc8407bis}}.
 
-The "ietf-network-inventory-topology" YANG module defines a data model that is 
+The "ietf-network-inventory-topology" YANG module defines a data model that is
 designed to be accessed via YANG-based management protocols, such as
 NETCONF {{?RFC6241}} and RESTCONF {{?RFC8040}}. These protocols have to
 use a secure transport layer (e.g., SSH {{?RFC4252}}, TLS {{?RFC8446}}, and
