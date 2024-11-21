@@ -7,12 +7,14 @@ module ietf-network-inventory-topology {
   import ietf-network {
     prefix nw;
     reference
-      "RFC 8345: A YANG Data Model for Network Topologies";
+      "RFC 8345: A YANG Data Model for Network Topologies,
+                 Section 4.1";
   }
   import ietf-network-topology {
     prefix nt;
     reference
-      "RFC 8345: A YANG Data Model for Network Topologies";
+      "RFC 8345: A YANG Data Model for Network Topologies,
+                 Section 4.2";
   }
   import ietf-network-inventory {
     prefix nwi;
@@ -27,15 +29,16 @@ module ietf-network-inventory-topology {
      WG List:  <mailto:inventory-yang@ietf.org>
 
      Editor: Bo Wu
-          <lana.wubo@huawei.com>
+             <lana.wubo@huawei.com>
      Editor: Cheng Zhou
-          <zhouchengyjy@chinamobile.com>
+             <zhouchengyjy@chinamobile.com>
      Editor: Qin Wu
-          <bill.wu@huawei.com>
+             <bill.wu@huawei.com>
      Editor: Mohamed Boucadair
-          <mohamed.boucadair@orange.com>";
+             <mohamed.boucadair@orange.com>";
   description
-    "This YANG module defines XXX.
+    "This YANG module defines a YANG module for network
+     topologu and inventory mapping.
 
      Copyright (c) 2024 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
@@ -56,11 +59,13 @@ module ietf-network-inventory-topology {
       "Initial revision.";
     reference
       "RFC XXXX: A YANG Data Model for Network Inventory Mapping
-              Topology";
+                 Topology";
   }
 
   /* Identities */
   /* Typedef */
+
+  // To be moved to the base IVY model
 
   typedef ne-ref {
     type leafref {
@@ -117,11 +122,11 @@ module ietf-network-inventory-topology {
 
   grouping termination-point-inventory-attributes {
     description
-      "Network Inventory mapping termination point (TP) scope
+      "Network Inventory mapping Termination Point (TP) scope
        attributes";
     container inventory-mapping-attributes {
       description
-        "The container TP attributes of Network Inventory mapping.";
+        "Specifies the TP attributes of Network Inventory mapping.";
       leaf port-component-ref {
         type leafref {
           path
@@ -141,14 +146,7 @@ module ietf-network-inventory-topology {
         description
           "Name of the interface.  The name can (but does not
            have to) correspond to an interface reference of a
-           containing node's interface, i.e., the path name of a
-           corresponding interface data node on the containing
-           node is reminiscent of data type interface-ref defined
-           in RFC 8343.  It should be noted that data type
-           interface-ref of RFC 8343 cannot be used directly,
-           as this data type is used to reference an interface
-           in a datastore of a single node in the network, not
-           to uniquely reference interfaces across a network.";
+           containing node's interface.";
       }
       uses policies-target-point;
     }
@@ -156,27 +154,23 @@ module ietf-network-inventory-topology {
 
   grouping link-inventory-attributes {
     description
-      "Network Inventory mapping link scope attributes";
+      "Network Inventory mapping link scope attributes.";
     container inventory-mapping-attributes {
       description
-        "The container link attributes of network inventory
+        "Specifies  the link attributes of network inventory
          mapping.";
       leaf cable-name {
         type string;
         config false;
         description
-          "The reference of the cable inventory from which
-           this link is abstracted
-           Note: this will be changed based on the future inventoy
-           cable model.";
+          "Reports the reference of the cable inventory from which
+           this link is abstracted.";
       }
       leaf link-type {
         type string;
         config false;
         description
-          "The type of the link.
-           Note: this will be changed based on the future inventoy
-           cable model.";
+          "Reports the type of the link.";
       }
     }
   }
@@ -197,8 +191,7 @@ module ietf-network-inventory-topology {
          mapping.";
     }
     description
-      "Configuration parameters for inventory at the node
-       level.";
+      "Groups parameters for inventory at the node level.";
     uses node-inventory-attributes;
   }
 
