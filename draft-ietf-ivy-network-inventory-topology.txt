@@ -5,12 +5,12 @@
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                                 C. Zhou
-Expires: 25 May 2025                                        China Mobile
+Expires: 26 May 2025                                        China Mobile
                                                                    Q. Wu
                                                                   Huawei
                                                             M. Boucadair
                                                                   Orange
-                                                        21 November 2024
+                                                        22 November 2024
 
 
                    A Network Inventory Topology Model
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 May 2025.
+   This Internet-Draft will expire on 26 May 2025.
 
 Copyright Notice
 
