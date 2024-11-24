@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-21T01:15:48.812174+00:00",
+  "timestamp": "2024-11-24T01:21:42.587395+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -105,7 +105,228 @@
       "updatedAt": "2024-10-15T03:15:18Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOMgaibM6fpWFR",
+      "title": "discuss whether/where  to put this text",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/7",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> , i.e., the path name of a\r\n>            corresponding interface data node on the containing\r\n>            node is reminiscent of data type interface-ref defined\r\n>            in RFC 8343.  It should be noted that data type\r\n>            interface-ref of RFC 8343 cannot be used directly,\r\n>            as this data type is used to reference an interface\r\n>            in a datastore of a single node in the network, not\r\n>            to uniquely reference interfaces across a network\r\n\r\n(used to be in the yang, but the reasoning is better discuss (if needed) in the narrative text.",
+      "createdAt": "2024-11-21T07:41:21Z",
+      "updatedAt": "2024-11-21T11:34:48Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "body": "That text is to explain why \u201cinterface-name\u201d should be used, not \u201cinterface-reference\u201d of RFC 8343 device model. The text is borrowed from \"interface-name\" of L2 topology (RFC 8944) and L3 topology (RFC8346). \r\nhttps://datatracker.ietf.org/doc/html/rfc8944#name-layer-2-topology-yang-module\r\nhttps://datatracker.ietf.org/doc/html/rfc8346#autoid-6\r\n\r\nThere is also a relevant CCAMP draft: https://datatracker.ietf.org/doc/html/draft-ietf-ccamp-if-ref-topo-yang-01 defines tp-to-interface-ref.\r\nI was wondering if our document could cover this defined in draft-ietf-ccamp-if-ref-topo-yang.\r\n\r\n",
+          "createdAt": "2024-11-21T11:34:47Z",
+          "updatedAt": "2024-11-21T11:34:47Z"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOMgaibM6fpW0o",
+      "title": "reusable groupings",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/8",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We do gave many reusable groupings, but many of them are used once. I suggest we simplify that.",
+      "createdAt": "2024-11-21T07:42:55Z",
+      "updatedAt": "2024-11-21T07:42:55Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 9,
+      "id": "I_kwDOMgaibM6fpXHd",
+      "title": "policy mount",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/9",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The need for such anchor for future augmentation need to be described.",
+      "createdAt": "2024-11-21T07:43:35Z",
+      "updatedAt": "2024-11-21T07:43:35Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 4,
+      "id": "PR_kwDOMgaibM6Cn01L",
+      "title": "rework the abstract",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/4",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-21T07:09:14Z",
+      "updatedAt": "2024-11-21T11:01:29Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "38836b3f96c7901fbeefeb6759448778d11fb019",
+      "headRepository": "ietf-ivy-wg/network-inventory-topology",
+      "headRefName": "rework-the-abstract",
+      "headRefOid": "9eedfde388fe1c19bfb1861a77a843a2160e330b",
+      "closedAt": "2024-11-21T11:01:29Z",
+      "mergedAt": "2024-11-21T11:01:29Z",
+      "mergedBy": "lana-wu",
+      "mergeCommit": {
+        "oid": "7ca9bcc9f655c5af850043083b175fa33f859397"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMgaibM6SF72_",
+          "commit": {
+            "abbreviatedOid": "9eedfde"
+          },
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "The updated abstract text looks good.",
+          "createdAt": "2024-11-21T11:01:12Z",
+          "updatedAt": "2024-11-21T11:01:12Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOMgaibM6Cn81K",
+      "title": "Review of the main text",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/5",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-21T07:29:52Z",
+      "updatedAt": "2024-11-21T11:15:34Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "38836b3f96c7901fbeefeb6759448778d11fb019",
+      "headRepository": "ietf-ivy-wg/network-inventory-topology",
+      "headRefName": "Review-of-the-main-text",
+      "headRefOid": "3e59ca27392b9a0e9f45b78253c3bef5de80c676",
+      "closedAt": "2024-11-21T11:02:40Z",
+      "mergedAt": "2024-11-21T11:02:40Z",
+      "mergedBy": "lana-wu",
+      "mergeCommit": {
+        "oid": "cfc269f65e67ea7a3b81ee392ebb46bf69858cb5"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOMgaibM6SF8aB",
+          "commit": {
+            "abbreviatedOid": "3e59ca2"
+          },
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "The fix looks fine.",
+          "createdAt": "2024-11-21T11:02:16Z",
+          "updatedAt": "2024-11-21T11:02:16Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMgaibM6SGBi8",
+          "commit": {
+            "abbreviatedOid": "3e59ca2"
+          },
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "All the updates look good.",
+          "createdAt": "2024-11-21T11:11:29Z",
+          "updatedAt": "2024-11-21T11:11:29Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOMgaibM6SGD4k",
+          "commit": {
+            "abbreviatedOid": "3e59ca2"
+          },
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Text improvements of the main text by Med.",
+          "createdAt": "2024-11-21T11:15:34Z",
+          "updatedAt": "2024-11-21T11:15:34Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOMgaibM6CoA4T",
+      "title": "review of the yang",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/6",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-21T07:40:29Z",
+      "updatedAt": "2024-11-21T07:40:29Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "38836b3f96c7901fbeefeb6759448778d11fb019",
+      "headRepository": "ietf-ivy-wg/network-inventory-topology",
+      "headRefName": "review-of-the-yang-file",
+      "headRefOid": "85dabdfd9a4c8d4a0d05ee59c26a40feb5cce5e2",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOMgaibM6Cpv6a",
+      "title": "yang lint",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/10",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-11-21T11:15:50Z",
+      "updatedAt": "2024-11-22T07:36:33Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "cfc269f65e67ea7a3b81ee392ebb46bf69858cb5",
+      "headRepository": "ietf-ivy-wg/network-inventory-topology",
+      "headRefName": "yang-lint",
+      "headRefOid": "f06c2b41591b9b49e964e8e333586f8c9e7c01fb",
+      "closedAt": "2024-11-22T07:36:32Z",
+      "mergedAt": "2024-11-22T07:36:32Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "e970edef7e2b3dc223fb75822c2b8e44fc8479a4"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }
