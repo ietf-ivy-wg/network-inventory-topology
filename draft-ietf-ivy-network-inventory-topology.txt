@@ -5,12 +5,12 @@
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                                 C. Zhou
-Expires: 26 May 2025                                        China Mobile
+Expires: 16 June 2025                                       China Mobile
                                                                    Q. Wu
                                                                   Huawei
                                                             M. Boucadair
                                                                   Orange
-                                                        22 November 2024
+                                                        13 December 2024
 
 
                    A Network Inventory Topology Model
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 May 2025.
+   This Internet-Draft will expire on 16 June 2025.
 
 Copyright Notice
 
@@ -251,12 +251,14 @@ Table of Contents
      import ietf-network {
        prefix nw;
        reference
-         "RFC 8345: A YANG Data Model for Network Topologies";
+         "RFC 8345: A YANG Data Model for Network Topologies,
+                    Section 4.1";
      }
      import ietf-network-topology {
        prefix nt;
        reference
-         "RFC 8345: A YANG Data Model for Network Topologies";
+         "RFC 8345: A YANG Data Model for Network Topologies,
+                    Section 4.2";
      }
      import ietf-network-inventory {
        prefix nwi;
@@ -271,15 +273,16 @@ Table of Contents
         WG List:  <mailto:inventory-yang@ietf.org>
 
         Editor: Bo Wu
-             <lana.wubo@huawei.com>
+                <lana.wubo@huawei.com>
         Editor: Cheng Zhou
-             <zhouchengyjy@chinamobile.com>
+                <zhouchengyjy@chinamobile.com>
         Editor: Qin Wu
-             <bill.wu@huawei.com>
+                <bill.wu@huawei.com>
         Editor: Mohamed Boucadair
-             <mohamed.boucadair@orange.com>";
+                <mohamed.boucadair@orange.com>";
      description
-       "This YANG module defines XXX.
+       "This YANG module defines a YANG module for network
+        topologu and inventory mapping.
 
         Copyright (c) 2024 IETF Trust and the persons identified
         as authors of the code. All rights reserved.
@@ -300,11 +303,13 @@ Table of Contents
          "Initial revision.";
        reference
          "RFC XXXX: A YANG Data Model for Network Inventory Mapping
-                 Topology";
+                    Topology";
      }
 
      /* Identities */
      /* Typedef */
+
+     // To be moved to the base IVY model
 
      typedef ne-ref {
        type leafref {
@@ -361,11 +366,11 @@ Table of Contents
 
      grouping termination-point-inventory-attributes {
        description
-         "Network Inventory mapping termination point (TP) scope
+         "Network Inventory mapping Termination Point (TP) scope
           attributes";
        container inventory-mapping-attributes {
          description
-           "The container TP attributes of Network Inventory mapping.";
+           "Specifies the TP attributes of Network Inventory mapping.";
          leaf port-component-ref {
            type leafref {
              path
@@ -385,14 +390,7 @@ Table of Contents
            description
              "Name of the interface.  The name can (but does not
               have to) correspond to an interface reference of a
-              containing node's interface, i.e., the path name of a
-              corresponding interface data node on the containing
-              node is reminiscent of data type interface-ref defined
-              in RFC 8343.  It should be noted that data type
-              interface-ref of RFC 8343 cannot be used directly,
-              as this data type is used to reference an interface
-              in a datastore of a single node in the network, not
-              to uniquely reference interfaces across a network.";
+              containing node's interface.";
          }
          uses policies-target-point;
        }
@@ -400,27 +398,23 @@ Table of Contents
 
      grouping link-inventory-attributes {
        description
-         "Network Inventory mapping link scope attributes";
+         "Network Inventory mapping link scope attributes.";
        container inventory-mapping-attributes {
          description
-           "The container link attributes of network inventory
+           "Specifies  the link attributes of network inventory
             mapping.";
          leaf cable-name {
            type string;
            config false;
            description
-             "The reference of the cable inventory from which
-              this link is abstracted
-              Note: this will be changed based on the future inventoy
-              cable model.";
+             "Reports the reference of the cable inventory from which
+              this link is abstracted.";
          }
          leaf link-type {
            type string;
            config false;
            description
-             "The type of the link.
-              Note: this will be changed based on the future inventoy
-              cable model.";
+             "Reports the type of the link.";
          }
        }
      }
@@ -441,8 +435,7 @@ Table of Contents
             mapping.";
        }
        description
-         "Configuration parameters for inventory at the node
-          level.";
+         "Groups parameters for inventory at the node level.";
        uses node-inventory-attributes;
      }
 
