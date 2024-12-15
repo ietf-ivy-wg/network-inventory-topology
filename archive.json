@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-12T01:19:10.642270+00:00",
+  "timestamp": "2024-12-15T01:24:47.402802+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -279,24 +279,26 @@
       "id": "PR_kwDOMgaibM6CoA4T",
       "title": "review of the yang",
       "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/6",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2024-11-21T07:40:29Z",
-      "updatedAt": "2024-11-21T07:40:29Z",
+      "updatedAt": "2024-12-13T11:42:06Z",
       "baseRepository": "ietf-ivy-wg/network-inventory-topology",
       "baseRefName": "main",
       "baseRefOid": "38836b3f96c7901fbeefeb6759448778d11fb019",
       "headRepository": "ietf-ivy-wg/network-inventory-topology",
       "headRefName": "review-of-the-yang-file",
       "headRefOid": "85dabdfd9a4c8d4a0d05ee59c26a40feb5cce5e2",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2024-12-13T11:42:06Z",
+      "mergedAt": "2024-12-13T11:42:06Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "39448267c917cc2145c01ee8bd9137f1cf77260d"
+      },
       "comments": [],
       "reviews": []
     },
