@@ -4,12 +4,12 @@
 
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
-Intended status: Standards Track                                 C. Zhou
-Expires: 8 August 2025                                      China Mobile
+Intended status: Standards Track                            M. Boucadair
+Expires: 8 August 2025                                            Orange
+                                                                 C. Zhou
+                                                            China Mobile
                                                                    Q. Wu
                                                                   Huawei
-                                                            M. Boucadair
-                                                                  Orange
                                                          4 February 2025
 
 
@@ -22,8 +22,8 @@ Abstract
    with the topology model to form a base underlay network.  The model
    facilitates the correlation between the layer (e.g., Layer 2 and
    Layer 3) topology information and the inventory data of the underlay
-   network for better service provisioning and network maintenance
-   operations.
+   network for better service provisioning, network maintenance
+   operations, and other assessment scenarios.
 
 Discussion Venues
 
@@ -70,51 +70,54 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Editorial Note (To be removed by RFC Editor)
-   3.  Conventions and Definitions
-   4.  Sample Use Cases of the Data Model
-     4.1.  Determine Available Resources of Service Attachment Points
+     1.1.  Editorial Note (To be removed by RFC Editor)
+   2.  Conventions and Definitions
+   3.  Sample Use Cases of the Data Model
+     3.1.  Determine Available Resources of Service Attachment Points
            (SAPs)
-     4.2.  "What-if" Scenarios
-   5.  Module Tree Structure
-   6.  Network Inventory Topology YANG Module
-   7.  Security Considerations
-   8.  IANA Considerations
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+     3.2.  "What-if" Scenarios
+   4.  Module Tree Structure
+   5.  Network Inventory Topology YANG Module
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
    Acknowledgments
    Contributors
    Authors' Addresses
 
 1.  Introduction
 
-   [I-D.ietf-ivy-network-inventory-yang] defines the base Network
-   Inventory (NI) model to aggregate the inventory data of Network
-   Elements (NEs) in a network.  This data includes identification of
-   these NEs and their hardware , firmware, and software components.
-   Examples of inventory hardware components could be rack, shelf, slot,
-   board, or physical port.  Examples of inventory software components
-   could be platform Operating System (OS), software-patches, bios, or
-   boot- loader.
+   [I-D.ietf-ivy-network-inventory-yang] defines the base network
+   inventory model to aggregate the inventory data of Network Elements
+   (NEs).  This data includes identification of these NEs and their
+   hardware, firmware, and software components.  Examples of inventory
+   hardware components could be rack, shelf, slot, board, or physical
+   port.  Examples of inventory software components could be platform
+   Operating System (OS), software-patches, bios, or boot- loader
+   [I-D.ietf-ivy-network-inventory-software].
 
    In order to ease navigation from/to inventory and network topologies,
    this document extends the network topology model [RFC8345] for
    network inventory mapping: "ietf-network-inventory-topology"
-   (Section 6).  This model aims to facilitate the correlation with
-   existing network and topology models, such as SAP [RFC9408], Layer 2
-   topology [RFC8944], and Layer 3 topology [RFC8346].
+   (Section 5).  This model provides a mechanism for the correlation
+   with existing network and topology models, such as "A YANG Network
+   Data Model for Service Attachment Points (SAPs)" [RFC9408], "A YANG
+   Data Model for Layer 2 Network Topologies" [RFC8944], and "A YANG
+   Data Model for Layer 3 Topologies" [RFC8346].
 
-   The network inventory topology ("ietf-network-inventory-topology")
-   also provides anchor points to mount specific device configuration
-   and state information, e.g., Quality of Service (QoS) and Access
-   Control List (ACL) policies, to support configuration verification of
-   policies at the network level.
+   The network inventory topology mapping data model ("ietf-network-
+   inventory-topology") also provides anchor points to mount specific
+   device configuration and state information, e.g., Quality of Service
+   (QoS) and Access Control List (ACL) policies, to support
+   configuration verification of policies at the network level.  Further
+   sample uses are discussed in Section 3.
 
    The YANG data model in this document conforms to the Network
    Management Datastore Architecture (NMDA) defined in [RFC8342].
 
-2.  Editorial Note (To be removed by RFC Editor)
+1.1.  Editorial Note (To be removed by RFC Editor)
 
    Note to the RFC Editor: This section is to be removed prior to
    publication.
@@ -130,7 +133,7 @@ Table of Contents
    *  AAAA --> the assigned RFC number for
       [I-D.ietf-ivy-network-inventory-yang]
 
-3.  Conventions and Definitions
+2.  Conventions and Definitions
 
    The meanings of the symbols in the YANG tree diagrams are defined in
    [RFC8340].
@@ -138,22 +141,21 @@ Table of Contents
    This document uses terms defined in
    [I-D.ietf-ivy-network-inventory-yang].
 
-4.  Sample Use Cases of the Data Model
+3.  Sample Use Cases of the Data Model
 
-4.1.  Determine Available Resources of Service Attachment Points (SAPs)
+3.1.  Determine Available Resources of Service Attachment Points (SAPs)
 
    The inventory topology model can be used as a base to correlate
    underlay information, such as physical port components.  Figure 1
    exemplifies this usage.
 
    During service provisioning, to check available physical port
-   resources, the Service Attachment Points (SAPs) information can be
-   associated with the underlay inventory information and interface
-   information associated with the inventory topology, e.g., "parent-
-   termination-point" of SAP Model can be associated with the "port-
-   component-ref" and "interface-name" of the inventory topology model,
-   which can be used to check the availability and capacity of physical
-   ports.
+   resources, the SAPs information can be associated with the underlay
+   inventory information and interface information associated with the
+   inventory topology, e.g., "parent-termination-point" of SAP Model can
+   be associated with the "port-component-ref" and "interface-name" of
+   the inventory topology model, which can be used to check the
+   availability and capacity of physical ports.
 
                                +-----------------+
                                |     Customer    |
@@ -177,7 +179,7 @@ Table of Contents
 
           Figure 1: An Example Usage of Network Inventory Topology
 
-4.2.  "What-if" Scenarios
+3.2.  "What-if" Scenarios
 
    [I-D.irtf-nmrg-network-digital-twin-arch] defines Network Digital
    Twin (NDT) as a virtual representation of the physical network.  Such
@@ -195,10 +197,10 @@ Table of Contents
    or depletion of a hardware component (chipset) on the network
    resilience and service availability.
 
-5.  Module Tree Structure
+4.  Module Tree Structure
 
-   An overview of the data model for "ietf-network-inventory-topology"
-   module are shown in Figure 2.
+   An overview of the structure of the "ietf-network-inventory-topology"
+   module is shown in Figure 2.
 
       module: ietf-network-inventory-topology
         augment /nw:networks/nw:network/nw:network-types:
@@ -219,7 +221,7 @@ Table of Contents
 
     Figure 2: The Structure of the Network Inventory Mapping Data Model
 
-   The module augments the "ietf-network- topology" module as follows:
+   The module augments the "ietf-network-topology" module as follows:
 
    *  A new network topology type: "network-inventory-mapping".  The
       corresponding container augments the "network-types" of the "ietf-
@@ -234,7 +236,7 @@ Table of Contents
       overlay topologies.  It can be used as the "supporting-networks"
       of SAP, Layer 2, or Layer 3 topologies.
 
-6.  Network Inventory Topology YANG Module
+5.  Network Inventory Topology YANG Module
 
    This module augments the Network Topology [RFC8345].
 
@@ -466,7 +468,7 @@ Table of Contents
    }
    <CODE ENDS>
 
-7.  Security Considerations
+6.  Security Considerations
 
    This section is modeled after the template described in Section 3.7
    of [I-D.ietf-netmod-rfc8407bis].
@@ -502,7 +504,7 @@ Table of Contents
    'ne-ref':  The reference may be used to track the set of network
       elements.
 
-8.  IANA Considerations
+7.  IANA Considerations
 
    IANA is requested to register the following URI in the "ns"
    subregistry within the "IETF XML Registry" [RFC3688]:
@@ -521,9 +523,9 @@ Table of Contents
    Maintained by IANA?  N
    Reference:  RFC XXXX
 
-9.  References
+8.  References
 
-9.1.  Normative References
+8.1.  Normative References
 
    [I-D.ietf-ivy-network-inventory-yang]
               Yu, C., Belotti, S., Bouquier, J., Peruzzini, F., and P.
@@ -562,7 +564,15 @@ Table of Contents
               Attachment Points (SAPs)", RFC 9408, DOI 10.17487/RFC9408,
               June 2023, <https://www.rfc-editor.org/rfc/rfc9408>.
 
-9.2.  Informative References
+8.2.  Informative References
+
+   [I-D.ietf-ivy-network-inventory-software]
+              Wu, B., Zhou, C., Wu, Q., and M. Boucadair, "A YANG
+              Network Data Model of Network Inventory Software
+              Extensions", Work in Progress, Internet-Draft, draft-ietf-
+              ivy-network-inventory-software-00, 9 December 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
+              network-inventory-software-00>.
 
    [I-D.ietf-netmod-rfc8407bis]
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
@@ -632,6 +642,11 @@ Authors' Addresses
    Email: lana.wubo@huawei.com
 
 
+   Mohamed Boucadair
+   Orange
+   Email: mohamed.boucadair@orange.com
+
+
    Cheng Zhou
    China Mobile
    Email: zhouchengyjy@chinamobile.com
@@ -640,8 +655,3 @@ Authors' Addresses
    Qin Wu
    Huawei
    Email: bill.wu@huawei.com
-
-
-   Mohamed Boucadair
-   Orange
-   Email: mohamed.boucadair@orange.com
