@@ -1,5 +1,5 @@
 ---
-title: "A Network Inventory Topology Model"
+title: "A Network Data Model for Inventory Topology Mapping"
 abbrev: "Network Inventory Topology"
 category: std
 
@@ -197,7 +197,7 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 ~~~~ yang
 {::include-fold ./yang/ietf-network-inventory-topology.yang}
 ~~~~
-{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2024-04-29.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2025-02-04.yang"}
 
 # Security Considerations
 
