@@ -114,6 +114,13 @@ Table of Contents
    configuration verification of policies at the network level.  Further
    sample uses are discussed in Section 3.
 
+   Similar to the base inventory model
+   [I-D.ietf-ivy-network-inventory-yang], the network inventory topology
+   does not make any assumption about involved network elements and
+   their roles in topologies.  As such, the mapping model can be applied
+   indepent of the network type (optical local loops, access network,
+   core network, etc.) and application.
+
    The YANG data model in this document conforms to the Network
    Management Datastore Architecture (NMDA) defined in [RFC8342].
 
@@ -190,7 +197,9 @@ Table of Contents
    The management system can use NDT to build multi-layer topology maps
    for networks and endpoints with relationship types and dependencies,
    and identify potential impacts on configuration management
-   information from incidents, problems, and changes.
+   information from incidents, problems, and changes.  More generally,
+   the inventory topology model can be used as part of the SIMAP
+   [I-D.ietf-nmop-simap-concept].
 
    The inventory topology model can, for example, be used to emulate
    several "what-if" scenarios such as the impact of End of Life (EOL)
@@ -581,6 +590,14 @@ Table of Contents
               netmod-rfc8407bis-22, 14 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
               rfc8407bis-22>.
+
+   [I-D.ietf-nmop-simap-concept]
+              Havel, O., Claise, B., de Dios, O. G., and T. Graf,
+              "SIMAP: Concept, Requirements, and Use Cases", Work in
+              Progress, Internet-Draft, draft-ietf-nmop-simap-concept-
+              00, 29 November 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
+              simap-concept-00>.
 
    [I-D.irtf-nmrg-network-digital-twin-arch]
               Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
