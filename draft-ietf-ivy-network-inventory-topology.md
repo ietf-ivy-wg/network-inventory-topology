@@ -27,6 +27,11 @@ author:
     email: lana.wubo@huawei.com
 
  -
+    fullname: Mohamed Boucadair
+    organization: Orange
+    email: mohamed.boucadair@orange.com
+
+ -
     fullname: Cheng Zhou
     organization: China Mobile
     email: zhouchengyjy@chinamobile.com
@@ -35,11 +40,6 @@ author:
     fullname: Qin Wu
     organization: Huawei
     email: bill.wu@huawei.com
-
- -
-    fullname: Mohamed Boucadair
-    organization: Orange
-    email: mohamed.boucadair@orange.com
 
 contributor:
 -
@@ -53,41 +53,39 @@ informative:
 
 --- abstract
 
-  This document defines a YANG model to
+   This document defines a YANG model to
    map the network inventory data with the topology model
    to form a base underlay network. The model facilitates the
    correlation between the layer (e.g.,  Layer 2 and Layer 3) topology information
    and the inventory data of the underlay network for better service
-   provisioning and network maintenance operations.
+   provisioning, network maintenance operations, and other assessment scenarios.
 
 --- middle
 
 # Introduction
 
- {{!I-D.ietf-ivy-network-inventory-yang}} defines the base Network Inventory
-   (NI) model to aggregate the inventory data of Network Elements
-   (NEs) in a network. This data includes identification of these NEs and their hardware
-   , firmware, and software components.  Examples
+ {{!I-D.ietf-ivy-network-inventory-yang}} defines the base network inventory
+  model to aggregate the inventory data of Network Elements (NEs). This data includes identification of these NEs and their hardware,
+  firmware, and software components.  Examples
    of inventory hardware components could be rack, shelf, slot, board,
    or physical port.  Examples of inventory software components could
    be platform Operating System (OS), software-patches, bios, or boot-
-   loader.
+   loader {{?I-D.ietf-ivy-network-inventory-software}}.
 
 In order to ease navigation from/to inventory and network topologies,
 this document extends the network topology model {{!RFC8345}} for network
-   inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).  This model aims to facilitate the correlation with existing
-   network and topology models, such as SAP {{!RFC9408}}, Layer 2 topology
-   {{?RFC8944}}, and Layer 3 topology {{?RFC8346}}.
+inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).  This model provides a mechanism for the correlation with existing
+network and topology models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{!RFC9408}}, "A YANG Data Model for Layer 2 Network Topologies" {{?RFC8944}}, and "A YANG Data Model for Layer 3 Topologies" {{?RFC8346}}.
 
-The network inventory topology ("ietf-network-inventory-topology") also provides anchor
-   points to mount specific device configuration and state information,
-   e.g.,  Quality of Service (QoS) and Access Control List (ACL) policies, to support configuration
-   verification of policies at the network level.
+The network inventory topology mapping data model ("ietf-network-inventory-topology") also provides anchor
+points to mount specific device configuration and state information,
+e.g.,  Quality of Service (QoS) and Access Control List (ACL) policies, to support configuration
+verification of policies at the network level. Further sample uses are discussed in {{sample}}.
 
 The YANG data model in this document conforms to the Network
 Management Datastore Architecture (NMDA) defined in {{!RFC8342}}.
 
-# Editorial Note (To be removed by RFC Editor)
+## Editorial Note (To be removed by RFC Editor)
 
 Note to the RFC Editor: This section is to be removed prior to publication.
 
@@ -104,7 +102,7 @@ The meanings of the symbols in the YANG tree diagrams are defined in {{?RFC8340}
 
 This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
 
-# Sample Use Cases of the Data Model
+# Sample Use Cases of the Data Model {#sample}
 
 ## Determine Available Resources of Service Attachment Points (SAPs)
 
@@ -112,7 +110,7 @@ The inventory topology model can be used as a base to correlate
    underlay information, such as physical port components.  {{nwi-topology-usage}} exemplifies this usage.
 
  During service provisioning, to check available physical port
-   resources, the Service Attachment Points (SAPs) information can be
+   resources, the SAPs information can be
    associated with the underlay inventory information and interface
    information associated with the inventory topology, e.g.,
    "parent-termination-point" of SAP Model can be associated with the
@@ -164,19 +162,17 @@ The inventory topology model can, for example, be used to emulate
 
 # Module Tree Structure
 
- An overview of the data model for "ietf-network-inventory-topology" module are shown in {{tree}}.
+ An overview of the structure of the "ietf-network-inventory-topology" module is shown in {{tree}}.
 
 ~~~~~~~~~~
 {::include-fold ./yang/full-trees/ietf-network-inventory-topology.tree}
 ~~~~~~~~~~
 {: #tree title="The Structure of the Network Inventory Mapping Data Model" artwork-align="center"}
 
-The module augments the "ietf-network- topology" module as
-   follows:
+The module augments the "ietf-network-topology" module as follows:
 
 * A new network topology type: "network-inventory-mapping".  The
-        corresponding container augments the "network-types" of the "ietf-
-        network" module.
+        corresponding container augments the "network-types" of the "ietf-network" module.
 
 * Inventory mapping attributes for nodes, links, and termination
         points: The corresponding containers augments the topology module
