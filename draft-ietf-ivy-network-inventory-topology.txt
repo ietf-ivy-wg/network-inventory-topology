@@ -5,15 +5,15 @@
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                                 C. Zhou
-Expires: 16 June 2025                                       China Mobile
+Expires: 8 August 2025                                      China Mobile
                                                                    Q. Wu
                                                                   Huawei
                                                             M. Boucadair
                                                                   Orange
-                                                        13 December 2024
+                                                         4 February 2025
 
 
-                   A Network Inventory Topology Model
+          A Network Data Model for Inventory Topology Mapping
             draft-ietf-ivy-network-inventory-topology-latest
 
 Abstract
@@ -51,11 +51,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 June 2025.
+   This Internet-Draft will expire on 8 August 2025.
 
 Copyright Notice
 
-   Copyright (c) 2024 IETF Trust and the persons identified as the
+   Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -241,7 +241,7 @@ Table of Contents
    This module imports the base network inventory
    [I-D.ietf-ivy-network-inventory-yang].
 
-   <CODE BEGINS> file "ietf-network-inventory-topology@2024-04-29.yang"
+   <CODE BEGINS> file "ietf-network-inventory-topology@2025-02-04.yang"
    module ietf-network-inventory-topology {
      yang-version 1.1;
      namespace
@@ -282,9 +282,9 @@ Table of Contents
                 <mohamed.boucadair@orange.com>";
      description
        "This YANG module defines a YANG module for network
-        topologu and inventory mapping.
+        topology and inventory mapping.
 
-        Copyright (c) 2024 IETF Trust and the persons identified
+        Copyright (c) 2025 IETF Trust and the persons identified
         as authors of the code. All rights reserved.
 
         Redistribution and use in source and binary forms, with
@@ -298,7 +298,7 @@ Table of Contents
         (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
         itself for full legal notices.";
 
-     revision 2024-08-15 {
+     revision 2025-02-04 {
        description
          "Initial revision.";
        reference
@@ -568,18 +568,18 @@ Table of Contents
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-21, 13 November 2024,
+              netmod-rfc8407bis-22, 14 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-21>.
+              rfc8407bis-22>.
 
    [I-D.irtf-nmrg-network-digital-twin-arch]
               Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
               Q., Boucadair, M., and C. Jacquenet, "Network Digital
               Twin: Concepts and Reference Architecture", Work in
               Progress, Internet-Draft, draft-irtf-nmrg-network-digital-
-              twin-arch-08, 16 October 2024,
+              twin-arch-09, 24 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
-              network-digital-twin-arch-08>.
+              network-digital-twin-arch-09>.
 
    [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,

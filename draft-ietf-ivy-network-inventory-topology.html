@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>A Network Inventory Topology Model</title>
+<title>A Network Data Model for Inventory Topology Mapping</title>
 <meta content="Bo Wu" name="author">
 <meta content="Cheng Zhou" name="author">
 <meta content="Qin Wu" name="author">
@@ -17,7 +17,7 @@
    and the inventory data of the underlay network for better service
    provisioning and network maintenance operations. 
     " name="description">
-<meta content="xml2rfc 3.25.0" name="generator">
+<meta content="xml2rfc 3.26.0" name="generator">
 <meta content="Automation" name="keyword">
 <meta content="Network Digital Map" name="keyword">
 <meta content="Network Inventory" name="keyword">
@@ -25,16 +25,16 @@
 <meta content="Network Topology" name="keyword">
 <meta content="draft-ietf-ivy-network-inventory-topology-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.25.0
-    Python 3.12.7
+  xml2rfc 3.26.0
+    Python 3.12.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.1.0
-    Jinja2 3.1.4
+    Jinja2 3.1.5
     lxml 5.3.0
     platformdirs 4.3.6
-    pycountry 22.3.5
-    PyYAML 6.0.1
+    pycountry 24.6.1
+    PyYAML 6.0.2
     requests 2.32.3
     setuptools 70.3.0
     wcwidth 0.2.13
@@ -1056,11 +1056,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Network Inventory Topology</td>
-<td class="right">December 2024</td>
+<td class="right">February 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Wu, et al.</td>
-<td class="center">Expires 16 June 2025</td>
+<td class="center">Expires 8 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1073,12 +1073,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-ivy-network-inventory-topology-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-12-13" class="published">13 December 2024</time>
+<time datetime="2025-02-04" class="published">4 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-06-16">16 June 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-08">8 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1101,7 +1101,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">A Network Inventory Topology Model</h1>
+<h1 id="title">A Network Data Model for Inventory Topology Mapping</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines a YANG model to
@@ -1141,7 +1141,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1150,7 +1150,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2024 IETF Trust and the persons identified as the
+            Copyright (c) 2025 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1438,7 +1438,7 @@ The inventory topology
 <p id="section-6-1">This module augments the Network Topology <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span>.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">This module imports the base network inventory <span>[<a href="#I-D.ietf-ivy-network-inventory-yang" class="cite xref">I-D.ietf-ivy-network-inventory-yang</a>]</span>.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <div class="breakable lang-yang sourcecode" id="section-6-3">
-<pre>&lt;CODE BEGINS&gt; file "ietf-network-inventory-topology@2024-04-29.yang"
+<pre>&lt;CODE BEGINS&gt; file "ietf-network-inventory-topology@2025-02-04.yang"
 
 module ietf-network-inventory-topology {
   yang-version 1.1;
@@ -1480,9 +1480,9 @@ module ietf-network-inventory-topology {
              &lt;mohamed.boucadair@orange.com&gt;";
   description
     "This YANG module defines a YANG module for network
-     topologu and inventory mapping.
+     topology and inventory mapping.
 
-     Copyright (c) 2024 IETF Trust and the persons identified
+     Copyright (c) 2025 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -1496,7 +1496,7 @@ module ietf-network-inventory-topology {
      (https://www.rfc-editor.org/info/rfcXXXX); see the RFC
      itself for full legal notices.";
 
-  revision 2024-08-15 {
+  revision 2025-02-04 {
     description
       "Initial revision.";
     reference
@@ -1672,7 +1672,7 @@ module ietf-network-inventory-topology {
       <h2 id="name-security-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">This section is modeled after the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">This section is modeled after the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-22#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">The "ietf-network-inventory-topology" YANG module defines a data model that is
 designed to be accessed via YANG-based management protocols, such as
 NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>. These protocols have to
@@ -1781,11 +1781,11 @@ subtrees and data nodes have particular sensitivities/vulnerabilities:<a href="#
 <dl class="references">
 <dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
         <dd>
-<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-21</span>, <time datetime="2024-11-13" class="refDate">13 November 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-21</a>&gt;</span>. </dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-22</span>, <time datetime="2025-01-14" class="refDate">14 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-22">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-22</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-nmrg-network-digital-twin-arch">[I-D.irtf-nmrg-network-digital-twin-arch]</dt>
         <dd>
-<span class="refAuthor">Zhou, C.</span>, <span class="refAuthor">Yang, H.</span>, <span class="refAuthor">Duan, X.</span>, <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">C. Jacquenet</span>, <span class="refTitle">"Network Digital Twin: Concepts and Reference Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-network-digital-twin-arch-08</span>, <time datetime="2024-10-16" class="refDate">16 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-08">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Zhou, C.</span>, <span class="refAuthor">Yang, H.</span>, <span class="refAuthor">Duan, X.</span>, <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">C. Jacquenet</span>, <span class="refTitle">"Network Digital Twin: Concepts and Reference Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-network-digital-twin-arch-09</span>, <time datetime="2025-01-24" class="refDate">24 January 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-09">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4252">[RFC4252]</dt>
         <dd>
