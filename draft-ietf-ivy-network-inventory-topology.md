@@ -84,6 +84,10 @@ The network inventory topology ("ietf-network-inventory-topology") also provides
    e.g.,  Quality of Service (QoS) and Access Control List (ACL) policies, to support configuration
    verification of policies at the network level.
 
+Similar to the base inventory model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
+does not make any assumption about involved network elements and their roles in topologies. As such, the mapping
+model can be applied indepent of the network type (optical local loops, access network, core network, etc.) and application.
+
 The YANG data model in this document conforms to the Network
 Management Datastore Architecture (NMDA) defined in {{!RFC8342}}.
 
@@ -155,7 +159,7 @@ The management system can use NDT to build
    multi-layer topology maps for networks and endpoints with
    relationship types and dependencies, and identify potential impacts
    on configuration management information from incidents, problems, and
-   changes.
+   changes. More generally, the inventory topology model can be used as part of the SIMAP {{?I-D.ietf-nmop-simap-concept}}.
 
 The inventory topology model can, for example, be used to emulate
    several "what-if" scenarios such as the impact of End of Life (EOL) or depletion of a
