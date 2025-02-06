@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-01-30T01:10:23.600668+00:00",
+  "timestamp": "2025-02-06T01:12:34.870291+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -326,6 +326,90 @@
       "mergedBy": "boucadair",
       "mergeCommit": {
         "oid": "e970edef7e2b3dc223fb75822c2b8e44fc8479a4"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOMgaibM6J9gG5",
+      "title": "TLP date",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/11",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-04T09:28:25Z",
+      "updatedAt": "2025-02-04T09:32:59Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "39448267c917cc2145c01ee8bd9137f1cf77260d",
+      "headRepository": "ietf-ivy-wg/network-inventory-topology",
+      "headRefName": "TLP",
+      "headRefOid": "247270008a462a0afeacc5077f47a2351ade4e36",
+      "closedAt": "2025-02-04T09:32:59Z",
+      "mergedAt": "2025-02-04T09:32:59Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "d95de03ae56aabb8b587940ee6ab26f7382fe9e3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOMgaibM6J9iN8",
+      "title": "update workflow",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/12",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-04T09:32:41Z",
+      "updatedAt": "2025-02-04T09:33:11Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "39448267c917cc2145c01ee8bd9137f1cf77260d",
+      "headRepository": "ietf-ivy-wg/network-inventory-topology",
+      "headRefName": "update-workflow",
+      "headRefOid": "36717ea801c978c4781bfe0a486bf7c2e7c545d9",
+      "closedAt": "2025-02-04T09:33:11Z",
+      "mergedAt": "2025-02-04T09:33:11Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "5ec106e33d165b974e5241fb5022ee6d3d9127e3"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOMgaibM6J9qUJ",
+      "title": "mapping independent of the topology role",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/13",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-04T09:48:05Z",
+      "updatedAt": "2025-02-04T12:15:08Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "5ec106e33d165b974e5241fb5022ee6d3d9127e3",
+      "headRepository": "ietf-ivy-wg/network-inventory-topology",
+      "headRefName": "mapping-independent-of-the-topology-role",
+      "headRefOid": "edbe1489de0d9414e981cbf129a3e9f4edbe6c11",
+      "closedAt": "2025-02-04T12:15:08Z",
+      "mergedAt": "2025-02-04T12:15:08Z",
+      "mergedBy": "boucadair",
+      "mergeCommit": {
+        "oid": "7f6485e6410560f68d2e09993437c8e6390c5db2"
       },
       "comments": [],
       "reviews": []
