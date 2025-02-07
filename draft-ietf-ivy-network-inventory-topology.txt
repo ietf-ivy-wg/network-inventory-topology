@@ -5,12 +5,12 @@
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                            M. Boucadair
-Expires: 8 August 2025                                            Orange
+Expires: 11 August 2025                                           Orange
                                                                  C. Zhou
                                                             China Mobile
                                                                    Q. Wu
                                                                   Huawei
-                                                         4 February 2025
+                                                         7 February 2025
 
 
           A Network Data Model for Inventory Topology Mapping
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 August 2025.
+   This Internet-Draft will expire on 11 August 2025.
 
 Copyright Notice
 
@@ -285,12 +285,12 @@ Table of Contents
 
         Editor: Bo Wu
                 <lana.wubo@huawei.com>
-        Editor: Cheng Zhou
-                <zhouchengyjy@chinamobile.com>
-        Editor: Qin Wu
-                <bill.wu@huawei.com>
         Editor: Mohamed Boucadair
-                <mohamed.boucadair@orange.com>";
+                <mohamed.boucadair@orange.com>"
+        Author: Cheng Zhou
+                <zhouchengyjy@chinamobile.com>
+        Author: Qin Wu
+                <bill.wu@huawei.com>;
      description
        "This YANG module defines a YANG module for network
         topology and inventory mapping.
