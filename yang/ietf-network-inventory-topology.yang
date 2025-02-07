@@ -31,11 +31,11 @@ module ietf-network-inventory-topology {
      Editor: Bo Wu
              <lana.wubo@huawei.com>
      Editor: Mohamed Boucadair
-             <mohamed.boucadair@orange.com>"
+             <mohamed.boucadair@orange.com>
      Author: Cheng Zhou
              <zhouchengyjy@chinamobile.com>
      Author: Qin Wu
-             <bill.wu@huawei.com>;
+             <bill.wu@huawei.com>";
   description
     "This YANG module defines a YANG module for network
      topology and inventory mapping.
