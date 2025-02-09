@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-06T01:12:34.870291+00:00",
+  "timestamp": "2025-02-09T01:16:09.472333+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -78,7 +78,7 @@
       "labels": [],
       "body": "  1.  I have seen you have added appendix A but it is not very clear what is the purpose of this Appendix (at the first glance it appears a copy of the YANG model which we developed in the CCAMP WG I-D): do we really need this appendix?\r\n  2.  What is the purpose of the node-name?\r\n\r\nIf it is intended to report the system-hostname, let's consider whether this attribute belongs to this model or to the network-element in the inventory model. If it belongs to this model, I would suggest to align the attribute name and description with the definition of system-hostname\r\n\r\nIf it is intended to be a generic name attribute, we may remove it as proposed by Olga during the meeting today\r\n\r\n  1.  What is the purpose of the system-mount-point empty container?\r\n\r\nIf the intention is to mount technology-specific attributes, I am wondering whether using a \"multi-inheritance\" approach, as described in section 4.1 of RFC8345, could be used to specify technology-specific attributes and navigation from topology to inventory within a single topology instance.\r\n\r\n  1.  What is the purpose of the tp-name?\r\n\r\nI think we can remove it as proposed by Olga during the meeting today\r\n\r\n  1.  Why the tp-name is RO while the node-name is RW?\r\n  2.  What is the purpose of the leaf-list interface-name?\r\n\r\nIf the intention is to navigate from topology to interface model, what about using the ietf-tp-interface-reference-topology model in draft-ietf-ccamp-if-ref-topo-yang?\r\n\r\nThis I-D is a CCAMP WG draft because we have spun it off from the MW topology model after thinking that the requirement to navigate from topology to interface is technology-agnostic.\r\n\r\nIt has presented to Netmod WG in IETF 118 and still looking for an home WG where to be progressed: minutes-118-netmod-202311071200-00.md ([ietf.org)<https://datatracker.ietf.org/meeting/118/materials/minutes-118-netmod-202311071200-00>](http://ietf.org)%3Chttps//datatracker.ietf.org/meeting/118/materials/minutes-118-netmod-202311071200-00%3E)\r\n\r\n  1.  I would suggest to provide some text to address the question from Aihua during the meeting today.\r\n\r\nItalo\r\n\r\n[](https://mailarchive.ietf.org/arch/msg/inventory-yang/wrqY1H7wGf-E2i2Uj10pBQMQ_gA/)\r\n",
       "createdAt": "2024-10-15T02:59:38Z",
-      "updatedAt": "2024-10-15T03:05:23Z",
+      "updatedAt": "2025-02-08T08:19:55Z",
       "closedAt": null,
       "comments": [
         {
@@ -87,6 +87,27 @@
           "body": "Candidate proposal:\r\n\r\n**1)      I have seen you have added appendix A but it is not very clear what is the purpose of this Appendix (at the first glance it appears a copy of the YANG model which we developed in the CCAMP WG I-D): do we really need this appendix?**\r\n\r\n[Bo Wu] Thank for catching this. The comparison conclusion should be added that the modeling approach in CCAMP WG I-D seems redundant and causes these duplicate nodes at each layer. Defining a new \"network-types\" can avoid this and can be flexibly combined with other  layer topologies.\r\n\r\n**2)      What is the purpose of the node-name?**\r\n\r\nIf it is intended to report the system-hostname, let's consider whether this attribute belongs to this model or to the network-element in the inventory model. If it belongs to this model, I would suggest to align the attribute name and description with the definition of system-hostname\r\n\r\nIf it is intended to be a generic name attribute, we may remove it as proposed by Olga during the meeting today\r\n\r\n[Bo Wu] Agree with your suggestion as Olga pointed out to remove this and consider moving  \"system-hostname\" to base inventory model.\r\n\r\n**3)      What is the purpose of the system-mount-point empty container?**\r\n\r\nIf the intention is to mount technology-specific attributes, I am wondering whether using a \"multi-inheritance\" approach, as described in section 4.1 of RFC8345, could be used to specify technology-specific attributes and navigation from topology to inventory within a single topology instance.\r\n\r\n[Bo Wu] This node is defined for the augment target for obtaining some general configuration information, for example, ACL policies in the enterprise campus networks.\r\n\r\n**4)      What is the purpose of the tp-name?**\r\n\r\nI think we can remove it as proposed by Olga during the meeting today\r\n\r\n[Bo Wu] OK.\r\n\r\n**5)      Why the tp-name is RO while the node-name is RW?**\r\n[Bo Wu] Good catch. Will correct this.\r\n\r\n**6)      What is the purpose of the leaf-list interface-name?**\r\n\r\nIf the intention is to navigate from topology to interface model, what about using the ietf-tp-interface-reference-topology model in draft-ietf-ccamp-if-ref-topo-yang?\r\n\r\nThis I-D is a CCAMP WG draft because we have spun it off from the MW topology model after thinking that the requirement to navigate from topology to interface is technology-agnostic.\r\n\r\nIt has presented to Netmod WG in IETF 118 and still looking for an home WG where to be progressed: minutes-118-netmod-202311071200-00.md ([ietf.org)<https://datatracker.ietf.org/meeting/118/materials/minutes-118-netmod-202311071200-00>](http://ietf.org)%3Chttps//datatracker.ietf.org/meeting/118/materials/minutes-118-netmod-202311071200-00%3E)\r\n\r\n[Bo Wu] Thanks for information. Will take this into account.\r\n\r\n**7)      I would suggest to provide some text to address the question from Aihua during the meeting today.**\r\n[Bo Wu] Agree to add text to clarify mapping relationship between nodes and NEs, also with other links and tps.\r\n\r\n",
           "createdAt": "2024-10-15T03:04:16Z",
           "updatedAt": "2024-10-15T03:04:16Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@lana-wu, what is the status of this one? I guess most are addressed.  ",
+          "createdAt": "2025-02-07T08:07:59Z",
+          "updatedAt": "2025-02-07T08:07:59Z"
+        },
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "> [@lana-wu](https://github.com/lana-wu), what is the status of this one? I guess most are addressed.\n\nI think points 6) and 7) are still open. All the other points have been addressed.",
+          "createdAt": "2025-02-07T22:56:15Z",
+          "updatedAt": "2025-02-07T22:56:15Z"
+        },
+        {
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@italobusi @boucadair For points 6)\uff0cI do not think \u201cietf-tp-interface-reference-topology\u201d model is the right approach. [](https://datatracker.ietf.org/doc/html/draft-ietf-ccamp-if-ref-topo-yang-01#section-3.2) because interface-ref is device local. Therefore, here in the inventory topology model, we follow the definition as Layer 2 Network Topologies rfc8944  and Layer 3 Network Topologies rfc 8346. And it's necessary to map between the termination point, the physical port, and the specific interface, right?\n\npoint 7)\nCurrent YANG model design has a one-to-one relationship between the abstract node and the physical NE, as well as between the termination point and the link. I think the model looks quite straightforward. We can clarify this if you think it's necessary",
+          "createdAt": "2025-02-08T08:19:13Z",
+          "updatedAt": "2025-02-08T08:19:55Z"
         }
       ]
     },
@@ -95,16 +116,31 @@
       "id": "I_kwDOMgaibM6aOkms",
       "title": "Whether the location reference should be added",
       "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/3",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "lana-wu",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "An independent location list (e.g. site, room, rack) has been defined in draft-wbbpb-ivy-network-inventory-location. \r\n\r\nDo the inventory topology directly reference the location or indirectly reference the location through NEs?",
       "createdAt": "2024-10-15T03:15:18Z",
-      "updatedAt": "2024-10-15T03:15:18Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-02-08T09:52:13Z",
+      "closedAt": "2025-02-08T09:52:12Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@lana-wu, this can be accessed through NEs. No need to have duplication, IMO. ",
+          "createdAt": "2025-02-07T08:07:03Z",
+          "updatedAt": "2025-02-07T08:07:03Z"
+        },
+        {
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I also support this approach. We can close this issue.",
+          "createdAt": "2025-02-08T09:52:12Z",
+          "updatedAt": "2025-02-08T09:52:12Z"
+        }
+      ]
     },
     {
       "number": 7,
@@ -135,15 +171,15 @@
       "id": "I_kwDOMgaibM6fpW0o",
       "title": "reusable groupings",
       "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/8",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "boucadair",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "We do gave many reusable groupings, but many of them are used once. I suggest we simplify that.",
       "createdAt": "2024-11-21T07:42:55Z",
-      "updatedAt": "2024-11-21T07:42:55Z",
-      "closedAt": null,
+      "updatedAt": "2025-02-07T08:03:58Z",
+      "closedAt": "2025-02-07T08:03:58Z",
       "comments": []
     },
     {
@@ -154,13 +190,99 @@
       "state": "OPEN",
       "author": "boucadair",
       "authorAssociation": "COLLABORATOR",
-      "assignees": [],
+      "assignees": [
+        "lana-wu"
+      ],
       "labels": [],
       "body": "The need for such anchor for future augmentation need to be described.",
       "createdAt": "2024-11-21T07:43:35Z",
-      "updatedAt": "2024-11-21T07:43:35Z",
+      "updatedAt": "2025-02-08T10:52:02Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@boucadair I was thinking that this might be related to specific NDT scenarios, such as verifying whether network-level ACL/QoS/routing policies conflict. Perhaps we can remove the \"policies-target-point\" node and give some augmentation example in the appendix.",
+          "createdAt": "2025-02-08T08:30:11Z",
+          "updatedAt": "2025-02-08T08:30:11Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "No need to remove it, then. Please suggest some text to be added to the narrative part to explain the intended use. Thanks.",
+          "createdAt": "2025-02-08T10:48:10Z",
+          "updatedAt": "2025-02-08T10:48:10Z"
+        },
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "ACL/QoS/routing policies conflict looks to me quite technology-specific.\n\nWhile the requirement looks valid, why addressing it is in the scope of the network inventory topology and not of some technology-specific topologies?\n\nIf it is applicable to more than one technology, another option is to create a generic \"policy topology\" which can be used with IP or other technology-specific augmentations",
+          "createdAt": "2025-02-08T10:52:01Z",
+          "updatedAt": "2025-02-08T10:52:01Z"
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "I_kwDOMgaibM6pIQMV",
+      "title": "reference-back from inventory to topo",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/14",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We should explain how navigation from inv to topo and vice versa can be done. Do we need explicit refs in both directions?",
+      "createdAt": "2025-02-07T08:09:34Z",
+      "updatedAt": "2025-02-08T10:52:24Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "Every association is inherently bidirectional: if A is associated with B then, by definition, is B inversely associated with A\n\nModelling explicitly in the YANG models the associations as bidirectional will cause the YANG models to provide plenty of redundant information with the complexity in keeping all the redundant data aligned (and the risk of creating inconsistencies)\n\nThe issue becomes even more complex if we consider that if A is associated with B and B is associated with C, also A is indirectly associated with C.\n\nSome applications would need to know/operation on the indirect A to C association: does this means that also these indirect associations shall be explicitly modelled in YANG?\n\nTaking this approach to the extremes would lead to create YANG data models for every possible query to the Datastore increasing the volume of duplicated information\n\nIMHO, the YANG data models (in particular the standard ones) should provide the minimum information which is needed to be exchanged on an interface. Any possible query that is needed to provide the data requested by each application can be implemented in the client.\n\nIf it is desired to have this query being performed by the server, maybe we better define some language to create views/queries for YANG models.\n\nSome initial raw thoughts have been exchanged in a side meeting during IETF 121 and submitted as a possible issue to be addressed in YANG-next: https://github.com/netmod-wg/yang-next/issues/151",
+          "createdAt": "2025-02-07T22:46:16Z",
+          "updatedAt": "2025-02-07T22:46:16Z"
+        },
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "A similar issue has been discussed a couple of weeks ago during the network inventory call: https://github.com/ietf-ivy-wg/network-inventory-yang/issues/3#issuecomment-2622500990\n\nDuring the call some people expressed some concerns with the child-component-ref which are similar to the one I have expressed above\n\nHowever, removing the child-component-ref would have some other issues that need to be addressed so the issue/discussion in that context is still open",
+          "createdAt": "2025-02-07T22:49:55Z",
+          "updatedAt": "2025-02-07T22:49:55Z"
+        },
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "the association is bidir, but depending on the use case one may start from inventory and then find a pointer to a topo, but other uses may the other way around. \n\nHaving an explicit ref back does not mean that we need to have redundant content. \n\nIndependent whether we have explicit refs, my main concern is that we need to explain the two-way navigation.",
+          "createdAt": "2025-02-08T10:52:23Z",
+          "updatedAt": "2025-02-08T10:52:23Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOMgaibM6pO28i",
+      "title": "Need to associate a link with a cable",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/15",
+      "state": "OPEN",
+      "author": "italobusi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "This issue has been discussed on the mailing list but I think not yet addressed\n\nSee: https://mailarchive.ietf.org/arch/msg/inventory-yang/MxdA8RUlwuRnIbLKfgR_NFZRB0Y/\n\nAn companion issue has been created for the passive inventory model: See also https://github.com/aguoietf/draft-ygb-ivy-passive-network-inventory/issues/2\n",
+      "createdAt": "2025-02-07T22:59:11Z",
+      "updatedAt": "2025-02-08T09:56:13Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "My reading is that an explicit ref is not needed.\n\nIf after investigation (in the passive model or other extensions) it appears that a link is needed, my suggestion is that this handled as part of these models. We have an issue for providing this modularity guidance in the the base.",
+          "createdAt": "2025-02-08T09:56:12Z",
+          "updatedAt": "2025-02-08T09:56:12Z"
+        }
+      ]
     }
   ],
   "pulls": [
