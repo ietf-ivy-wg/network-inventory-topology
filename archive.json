@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-11T01:12:14.559529+00:00",
+  "timestamp": "2025-02-13T01:12:58.245547+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -78,7 +78,7 @@
       "labels": [],
       "body": "  1.  I have seen you have added appendix A but it is not very clear what is the purpose of this Appendix (at the first glance it appears a copy of the YANG model which we developed in the CCAMP WG I-D): do we really need this appendix?\r\n  2.  What is the purpose of the node-name?\r\n\r\nIf it is intended to report the system-hostname, let's consider whether this attribute belongs to this model or to the network-element in the inventory model. If it belongs to this model, I would suggest to align the attribute name and description with the definition of system-hostname\r\n\r\nIf it is intended to be a generic name attribute, we may remove it as proposed by Olga during the meeting today\r\n\r\n  1.  What is the purpose of the system-mount-point empty container?\r\n\r\nIf the intention is to mount technology-specific attributes, I am wondering whether using a \"multi-inheritance\" approach, as described in section 4.1 of RFC8345, could be used to specify technology-specific attributes and navigation from topology to inventory within a single topology instance.\r\n\r\n  1.  What is the purpose of the tp-name?\r\n\r\nI think we can remove it as proposed by Olga during the meeting today\r\n\r\n  1.  Why the tp-name is RO while the node-name is RW?\r\n  2.  What is the purpose of the leaf-list interface-name?\r\n\r\nIf the intention is to navigate from topology to interface model, what about using the ietf-tp-interface-reference-topology model in draft-ietf-ccamp-if-ref-topo-yang?\r\n\r\nThis I-D is a CCAMP WG draft because we have spun it off from the MW topology model after thinking that the requirement to navigate from topology to interface is technology-agnostic.\r\n\r\nIt has presented to Netmod WG in IETF 118 and still looking for an home WG where to be progressed: minutes-118-netmod-202311071200-00.md ([ietf.org)<https://datatracker.ietf.org/meeting/118/materials/minutes-118-netmod-202311071200-00>](http://ietf.org)%3Chttps//datatracker.ietf.org/meeting/118/materials/minutes-118-netmod-202311071200-00%3E)\r\n\r\n  1.  I would suggest to provide some text to address the question from Aihua during the meeting today.\r\n\r\nItalo\r\n\r\n[](https://mailarchive.ietf.org/arch/msg/inventory-yang/wrqY1H7wGf-E2i2Uj10pBQMQ_gA/)\r\n",
       "createdAt": "2024-10-15T02:59:38Z",
-      "updatedAt": "2025-02-08T08:19:55Z",
+      "updatedAt": "2025-02-12T08:29:46Z",
       "closedAt": null,
       "comments": [
         {
@@ -108,6 +108,13 @@
           "body": "@italobusi @boucadair For points 6)\uff0cI do not think \u201cietf-tp-interface-reference-topology\u201d model is the right approach. [](https://datatracker.ietf.org/doc/html/draft-ietf-ccamp-if-ref-topo-yang-01#section-3.2) because interface-ref is device local. Therefore, here in the inventory topology model, we follow the definition as Layer 2 Network Topologies rfc8944  and Layer 3 Network Topologies rfc 8346. And it's necessary to map between the termination point, the physical port, and the specific interface, right?\n\npoint 7)\nCurrent YANG model design has a one-to-one relationship between the abstract node and the physical NE, as well as between the termination point and the link. I think the model looks quite straightforward. We can clarify this if you think it's necessary",
           "createdAt": "2025-02-08T08:19:13Z",
           "updatedAt": "2025-02-08T08:19:55Z"
+        },
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "> [@italobusi](https://github.com/italobusi) [@boucadair](https://github.com/boucadair) For points 6)\uff0cI do not think \u201cietf-tp-interface-reference-topology\u201d model is the right approach. because interface-ref is device local. Therefore, here in the inventory topology model, we follow the definition as Layer 2 Network Topologies rfc8944 and Layer 3 Network Topologies rfc 8346. And it's necessary to map between the termination point, the physical port, and the specific interface, right?\n> \n> point 7) Current YANG model design has a one-to-one relationship between the abstract node and the physical NE, as well as between the termination point and the link. I think the model looks quite straightforward. We can clarify this if you think it's necessary\n\nIt seems that these two comments require mode discussion so I have created two new issues (i.e., #16 and #17) to track them\n\nYou can either close this issue (leaving issues #16 and #17) or keep this issue open and defined issues #16 and #17 as sub-issues of this issue\n\nNo strong opinion on my side",
+          "createdAt": "2025-02-12T08:29:45Z",
+          "updatedAt": "2025-02-12T08:29:45Z"
         }
       ]
     },
@@ -234,7 +241,7 @@
       "labels": [],
       "body": "We should explain how navigation from inv to topo and vice versa can be done. Do we need explicit refs in both directions?",
       "createdAt": "2025-02-07T08:09:34Z",
-      "updatedAt": "2025-02-08T10:52:24Z",
+      "updatedAt": "2025-02-11T22:03:07Z",
       "closedAt": null,
       "comments": [
         {
@@ -257,6 +264,27 @@
           "body": "the association is bidir, but depending on the use case one may start from inventory and then find a pointer to a topo, but other uses may the other way around. \n\nHaving an explicit ref back does not mean that we need to have redundant content. \n\nIndependent whether we have explicit refs, my main concern is that we need to explain the two-way navigation.",
           "createdAt": "2025-02-08T10:52:23Z",
           "updatedAt": "2025-02-08T10:52:23Z"
+        },
+        {
+          "author": "oscargdd",
+          "authorAssociation": "NONE",
+          "body": "I have received the same requirement internally, and being able to navigate in both directions is required. \n\nHowever, I agree with @boucadair that what needs to be clarified is which are the relations.\n\nI my opinion (and this is how we have implemented internally)  we miss one relationship when trying to navigate from Hardware inventory to topology.\n\nA link in the topology is built with two termination points. Those termination points are abstractions for *logical* interfaces. Those interfaces might be really a subinterface (e.g. a VLAN of an interface), the full interface, a full LAG.... The interface is then associated to a hardware port. \n\nSo... the relationship should be termination point (topology) <--> logical sub interface (when required) ( maybe found in logical inventory?) <--> logical interface (ethernet or LAG) ( maybe found in logical inventory?) <--> port (found in logical inventory).\n\nBreakout could even complicate the relation more....\n\nHowever... as you can clearly see there one piece of the puzzle missing for the relationship I am proposing.. You might want to create a \"shortcut\"...\n\nWe should consider also SIMAP for the relationship among models.... to avoid adding extra overhead to the base models....  \n\n  ",
+          "createdAt": "2025-02-11T10:02:08Z",
+          "updatedAt": "2025-02-11T10:02:08Z"
+        },
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "> the association is bidir, but depending on the use case one may start from inventory and then find a pointer to a topo, but other uses may the other way around.\n\nIMHO, every association modelled in YANG with a leafref is inherently bidirectional\n\nCould you provide an example of a YANG leafref representing a unidirectional association?\n\n> Having an explicit ref back does not mean that we need to have redundant content.\n\nCan you elaborate a bit  more on this statement?\n\nIMHO, if a TP instance foo has a leafref to a port instance bar (representing the port instance supporting TP instance foo), a leafref for port instance bar to the TP instance foo (representing the TP instance supported by the port instance bar) looks duplicated/redundant information\n\n> Independent whether we have explicit refs, my main concern is that we need to explain the two-way navigation.\n\nEven if all the associations are inherently bidirectional, I fully agree to provide text in the I-D to describe the two-way navigation\n",
+          "createdAt": "2025-02-11T21:47:35Z",
+          "updatedAt": "2025-02-11T21:47:35Z"
+        },
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "> A link in the topology is built with two termination points. Those termination points are abstractions for _logical_ interfaces. Those interfaces might be really a subinterface (e.g. a VLAN of an interface), the full interface, a full LAG.... The interface is then associated to a hardware port.\n> \n> So... the relationship should be termination point (topology) <--> logical sub interface (when required) ( maybe found in logical inventory?) <--> logical interface (ethernet or LAG) ( maybe found in logical inventory?) <--> port (found in logical inventory).\n> \n\nI am not sure we need to manage the interfaces in the network models\n\nIMHO, the topology model should report the TPs representing the Ethernet interfaces, the logical VLAN sub interfaces and the LAG bundled interfaces.\n\nI am not sure the current ETH/L2 topology models provide enough information to associate the TPs representing the VLAN sub interfaces with the underlaying Ethernet interface but this is an issue which can be addressed in those topology models.\n\nRFC 8795 supports bundled links and therefore already supports the association between the TP representing a LAG interface and the underlaying TPs representing the aggregated Ethernet interfaces\n\nThe association with a port component in the inventory model applies only to the lowest level TP in this hierarchy which, in some cases, it can be the TP associated with the Ethernet interface. In other cases, this association applies to a TP supporting the TP associated with the Ethernet interface\n\nThe current YANG model design is very flexible to cover any case since it is not bound to any specific type of TP\n\n> Breakout could even complicate the relation more....\n> \n\nBased my current understanding, in case of breakouts there are more TPs associated with the same port component. Some additional information (e.g., something like the \"channels\" in OpenConfig) can/should also be provided to describe how the resources within the port component are associated with different interfaces/TPs\n\nSee also https://github.com/ietf-ivy-wg/network-inventory-yang/pull/76\n\nThe current working assumption (the PR is still under review) is that the base inventory model will just provide information about whether the port can support or not breakout but it will not provide any information about whether a port is configured as a breakout or trunk port. The latter information is better provided by this model.\n\nIMHO, we can add some examples to this I-D to describe these cases\n",
+          "createdAt": "2025-02-11T22:03:06Z",
+          "updatedAt": "2025-02-11T22:03:06Z"
         }
       ]
     },
@@ -281,6 +309,54 @@
           "body": "My reading is that an explicit ref is not needed.\n\nIf after investigation (in the passive model or other extensions) it appears that a link is needed, my suggestion is that this handled as part of these models. We have an issue for providing this modularity guidance in the the base.",
           "createdAt": "2025-02-08T09:56:12Z",
           "updatedAt": "2025-02-08T09:56:12Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOMgaibM6pt4c6",
+      "title": "Purpose of the leaf-list interface-name",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/16",
+      "state": "OPEN",
+      "author": "italobusi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "What is the purpose of the leaf-list interface-name?\n\nIf the intention is to navigate from topology to interface model, what about using the ietf-tp-interface-reference-topology model in draft-ietf-ccamp-if-ref-topo-yang?\n\nThis I-D is a CCAMP WG draft because we have spun it off from the MW topology model after thinking that the requirement to navigate from topology to interface is technology-agnostic.\n\nIt has presented to Netmod WG in IETF 118 and still looking for an home WG where to be progressed: [minutes-118-netmod](https://datatracker.ietf.org/doc/minutes-118-netmod-202311071200/)\n\nSee issue #2 ",
+      "createdAt": "2025-02-12T07:14:05Z",
+      "updatedAt": "2025-02-12T07:57:14Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "> [@italobusi](https://github.com/italobusi) [@boucadair](https://github.com/boucadair) For points 6)\uff0cI do not think \u201cietf-tp-interface-reference-topology\u201d model is the right approach. because interface-ref is device local. Therefore, here in the inventory topology model, we follow the definition as Layer 2 Network Topologies rfc8944 and Layer 3 Network Topologies rfc 8346. And it's necessary to map between the termination point, the physical port, and the specific interface, right?\n\nSee: https://github.com/ietf-ivy-wg/network-inventory-topology/issues/2#issuecomment-2644718138\n\nI am still confused\n\nWhile, I am not aware of any implementation of RFC 8343 at the northbound of a network controller, I have heard different opinions about whether RFC 8343 can or not be implemented at the northbound of a network controller.\n\nIf RFC 8343 is not implemented at the northbound of a network controller, what can the client of the network controller do with an interface name which is not referencing any other information provided by the controller?\n\nThe current description is also quite ambiguous since the network controller can report the interface-name but can also report a void string (e.g., \"Hallo World\") and the client of the network controller has no way to understand what it is actually reported in this string.\n\nMoreover, in RFC 8944 and RFC 8346, there is only one interface-name while in the current YANG model it is a leaf-list.\n",
+          "createdAt": "2025-02-12T07:55:50Z",
+          "updatedAt": "2025-02-12T07:55:50Z"
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "I_kwDOMgaibM6puNKm",
+      "title": "Relationship between nodes and NEs",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/17",
+      "state": "OPEN",
+      "author": "italobusi",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "I would suggest to provide some text to address the question from Aihua during the meeting today.\n\nSee issue #2 \n\nThis issue refers to the following discussion at [minutes-120-ivy](https://datatracker.ietf.org/doc/minutes-120-ivy-202407241630/):\n\n> Aihua: At moment we only have 1 to 1 relationship between nodes and\n> elements. Do we support the case where an abstract node can be supported\n> by several physical NEs (or the reverse) or is it always 1 to 1?\n> \n> Bo: Currently we just consider 1 to 1 mapping, because it applies to\n> most cases.\n> \n> Italo: Perhaps look at some text in the CCAMP draft which states the\n> mapping between network nodes and elements can be many to 1. One node in\n> physical topology and another groups the physical nodes avoid making the\n> mapping more complex.\n> \n> Bo: I agree.\n",
+      "createdAt": "2025-02-12T08:00:13Z",
+      "updatedAt": "2025-02-12T08:27:45Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "> point 7) Current YANG model design has a one-to-one relationship between the abstract node and the physical NE, as well as between the termination point and the link. I think the model looks quite straightforward. We can clarify this if you think it's necessary\n\nSee: https://github.com/ietf-ivy-wg/network-inventory-topology/issues/2#issuecomment-2644718138\n\nThis is the text in the [draft-ietf-ccamp-network-inventory-yang](https://datatracker.ietf.org/doc/html/draft-ietf-ccamp-network-inventory-yang/) I was mentioning:\n\n> Network topology is a logical abstraction based on hardware inventory objects. The abstraction may be based on technology requirements (e.g., layer 0 or layer 1 resources) or on some specific requirements (e.g., for path computation or service provisioning).\n> \n> Therefore the relationship between hardware inventory objects and network topology objects can be 1:N (N>=1).\n> \n> Taking the Optical technology as example, an Optical Transport Network (OTN) Network Element (NE) can be installed with several kinds of boards, including an Ethernet client signal switching board, a line board which is used for OTN layer switching. This line board may also be used as a starting point for the WDM layer. In terms of technologies, this OTN NE supports multi-layer network topology connections, so that it should appear in L0, L1 and L2 network topology.\n\nAs described in section 3.2:\n\n> A TE node represents one or several nodes, or a fraction of a node, which can be a switch or router that is physical or virtual.\n\nMy understanding is that the question of Aihua was how to navigate from an abstract node which is supported by multiple physical NEs and the physical NEs.\n\nI am noting that the current text in [draft-ietf-ccamp-network-inventory-yang](https://datatracker.ietf.org/doc/html/draft-ietf-ccamp-network-inventory-yang/) is not as explicit as I though and we have discussed: https://github.com/ietf-ccamp-wg/ietf-network-inventory/issues/33#issuecomment-1323894609\n\nIn a nutshell, each node in the network inventory topology maps with a single physical NE in the network inventory. The association between the abstract node and the physical NEs is described by associating the abstract node with the corresponding nodes in the network inventory topology. The underlay topology relationship has been already defined in RFC 8795 for this purpose.\n\nThe 1:N association was described to cover the case where a NE supports nodes in different layers (e.g., an OTN node in the OTN topology and a WDM node in the WDM topology).\n\nThinking further, we can follow the same approach above and define only a 1:1 mapping between the nodes in the network inventory topology and the physical NEs in the network inventory. The association between the OTN and WDM nodes and the physical NE can be described by associating the OTN and WDM nodes with the corresponding node in the network inventory topology. \n\nI think some text clarifying these two points would be useful for the readers and implementers.\n",
+          "createdAt": "2025-02-12T08:27:43Z",
+          "updatedAt": "2025-02-12T08:27:43Z"
         }
       ]
     }
