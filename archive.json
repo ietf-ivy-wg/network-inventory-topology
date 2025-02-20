@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-18T01:12:35.810083+00:00",
+  "timestamp": "2025-02-20T01:13:17.976793+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -71,15 +71,15 @@
       "id": "I_kwDOMgaibM6aOeZR",
       "title": "Italo's comments on the YANG model improvements during WG adoption",
       "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "lana-wu",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "  1.  I have seen you have added appendix A but it is not very clear what is the purpose of this Appendix (at the first glance it appears a copy of the YANG model which we developed in the CCAMP WG I-D): do we really need this appendix?\r\n  2.  What is the purpose of the node-name?\r\n\r\nIf it is intended to report the system-hostname, let's consider whether this attribute belongs to this model or to the network-element in the inventory model. If it belongs to this model, I would suggest to align the attribute name and description with the definition of system-hostname\r\n\r\nIf it is intended to be a generic name attribute, we may remove it as proposed by Olga during the meeting today\r\n\r\n  1.  What is the purpose of the system-mount-point empty container?\r\n\r\nIf the intention is to mount technology-specific attributes, I am wondering whether using a \"multi-inheritance\" approach, as described in section 4.1 of RFC8345, could be used to specify technology-specific attributes and navigation from topology to inventory within a single topology instance.\r\n\r\n  1.  What is the purpose of the tp-name?\r\n\r\nI think we can remove it as proposed by Olga during the meeting today\r\n\r\n  1.  Why the tp-name is RO while the node-name is RW?\r\n  2.  What is the purpose of the leaf-list interface-name?\r\n\r\nIf the intention is to navigate from topology to interface model, what about using the ietf-tp-interface-reference-topology model in draft-ietf-ccamp-if-ref-topo-yang?\r\n\r\nThis I-D is a CCAMP WG draft because we have spun it off from the MW topology model after thinking that the requirement to navigate from topology to interface is technology-agnostic.\r\n\r\nIt has presented to Netmod WG in IETF 118 and still looking for an home WG where to be progressed: minutes-118-netmod-202311071200-00.md ([ietf.org)<https://datatracker.ietf.org/meeting/118/materials/minutes-118-netmod-202311071200-00>](http://ietf.org)%3Chttps//datatracker.ietf.org/meeting/118/materials/minutes-118-netmod-202311071200-00%3E)\r\n\r\n  1.  I would suggest to provide some text to address the question from Aihua during the meeting today.\r\n\r\nItalo\r\n\r\n[](https://mailarchive.ietf.org/arch/msg/inventory-yang/wrqY1H7wGf-E2i2Uj10pBQMQ_gA/)\r\n",
       "createdAt": "2024-10-15T02:59:38Z",
-      "updatedAt": "2025-02-12T08:29:46Z",
-      "closedAt": null,
+      "updatedAt": "2025-02-19T09:19:49Z",
+      "closedAt": "2025-02-19T09:19:48Z",
       "comments": [
         {
           "author": "lana-wu",
@@ -115,6 +115,13 @@
           "body": "> [@italobusi](https://github.com/italobusi) [@boucadair](https://github.com/boucadair) For points 6)\uff0cI do not think \u201cietf-tp-interface-reference-topology\u201d model is the right approach. because interface-ref is device local. Therefore, here in the inventory topology model, we follow the definition as Layer 2 Network Topologies rfc8944 and Layer 3 Network Topologies rfc 8346. And it's necessary to map between the termination point, the physical port, and the specific interface, right?\n> \n> point 7) Current YANG model design has a one-to-one relationship between the abstract node and the physical NE, as well as between the termination point and the link. I think the model looks quite straightforward. We can clarify this if you think it's necessary\n\nIt seems that these two comments require mode discussion so I have created two new issues (i.e., #16 and #17) to track them\n\nYou can either close this issue (leaving issues #16 and #17) or keep this issue open and defined issues #16 and #17 as sub-issues of this issue\n\nNo strong opinion on my side",
           "createdAt": "2025-02-12T08:29:45Z",
           "updatedAt": "2025-02-12T08:29:45Z"
+        },
+        {
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Close the issue and track the remaining issues #16 and #17",
+          "createdAt": "2025-02-19T09:19:48Z",
+          "updatedAt": "2025-02-19T09:19:48Z"
         }
       ]
     },
