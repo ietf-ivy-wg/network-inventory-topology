@@ -62,21 +62,6 @@ module ietf-network-inventory-topology {
                  Topology";
   }
 
-  /* Identities */
-  /* Typedef */
-
-  // To be moved to the base IVY model
-
-  typedef ne-ref {
-    type leafref {
-      path "/nwi:network-inventory/nwi:network-elements"
-         + "/nwi:network-element/nwi:ne-id";
-    }
-    description
-      "This type is used by data models that need to reference
-       Network Element.";
-  }
-
   /* Groupings */
 
   grouping inventory-mapping-network-type {
@@ -110,7 +95,7 @@ module ietf-network-inventory-topology {
         "The container node attributes of Network Inventory
          mapping.";
       leaf ne-ref {
-        type ne-ref;
+        type nwi:ne-ref;
         config false;
         description
           "The reference of the Network Element (NE) from which this
