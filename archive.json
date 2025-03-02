@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-27T01:14:46.867475+00:00",
+  "timestamp": "2025-03-02T01:19:01.468262+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -617,6 +617,40 @@
         "oid": "7f6485e6410560f68d2e09993437c8e6390c5db2"
       },
       "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOMgaibM6M78d-",
+      "title": "offload ne-ref to the base IVY model",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/18",
+      "state": "OPEN",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "see https://github.com/ietf-ivy-wg/network-inventory-yang/issues/69 ",
+      "createdAt": "2025-02-28T13:02:45Z",
+      "updatedAt": "2025-02-28T16:46:32Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "38553d732f6c8e82b0ff9b9e65c8e6b8f3cb3935",
+      "headRepository": "ietf-ivy-wg/network-inventory-topology",
+      "headRefName": "offload-ne-ref-to-the-base-IVY-model",
+      "headRefOid": "8321b56292c4bd4ccd9e67f98934d15c7f49753d",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "@boucadair : you can also re-use the port-ref grouping for associating a TP with a port\r\n\r\nhttps://github.com/ietf-ivy-wg/network-inventory-yang/blob/c3a9cd69bce8b5ce23888e1c9b82db9f4e0c994f/yang/ietf-network-inventory.yang#L133-L157\r\n\r\nIf you wish to align this module with the recent changes defined for modelling the breakout ports, you can also considering re-using the channel-ref grouping for associating a TP with one or more breakout channels of a breakout port:\r\n\r\nhttps://github.com/ietf-ivy-wg/network-inventory-yang/blob/c3a9cd69bce8b5ce23888e1c9b82db9f4e0c994f/yang/ietf-network-inventory.yang#L159C12-L199",
+          "createdAt": "2025-02-28T16:46:31Z",
+          "updatedAt": "2025-02-28T16:46:31Z"
+        }
+      ],
       "reviews": []
     }
   ]
