@@ -1416,24 +1416,28 @@ module: ietf-network-inventory-topology
 <a href="#name-the-structure-of-the-networ" class="selfRef">The Structure of the Network Inventory Mapping Data Model</a>
         </figcaption></figure>
 </div>
-<p id="section-4-3">The module augments the "ietf-network-topology" module as follows:<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-3">The module defines two features "inventory-to-topology-navigate" and "topology-to-inventory-navigate"
+to control the navigation direction (from topology to inventory and vice versa).<a href="#section-4-3" class="pilcrow">¶</a></p>
+<p id="section-4-4">The module augments the "ietf-network-topology" module as follows:<a href="#section-4-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-4.1">
-          <p id="section-4-4.1.1">A new network topology type: "network-inventory-mapping".  The
-      corresponding container augments the "network-types" of the "ietf-network" module.<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4-5.1">
+          <p id="section-4-5.1.1">A new network topology type: "network-inventory-mapping".  The
+      corresponding container augments the "network-types" of the "ietf-network" module.<a href="#section-4-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-4.2">
-          <p id="section-4-4.2.1">Inventory mapping attributes for nodes, links, and termination
+        <li class="normal" id="section-4-5.2">
+          <p id="section-4-5.2.1">Inventory mapping attributes for nodes, links, and termination
       points: The corresponding containers augments the topology module
       with the references to the base network inventory, references to
-      interface management, and policy mount points<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
-<p id="section-4-4.2.2">
+      interface management, and policy mount points<a href="#section-4-5.2.1" class="pilcrow">¶</a></p>
+<p id="section-4-5.2.2">
 The inventory topology
  model associates inventory data with overlay topologies.  It can be
  used as the "supporting-networks" of SAP, Layer 2, or Layer 3
- topologies.<a href="#section-4-4.2.2" class="pilcrow">¶</a></p>
+ topologies.<a href="#section-4-5.2.2" class="pilcrow">¶</a></p>
 </li>
       </ul>
+<p id="section-4-6">Also, the "ietf-network-inventory-topology" module augments the "ietf-network-inventory" to add
+required references to navigate from the inventory to topologies ('node-ref' and 'network-ref').<a href="#section-4-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-module">
