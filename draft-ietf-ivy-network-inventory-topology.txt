@@ -5,12 +5,12 @@
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                            M. Boucadair
-Expires: 1 September 2025                                         Orange
+Expires: 4 September 2025                                         Orange
                                                                  C. Zhou
                                                             China Mobile
                                                                    Q. Wu
                                                                   Huawei
-                                                        28 February 2025
+                                                            3 March 2025
 
 
           A Network Data Model for Inventory Topology Mapping
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2025.
+   This Internet-Draft will expire on 4 September 2025.
 
 Copyright Notice
 
@@ -317,21 +317,6 @@ Table of Contents
                     Topology";
      }
 
-     /* Identities */
-     /* Typedef */
-
-     // To be moved to the base IVY model
-
-     typedef ne-ref {
-       type leafref {
-         path "/nwi:network-inventory/nwi:network-elements"
-            + "/nwi:network-element/nwi:ne-id";
-       }
-       description
-         "This type is used by data models that need to reference
-          Network Element.";
-     }
-
      /* Groupings */
 
      grouping inventory-mapping-network-type {
@@ -365,7 +350,7 @@ Table of Contents
            "The container node attributes of Network Inventory
             mapping.";
          leaf ne-ref {
-           type ne-ref;
+           type nwi:ne-ref;
            config false;
            description
              "The reference of the Network Element (NE) from which this
@@ -540,9 +525,9 @@ Table of Contents
               Yu, C., Belotti, S., Bouquier, J., Peruzzini, F., and P.
               Bedard, "A Base YANG Data Model for Network Inventory",
               Work in Progress, Internet-Draft, draft-ietf-ivy-network-
-              inventory-yang-04, 5 November 2024,
+              inventory-yang-05, 28 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
-              network-inventory-yang-04>.
+              network-inventory-yang-05>.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
