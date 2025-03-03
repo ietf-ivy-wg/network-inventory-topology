@@ -211,22 +211,27 @@ Table of Contents
    An overview of the structure of the "ietf-network-inventory-topology"
    module is shown in Figure 2.
 
-      module: ietf-network-inventory-topology
-        augment /nw:networks/nw:network/nw:network-types:
-          +--rw network-inventory-mapping!
-        augment /nw:networks/nw:network/nw:node:
-          +--rw inventory-mapping-attributes
-             +--ro ne-ref?                  ne-ref
-             +--rw policies-target-point
-        augment /nw:networks/nw:network/nt:link:
-          +--rw inventory-mapping-attributes
-             +--ro cable-name?   string
-             +--ro link-type?    string
-        augment /nw:networks/nw:network/nw:node/nt:termination-point:
-          +--rw inventory-mapping-attributes
-             +--ro port-component-ref?      leafref
-             +--ro interface-name*          string
-             +--rw policies-target-point
+    module: ietf-network-inventory-topology
+      augment /nw:networks/nw:network/nw:node:
+        +--rw inventory-mapping-attributes
+                {topology-to-inventory-navigate}?
+           +--ro ne-ref?   nwi:ne-ref
+      augment /nw:networks/nw:network/nt:link:
+        +--rw inventory-mapping-attributes
+                {topology-to-inventory-navigate}?
+           +--ro cable-name?   string
+           +--ro link-type?    string
+      augment /nw:networks/nw:network/nw:node/nt:termination-point:
+        +--rw inventory-mapping-attributes
+                {topology-to-inventory-navigate}?
+           +--rw ne-ref?                    nwi:ne-ref
+           +--rw port-ref?                  leafref
+           +--ro physical-interface-name?   string
+      augment /nwi:network-inventory/nwi:network-elements
+                /nwi:network-element:
+        +--rw node-ref?      leafref {inventory-to-topology-navigate}?
+        +--rw network-ref?   -> /nw:networks/network/network-id
+                {inventory-to-topology-navigate}?
 
     Figure 2: The Structure of the Network Inventory Mapping Data Model
 
