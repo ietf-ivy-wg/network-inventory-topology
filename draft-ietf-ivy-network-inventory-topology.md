@@ -173,6 +173,9 @@ The inventory topology model can, for example, be used to emulate
 ~~~~~~~~~~
 {: #tree title="The Structure of the Network Inventory Mapping Data Model" artwork-align="center"}
 
+The module defines two features "inventory-to-topology-navigate" and "topology-to-inventory-navigate"
+to control the navigation direction (from topology to inventory and vice versa).
+
 The module augments the "ietf-network-topology" module as follows:
 
 * A new network topology type: "network-inventory-mapping".  The
@@ -187,6 +190,9 @@ The module augments the "ietf-network-topology" module as follows:
    model associates inventory data with overlay topologies.  It can be
    used as the "supporting-networks" of SAP, Layer 2, or Layer 3
    topologies.
+
+Also, the "ietf-network-inventory-topology" module augments the "ietf-network-inventory" to add
+required references to navigate from the inventory to topologies ('node-ref' and 'network-ref').
 
 # Network Inventory Topology YANG Module {#sec-module}
 
