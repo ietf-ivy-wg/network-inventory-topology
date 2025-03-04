@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-02T01:19:01.468262+00:00",
+  "timestamp": "2025-03-04T01:15:51.736920+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -55,16 +55,24 @@
       "id": "I_kwDOMgaibM6aOa0-",
       "title": "Improve \"system-mount-point\" naming and description",
       "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/issues/1",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "lana-wu",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "From Sergio on WG adoption comments:\r\n\r\nI have only one comment regarding the **\"system-mount-point\" grouping and container**. If the intention of this grouping/container is to have a place holder for some configuration parameters , I do not think the name is good since it seems related to \"schema mount\" as it seems not the case. Frankly speaking the YANG description does not help too much to understand the scope so my proposal would be:\r\n\r\n  **1.  Improve the description\r\n  2.  Change the name consequently to the new description**\r\n\r\nSergio, 01 August 2024\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/inventory-yang/49iY8eTKBS65XhEIamyFp0P8TuQ/\r\n\r\n",
       "createdAt": "2024-10-15T02:53:31Z",
-      "updatedAt": "2024-10-15T02:53:32Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2025-03-03T06:32:56Z",
+      "closedAt": "2025-03-03T06:32:55Z",
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We don't have anymore \"system-mount-point\" in the draft",
+          "createdAt": "2025-03-03T06:32:55Z",
+          "updatedAt": "2025-03-03T06:32:55Z"
+        }
+      ]
     },
     {
       "number": 2,
@@ -624,24 +632,26 @@
       "id": "PR_kwDOMgaibM6M78d-",
       "title": "offload ne-ref to the base IVY model",
       "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/18",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "boucadair",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "see https://github.com/ietf-ivy-wg/network-inventory-yang/issues/69 ",
       "createdAt": "2025-02-28T13:02:45Z",
-      "updatedAt": "2025-02-28T16:46:32Z",
+      "updatedAt": "2025-03-03T04:02:35Z",
       "baseRepository": "ietf-ivy-wg/network-inventory-topology",
       "baseRefName": "main",
       "baseRefOid": "38553d732f6c8e82b0ff9b9e65c8e6b8f3cb3935",
       "headRepository": "ietf-ivy-wg/network-inventory-topology",
       "headRefName": "offload-ne-ref-to-the-base-IVY-model",
       "headRefOid": "8321b56292c4bd4ccd9e67f98934d15c7f49753d",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-03-03T04:02:35Z",
+      "mergedAt": "2025-03-03T04:02:35Z",
+      "mergedBy": "lana-wu",
+      "mergeCommit": {
+        "oid": "c2345c36181e381e8caac37478facde643e46d42"
+      },
       "comments": [
         {
           "author": "italobusi",
@@ -651,6 +661,131 @@
           "updatedAt": "2025-02-28T16:46:31Z"
         }
       ],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOMgaibM6NF2G2",
+      "title": "Address issuse #18 #14",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/19",
+      "state": "CLOSED",
+      "author": "lana-wu",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Update ietf-network-inventory-topology to address the following issues: 1.offload ne-ref to the base IVY model\r\n2.reference-back from inventory to topo #14",
+      "createdAt": "2025-03-03T04:03:29Z",
+      "updatedAt": "2025-03-03T07:05:18Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "c2345c36181e381e8caac37478facde643e46d42",
+      "headRepository": "lana-wu/network-inventory-topology",
+      "headRefName": "main",
+      "headRefOid": "c2345c36181e381e8caac37478facde643e46d42",
+      "closedAt": "2025-03-03T05:54:42Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "boucadair",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@lana-wu, I don't see any change in this PR. It seems we lost the features and the new augmentation. No?",
+          "createdAt": "2025-03-03T06:37:57Z",
+          "updatedAt": "2025-03-03T06:37:57Z"
+        },
+        {
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I just pulled a new request only on the 2 features on the navigate",
+          "createdAt": "2025-03-03T07:05:16Z",
+          "updatedAt": "2025-03-03T07:05:16Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOMgaibM6NGtEw",
+      "title": "Address issuse #14 and add a new feature \"topology-to-inventory-navigate\"",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/20",
+      "state": "MERGED",
+      "author": "lana-wu",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Update ietf-network-inventory-topology to address inventory to topo, and also add new feature of topology-to-inventory-navigate",
+      "createdAt": "2025-03-03T07:03:23Z",
+      "updatedAt": "2025-03-03T07:53:00Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "c2345c36181e381e8caac37478facde643e46d42",
+      "headRepository": "lana-wu/network-inventory-topology",
+      "headRefName": "main",
+      "headRefOid": "353f9ffd60d9c82ae1bcda2ff85668c5785cf491",
+      "closedAt": "2025-03-03T07:53:00Z",
+      "mergedAt": "2025-03-03T07:53:00Z",
+      "mergedBy": "lana-wu",
+      "mergeCommit": {
+        "oid": "05c5b48810ffafc638a4b7b942bf9ec024e8f885"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOMgaibM6NH1ak",
+      "title": "YANG tree to reflect topology inventory navigate issue#14",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/21",
+      "state": "MERGED",
+      "author": "lana-wu",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This update also replaces leaflist of interface-name to \"physical-interface-name\"",
+      "createdAt": "2025-03-03T09:40:50Z",
+      "updatedAt": "2025-03-03T09:41:40Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "94f571de83eb35135e0823f3059cc69bbd27901a",
+      "headRepository": "lana-wu/network-inventory-topology",
+      "headRefName": "main",
+      "headRefOid": "1bbadccb88fc2ff25a81a9a45e231c328442655f",
+      "closedAt": "2025-03-03T09:41:40Z",
+      "mergedAt": "2025-03-03T09:41:40Z",
+      "mergedBy": "lana-wu",
+      "mergeCommit": {
+        "oid": "76a822b390c09d50d9190f970301345d69c0027a"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOMgaibM6NJWvV",
+      "title": "update narrative text with features + inv-to-top augmentation",
+      "url": "https://github.com/ietf-ivy-wg/network-inventory-topology/pull/22",
+      "state": "MERGED",
+      "author": "boucadair",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-03-03T12:34:54Z",
+      "updatedAt": "2025-03-03T13:17:43Z",
+      "baseRepository": "ietf-ivy-wg/network-inventory-topology",
+      "baseRefName": "main",
+      "baseRefOid": "76a822b390c09d50d9190f970301345d69c0027a",
+      "headRepository": "ietf-ivy-wg/network-inventory-topology",
+      "headRefName": "boucadair-patch-1",
+      "headRefOid": "34f992015e334134b46fc52fdfff54830f556b60",
+      "closedAt": "2025-03-03T13:17:43Z",
+      "mergedAt": "2025-03-03T13:17:43Z",
+      "mergedBy": "lana-wu",
+      "mergeCommit": {
+        "oid": "227e83b9153673064810612486d077f444376192"
+      },
+      "comments": [],
       "reviews": []
     }
   ]
