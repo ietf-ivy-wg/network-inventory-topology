@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-13T01:17:10.017657+00:00",
+  "timestamp": "2025-03-16T01:21:51.165217+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -176,7 +176,7 @@
       "labels": [],
       "body": "> , i.e., the path name of a\r\n>            corresponding interface data node on the containing\r\n>            node is reminiscent of data type interface-ref defined\r\n>            in RFC 8343.  It should be noted that data type\r\n>            interface-ref of RFC 8343 cannot be used directly,\r\n>            as this data type is used to reference an interface\r\n>            in a datastore of a single node in the network, not\r\n>            to uniquely reference interfaces across a network\r\n\r\n(used to be in the yang, but the reasoning is better discuss (if needed) in the narrative text.",
       "createdAt": "2024-11-21T07:41:21Z",
-      "updatedAt": "2024-11-21T11:34:48Z",
+      "updatedAt": "2025-03-13T12:28:50Z",
       "closedAt": null,
       "comments": [
         {
@@ -185,6 +185,13 @@
           "body": "That text is to explain why \u201cinterface-name\u201d should be used, not \u201cinterface-reference\u201d of RFC 8343 device model. The text is borrowed from \"interface-name\" of L2 topology (RFC 8944) and L3 topology (RFC8346). \r\nhttps://datatracker.ietf.org/doc/html/rfc8944#name-layer-2-topology-yang-module\r\nhttps://datatracker.ietf.org/doc/html/rfc8346#autoid-6\r\n\r\nThere is also a relevant CCAMP draft: https://datatracker.ietf.org/doc/html/draft-ietf-ccamp-if-ref-topo-yang-01 defines tp-to-interface-ref.\r\nI was wondering if our document could cover this defined in draft-ietf-ccamp-if-ref-topo-yang.\r\n\r\n",
           "createdAt": "2024-11-21T11:34:47Z",
           "updatedAt": "2024-11-21T11:34:47Z"
+        },
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "There is some overlap with issue #16 \n\nAs reported in https://github.com/ietf-ivy-wg/network-inventory-topology/issues/16#issuecomment-2721081720, my preference is to have a common model to address this issue\n\nThe current draft is under CCAMP WG because it was generated as a spin-off of the Microwave topology model but we are actually looking for a WG interested on it\n\nNMOP WG might be a target for such a common model",
+          "createdAt": "2025-03-13T12:28:46Z",
+          "updatedAt": "2025-03-13T12:28:46Z"
         }
       ]
     },
@@ -339,7 +346,7 @@
       "labels": [],
       "body": "What is the purpose of the leaf-list interface-name?\n\nIf the intention is to navigate from topology to interface model, what about using the ietf-tp-interface-reference-topology model in draft-ietf-ccamp-if-ref-topo-yang?\n\nThis I-D is a CCAMP WG draft because we have spun it off from the MW topology model after thinking that the requirement to navigate from topology to interface is technology-agnostic.\n\nIt has presented to Netmod WG in IETF 118 and still looking for an home WG where to be progressed: [minutes-118-netmod](https://datatracker.ietf.org/doc/minutes-118-netmod-202311071200/)\n\nSee issue #2 ",
       "createdAt": "2025-02-12T07:14:05Z",
-      "updatedAt": "2025-02-12T07:57:14Z",
+      "updatedAt": "2025-03-15T11:33:36Z",
       "closedAt": null,
       "comments": [
         {
@@ -348,6 +355,20 @@
           "body": "> [@italobusi](https://github.com/italobusi) [@boucadair](https://github.com/boucadair) For points 6)\uff0cI do not think \u201cietf-tp-interface-reference-topology\u201d model is the right approach. because interface-ref is device local. Therefore, here in the inventory topology model, we follow the definition as Layer 2 Network Topologies rfc8944 and Layer 3 Network Topologies rfc 8346. And it's necessary to map between the termination point, the physical port, and the specific interface, right?\n\nSee: https://github.com/ietf-ivy-wg/network-inventory-topology/issues/2#issuecomment-2644718138\n\nI am still confused\n\nWhile, I am not aware of any implementation of RFC 8343 at the northbound of a network controller, I have heard different opinions about whether RFC 8343 can or not be implemented at the northbound of a network controller.\n\nIf RFC 8343 is not implemented at the northbound of a network controller, what can the client of the network controller do with an interface name which is not referencing any other information provided by the controller?\n\nThe current description is also quite ambiguous since the network controller can report the interface-name but can also report a void string (e.g., \"Hallo World\") and the client of the network controller has no way to understand what it is actually reported in this string.\n\nMoreover, in RFC 8944 and RFC 8346, there is only one interface-name while in the current YANG model it is a leaf-list.\n",
           "createdAt": "2025-02-12T07:55:50Z",
           "updatedAt": "2025-02-12T07:55:50Z"
+        },
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "Thinking further, why not raising a comment to \u201cietf-tp-interface-reference-topology\u201d model and resolve the issue there?\n\nI think the authors of the draft would welcome comments as well as new contributors\n\nIMHO, having one common model to associate the TP with an interface would be better than repeating the same definitions in every possible model\n\nTo address scenarios where RFC8343 is or not implemented, there are multiple options:\n1. define only a string attribute, clarifying that it can be set to the same value of the interface name when RFC8343 is implemented\n2. have a choice between an interface-ref and a string\n3. have a union between an interface-ref and a string\n\nOption 2 seems preferable to me and it is also possible to put the interface-ref case under a feature so it does not have to be implemented if RFC8343 is not implemented",
+          "createdAt": "2025-03-13T12:25:10Z",
+          "updatedAt": "2025-03-13T12:25:10Z"
+        },
+        {
+          "author": "lana-wu",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@italobusi I think there is an issue with \"interface-ref\". For example, in a network management domain, interfaces with the same name like \"GigabitEthernet0/0/1\" on Device A and Device B could cause conflicts. Sure we can also ask YANG experts to confirm this.  While \"interface-name\" combined with device identifiers (e.g., device hostname) can achieve globally unique interface identification across the management domain.",
+          "createdAt": "2025-03-15T11:33:35Z",
+          "updatedAt": "2025-03-15T11:33:35Z"
         }
       ]
     },
