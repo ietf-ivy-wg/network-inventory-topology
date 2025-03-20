@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-18T01:16:45.534089+00:00",
+  "timestamp": "2025-03-20T01:16:18.475826+00:00",
   "repo": "ietf-ivy-wg/network-inventory-topology",
   "labels": [
     {
@@ -346,7 +346,7 @@
       "labels": [],
       "body": "What is the purpose of the leaf-list interface-name?\n\nIf the intention is to navigate from topology to interface model, what about using the ietf-tp-interface-reference-topology model in draft-ietf-ccamp-if-ref-topo-yang?\n\nThis I-D is a CCAMP WG draft because we have spun it off from the MW topology model after thinking that the requirement to navigate from topology to interface is technology-agnostic.\n\nIt has presented to Netmod WG in IETF 118 and still looking for an home WG where to be progressed: [minutes-118-netmod](https://datatracker.ietf.org/doc/minutes-118-netmod-202311071200/)\n\nSee issue #2 ",
       "createdAt": "2025-02-12T07:14:05Z",
-      "updatedAt": "2025-03-15T11:33:36Z",
+      "updatedAt": "2025-03-19T16:22:32Z",
       "closedAt": null,
       "comments": [
         {
@@ -369,6 +369,13 @@
           "body": "@italobusi I think there is an issue with \"interface-ref\". For example, in a network management domain, interfaces with the same name like \"GigabitEthernet0/0/1\" on Device A and Device B could cause conflicts. Sure we can also ask YANG experts to confirm this.  While \"interface-name\" combined with device identifiers (e.g., device hostname) can achieve globally unique interface identification across the management domain.",
           "createdAt": "2025-03-15T11:33:35Z",
           "updatedAt": "2025-03-15T11:33:35Z"
+        },
+        {
+          "author": "italobusi",
+          "authorAssociation": "NONE",
+          "body": "> [@italobusi](https://github.com/italobusi) I think there is an issue with \"interface-ref\". For example, in a network management domain, interfaces with the same name like \"GigabitEthernet0/0/1\" on Device A and Device B could cause conflicts. Sure we can also ask YANG experts to confirm this. While \"interface-name\" combined with device identifiers (e.g., device hostname) can achieve globally unique interface identification across the management domain.\n\nI think we can consider three scenarios\n\n**Scenario A: RFC8343 and the topology models are both implemented on a device**\n\nIn this case, the issue you mention does not apply and the TP within the topology model can use the \"interface-ref\" to reference a specific instance in the interface list defined in RFC8343\n\n**Scenario B: RFC8343 and the topology models are both implemented on a network controller**\n\nIn this case, the issue you mention applies to the RFC8343 implementation since there cannot be two interfaces with the same name within the interface list defined in RFC8343.\n\nThe implementation of RFC8343 can disambiguate the two interfaces applying your suggestion (combining a device identifier with a port identifier) and the \"interface-ref\" would properly work.\n\n**Scenario C: The topology model is implemented and RFC8343 is not implemented**\n\nIn this case the \"interface-ref\" is not working because RFC8343 interface list is not implemented.\n\nMy doubt in this scenario is what information is a string not pointing to anything in the datastore.\n\n**Follow-up question**\n\nWhich scenario were you considering?\n\nThe authors of the \u201cietf-tp-interface-reference-topology\u201d model were considering only scenario A and B and we had not discussed scenario C.\n\nIMHO, we can enhance the \u201cietf-tp-interface-reference-topology\u201d model to support also scenario C and resolve my doubts on how scenario C can be addressed in that context",
+          "createdAt": "2025-03-19T16:21:01Z",
+          "updatedAt": "2025-03-19T16:22:31Z"
         }
       ]
     },
