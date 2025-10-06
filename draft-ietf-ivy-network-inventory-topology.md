@@ -1,6 +1,6 @@
 ---
 title: "A Network Data Model for Inventory Topology Mapping"
-abbrev: "Network Inventory Topology"
+abbrev: "Inventory Topology Mapping"
 category: std
 
 docname: draft-ietf-ivy-network-inventory-topology-latest
@@ -53,10 +53,10 @@ informative:
 
 --- abstract
 
-   This document defines a YANG model to
-   map the network inventory data with the topology model
-   to form a base underlay network. The model facilitates the
-   correlation between the layer (e.g.,  Layer 2 and Layer 3) topology information
+   This document defines a YANG data model to
+   map the network inventory data with the topology data
+   to form a base underlay network. The data model facilitates the
+   correlation between the layer (e.g.,  Layer 2 or Layer 3) topology information
    and the inventory data of the underlay network for better service
    provisioning, network maintenance operations, and other assessment scenarios.
 
@@ -72,26 +72,23 @@ informative:
    be platform Operating System (OS), software-patches, bios, or boot-
    loader {{?I-D.ietf-ivy-network-inventory-software}}.
 
-In order to ease navigation from/to inventory and network topologies,
-this document extends the network topology model {{!RFC8345}} for network
-inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).  This model provides a mechanism for the correlation with existing
-network and topology models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{!RFC9408}}, "A YANG Data Model for Layer 2 Network Topologies" {{?RFC8944}}, and "A YANG Data Model for Layer 3 Topologies" {{?RFC8346}}.
+In order to ease navigation from (or to) inventory and network topologies,
+this document extends the network topology data model {{!RFC8345}} for network
+inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).  This data model provides a mechanism for the correlation with existing
+network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{!RFC9408}}, "A YANG Data Model for Layer 2 Network Topologies" {{?RFC8944}}, and "A YANG Data Model for Layer 3 Topologies" {{?RFC8346}}.
 
 The network inventory topology mapping data model ("ietf-network-inventory-topology") also provides anchor
 points to mount specific device configuration and state information,
 e.g.,  Quality of Service (QoS) and Access Control List (ACL) policies, to support configuration
 verification of policies at the network level. Further sample uses are discussed in {{sample}}.
 
-Similar to the base inventory model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
-does not make any assumption about involved network elements and their roles in topologies. As such, the mapping
+Similar to the base inventory data model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
+does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
 model can be applied indepent of the network type (optical local loops, access network, core network, etc.) and application.
-
-The YANG data model in this document conforms to the Network
-Management Datastore Architecture (NMDA) defined in {{!RFC8342}}.
 
 ## Editorial Note (To be removed by RFC Editor)
 
-Note to the RFC Editor: This section is to be removed prior to publication.
+> Note to the RFC Editor: This section is to be removed prior to publication.
 
 This document contains placeholder values that need to be replaced with finalized values at the time of publication. This note summarizes all of the substitutions that are needed.
 
@@ -110,15 +107,15 @@ This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
 
 ## Determine Available Resources of Service Attachment Points (SAPs)
 
-The inventory topology model can be used as a base to correlate
-   underlay information, such as physical port components.  {{nwi-topology-usage}} exemplifies this usage.
+The inventory topology data model can be used as a base to correlate
+   underlay information, such as physical port components.  {{nwi-topology-usage}} exemplifies such a usage.
 
  During service provisioning, to check available physical port
    resources, the SAPs information can be
    associated with the underlay inventory information and interface
    information associated with the inventory topology, e.g.,
    "parent-termination-point" of SAP Model can be associated with the
-   "port-component-ref" and "interface-name" of the inventory topology model,
+   "port-component-ref" and "interface-name" of the inventory topology data model,
    which can be used to check the availability and capacity of physical
    ports.
 
@@ -157,9 +154,9 @@ The management system can use NDT to build
    multi-layer topology maps for networks and endpoints with
    relationship types and dependencies, and identify potential impacts
    on configuration management information from incidents, problems, and
-   changes. More generally, the inventory topology model can be used as part of the SIMAP {{?I-D.ietf-nmop-simap-concept}}.
+   changes. More generally, the inventory topology data model can be used as part of the Service & Infrastructure Maps (SIMAP) {{?I-D.ietf-nmop-simap-concept}}.
 
-The inventory topology model can, for example, be used to emulate
+The inventory topology data model can, for example, be used to emulate
    several "what-if" scenarios such as the impact of End of Life (EOL) or depletion of a
    hardware component (chipset) on the network resilience and service
    availability.
@@ -211,9 +208,9 @@ This section is modeled after the template described in {{Section 3.7 of ?I-D.ie
 
 The "ietf-network-inventory-topology" YANG module defines a data model that is
 designed to be accessed via YANG-based management protocols, such as
-NETCONF {{?RFC6241}} and RESTCONF {{?RFC8040}}. These protocols have to
+NETCONF {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management (1) have to
 use a secure transport layer (e.g., SSH {{?RFC4252}}, TLS {{?RFC8446}}, and
-QUIC {{?RFC9000]) and have to use mutual authentication.
+QUIC {{?RFC9000]) and (2) have to use mutual authentication.
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}}
 provides the means to restrict access for particular NETCONF or
@@ -222,18 +219,23 @@ RESTCONF protocol operations and content.
 
 There are a number of data nodes defined in this YANG module that are
 writable/creatable/deletable (i.e., "config true", which is the
-default).  All writable data nodes are likely to be reasonably
-sensitive or vulnerable in some network environments.  Write
+default).  All writable data nodes are likely to be sensitive or
+vulnerable in some network environments.  Write
 operations (e.g., edit-config) and delete operations to these data
 nodes without proper protection or authentication can have a negative
 effect on network operations.  The following subtrees and data nodes
 have particular sensitivities/vulnerabilities:
 
+   'ne-ref', 'node-ref', 'port-ref':
+   : Altering the content of these data nodes may alter the accuracy of the correlation between network topology and inventory.
+   : Applications that rely upon such correlations would thus be distorted.
+
 Some of the readable data nodes in this YANG module may be considered
-   sensitive or vulnerable in some network environments.  It is thus
-   important to control read access (e.g., via get, get-config, or
-   notification) to these data nodes.  Specifically, the following
-subtrees and data nodes have particular sensitivities/vulnerabilities:
+sensitive or vulnerable in some network environments.  It is thus
+important to control read access (e.g., via get, get-config, or
+notification) to these data nodes. Specifically, the following
+subtrees and data nodes have particular sensitivities/
+vulnerabilities:
 
    'ne-ref':
    :  The reference may be used to track the set of network elements.
