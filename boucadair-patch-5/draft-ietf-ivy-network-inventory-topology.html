@@ -1223,7 +1223,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-cable-name-link-type-usage-" class="internal xref">Cable-Name / Link-Type Usage Examples</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-cable-name-and-link-type-us" class="internal xref">"cable-name and "link-type" Usage Examples</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-json-example-of-an-mpo-brea" class="internal xref">JSON Example of an MPO Breakout-Channel Port</a></p>
@@ -1452,7 +1452,7 @@ required references to navigate from the inventory to topologies ('node-ref' and
         <h3 id="name-cable-level-extensions-cabl">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-cable-level-extensions-cabl" class="section-name selfRef">Cable-Level Extensions: cable-name and link-type</a>
         </h3>
-<p id="section-4.1-1">The dedicated passive-network inventory defined in draft-ygb-ivy-passive-network-inventory tracks and manages complex passive paths. For the simpler case of a direct point-to-point cable or fibre between two devices, this document adds lightweight leaves to the topology link:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-1">In order to provide a direct point-to-point cable or fibre between two devices, this document adds lightweight leaves to the topology link:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.1-2.1">
             <p id="section-4.1-2.1.1">cable-name – optional asset identifier for a single physical cable (e.g., "CAB-2025-042").<a href="#section-4.1-2.1.1" class="pilcrow">¶</a></p>
@@ -1462,7 +1462,7 @@ required references to navigate from the inventory to topologies ('node-ref' and
 </li>
         </ul>
 <p id="section-4.1-3">When the link is formed by a single physical cable (e.g., one factory-terminated patch cord), both leaves may be populated.
-If the link is composed of several passive elements—such as jumpers, adapters, patch panels, or splice points—the cable-name leaf can be omitted, and the controller can derive the full path by traversing the TP → port-ref references and using the passive-inventory module.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+If the link is composed of several passive elements (such as jumpers, adapters, patch panels, or splice points), the "cable-name" data node can be omitted, and the controller can derive the full path by traversing the TP → port-ref references and usig a more elaborated passive network inventory. An example of such module is defined <span>[<a href="#I-D.ygb-ivy-passive-network-inventory" class="cite xref">I-D.ygb-ivy-passive-network-inventory</a>]</span> which tracks and manages complex passive paths.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="port-breakout-capability">
@@ -1820,6 +1820,10 @@ vulnerabilities:<a href="#section-6-5" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Zhou, C.</span>, <span class="refAuthor">Yang, H.</span>, <span class="refAuthor">Duan, X.</span>, <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">C. Jacquenet</span>, <span class="refTitle">"Network Digital Twin: Concepts and Reference Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-network-digital-twin-arch-11</span>, <time datetime="2025-07-06" class="refDate">6 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-11">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-11</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="I-D.ygb-ivy-passive-network-inventory">[I-D.ygb-ivy-passive-network-inventory]</dt>
+        <dd>
+<span class="refAuthor">Yu, C.</span>, <span class="refAuthor">Guo, A.</span>, <span class="refAuthor">Busi, I.</span>, <span class="refAuthor">Boroon, M.</span>, <span class="refAuthor">Belotti, S.</span>, <span class="refAuthor">van caenegem, T.</span>, <span class="refAuthor">S., S. 1.</span>, <span class="refAuthor">B., S.</span>, <span class="refAuthor">Davis, N.</span>, <span class="refAuthor">Tilocca, M.</span>, <span class="refAuthor">Peters, B.</span>, <span class="refAuthor">Yoon, B. Y.</span>, <span class="refAuthor">LIUYUCONG</span>, <span class="refAuthor">Zhao, Y.</span>, and <span class="refAuthor">A. Sakalabhaktula</span>, <span class="refTitle">"A YANG Data Model for Passive Network Inventory"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ygb-ivy-passive-network-inventory-02</span>, <time datetime="2025-07-07" class="refDate">7 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ygb-ivy-passive-network-inventory-02">https://datatracker.ietf.org/doc/html/draft-ygb-ivy-passive-network-inventory-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4252">[RFC4252]</dt>
         <dd>
 <span class="refAuthor">Ylonen, T.</span> and <span class="refAuthor">C. Lonvick, Ed.</span>, <span class="refTitle">"The Secure Shell (SSH) Authentication Protocol"</span>, <span class="seriesInfo">RFC 4252</span>, <span class="seriesInfo">DOI 10.17487/RFC4252</span>, <time datetime="2006-01" class="refDate">January 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc4252">https://www.rfc-editor.org/rfc/rfc4252</a>&gt;</span>. </dd>
@@ -1857,12 +1861,12 @@ vulnerabilities:<a href="#section-6-5" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
-<div id="cable-name-link-type-usage-examples">
+<div id="cable-name-and-link-type-usage-examples">
 <section id="appendix-A">
-      <h2 id="name-cable-name-link-type-usage-">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-cable-name-link-type-usage-" class="section-name selfRef">Cable-Name / Link-Type Usage Examples</a>
+      <h2 id="name-cable-name-and-link-type-us">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-cable-name-and-link-type-us" class="section-name selfRef">"cable-name and "link-type" Usage Examples</a>
       </h2>
-<p id="appendix-A-1">This appendix illustrates when to populate the link-level <code>cable-name</code> and <code>link-type</code> leaves defined and when to rely on the forthcoming <code>ietf-passive-inventory</code> module for multi-segment passive paths.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">This appendix illustrates when to populate the link-level "cable-name" and "link-type" data nodes and when to rely on "ietf-passive-inventory" module for multi-segment passive paths.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A-2.1">
           <p id="appendix-A-2.1.1">Direct Point-to-Point Cable<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
@@ -1871,7 +1875,7 @@ vulnerabilities:<a href="#section-6-5" class="pilcrow">¶</a></p>
 <p id="appendix-A-3">Topology:
 [TP-A] ——— 3 m duplex fibre ——— [TP-B]<a href="#appendix-A-3" class="pilcrow">¶</a></p>
 <p id="appendix-A-4">The link is realised by exactly one cable stock-keeping unit.
-<code>cable-name</code> is filled with the operator's asset tag; <code>link-type</code> is set to "fiber".<a href="#appendix-A-4" class="pilcrow">¶</a></p>
+"cable-name" is filled with the operator's asset tag; "link-type" is set to "fiber".<a href="#appendix-A-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-A-5.1">
           <p id="appendix-A-5.1.1">Three-Segment Passive Path of Fiber Distribution Terminal (FDT)<a href="#appendix-A-5.1.1" class="pilcrow">¶</a></p>
@@ -1880,9 +1884,15 @@ vulnerabilities:<a href="#section-6-5" class="pilcrow">¶</a></p>
 <p id="appendix-A-6">Topology:
 [TP-A] —— FDT-1 —— segment —— FDT-2 —— [TP-B]<a href="#appendix-A-6" class="pilcrow">¶</a></p>
 <p id="appendix-A-7">The link spans two FDTs and one cable segment (no active inventory).
-<code>cable-name</code> is omitted; the controller derives the complete passive path by:
-1. reading <code>port-ref</code> of TP-A and TP-B;
-2. walking the passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-2).<a href="#appendix-A-7" class="pilcrow">¶</a></p>
+"cable-name" is omitted; the controller derives the complete passive path by:<a href="#appendix-A-7" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="appendix-A-8">
+<li id="appendix-A-8.1">
+          <p id="appendix-A-8.1.1">Retrieving "port-ref" of TP-A and TP-B.<a href="#appendix-A-8.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="appendix-A-8.2">
+          <p id="appendix-A-8.2.1">Walking the passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-2).<a href="#appendix-A-8.2.1" class="pilcrow">¶</a></p>
+</li>
+      </ol>
 </section>
 </div>
 <div id="json-example-of-an-mpo-breakout-channel-port">
