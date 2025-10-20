@@ -697,9 +697,10 @@ Appendix B.  JSON Example of an MPO Breakout-Channel Port
    "example:underlay-topology-400g", "node": [ { "node-id":
    "example:n1", "termination-point": [ { "tp-id": "example:400g-1/0/1",
    "ietf-network-inventory-topology:inventory-mapping-\ attributes": {
-   "ne-ref": "example:NE-1", "port-ref": "example:port-1", "breakout-
-   config": { "breakout-channel": [ { "channel-id": 1 }, { "channel-id":
-   2 }, { "channel-id": 3 }, { "channel-id": 4 } ] } } } ] } ] } ] } }
+   "ne-ref": "example:NE-1", "port-ref": "example:port-1", "port-
+   breakout": { "breakout-channel": [ { "channel-id": 1 }, { "channel-
+   id": 2 }, { "channel-id": 3 }, { "channel-id": 4 } ] } } } ] } ] } ]
+   } }
 
 Acknowledgments
 
