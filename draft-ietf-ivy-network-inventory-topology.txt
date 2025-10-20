@@ -5,12 +5,12 @@
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                            M. Boucadair
-Expires: 9 April 2026                                             Orange
+Expires: 23 April 2026                                            Orange
                                                                  C. Zhou
                                                             China Mobile
                                                                    Q. Wu
                                                                   Huawei
-                                                          6 October 2025
+                                                         20 October 2025
 
 
           A Network Data Model for Inventory Topology Mapping
@@ -51,7 +51,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 April 2026.
+   This Internet-Draft will expire on 23 April 2026.
 
 Copyright Notice
 
@@ -322,7 +322,7 @@ Table of Contents
         This version of this YANG module is part of RFC XXXX; see
         the RFC itself for full legal notices.";
 
-     revision 2025-03-03 {
+     revision 2025-10-20 {
        description
          "Initial revision.";
        reference
@@ -350,6 +350,7 @@ Table of Contents
          "Network Inventory mapping node scope attributes";
        container inventory-mapping-attributes {
          if-feature "topology-to-inventory-navigate";
+         config false;
          description
            "The container node attributes of Network Inventory
             mapping.";
@@ -369,16 +370,31 @@ Table of Contents
           attributes.";
        container inventory-mapping-attributes {
          if-feature "topology-to-inventory-navigate";
+         config false;
          description
            "Specifies the TP attributes of Network Inventory mapping.";
          /* 1:1 mapping to physical port component */
          uses nwi:port-ref;
-         leaf physical-interface-name {
-           type string;
-           config false;
+         // breakout channels (lightweight, per physical port)
+         container port-breakout {
+           presence "When present, it indicates that port breakout is
+                     supported.";
            description
-             "1:1 mapping to physical interface name (e.g., eth0/1).";
-         }
+             "Breakout capability of the physical port represented by
+              this TP.
+              One TP = one physical port; channels are listed here.";
+           list breakout-channel {
+             key "channel-id";
+             description
+               "A single lane or sub-port that the physical port can be
+                partitioned into.";
+             leaf channel-id {
+               type uint16;
+               description
+                 "Unique index of the breakout channel within the port.";
+             }
+           } // breakout-channel
+         } // port-breakout
        }
      }
 
@@ -387,6 +403,7 @@ Table of Contents
          "Network Inventory mapping link scope attributes.";
        container inventory-mapping-attributes {
          if-feature "topology-to-inventory-navigate";
+         config false;
          description
            "Specifies  the link attributes of network inventory
             mapping.";
@@ -509,9 +526,9 @@ Table of Contents
               Yu, C., Belotti, S., Bouquier, J., Peruzzini, F., and P.
               Bedard, "A Base YANG Data Model for Network Inventory",
               Work in Progress, Internet-Draft, draft-ietf-ivy-network-
-              inventory-yang-08, 22 July 2025,
+              inventory-yang-11, 14 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
-              network-inventory-yang-08>.
+              network-inventory-yang-11>.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
@@ -559,9 +576,9 @@ Table of Contents
               Havel, O., Claise, B., de Dios, O. G., and T. Graf,
               "SIMAP: Concept, Requirements, and Use Cases", Work in
               Progress, Internet-Draft, draft-ietf-nmop-simap-concept-
-              06, 26 September 2025,
+              07, 18 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
-              simap-concept-06>.
+              simap-concept-07>.
 
    [I-D.irtf-nmrg-network-digital-twin-arch]
               Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
