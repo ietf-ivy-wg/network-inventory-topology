@@ -85,7 +85,7 @@ Table of Contents
    8.  References
      8.1.  Normative References
      8.2.  Informative References
-   Appendix A.  Cable-Name / Link-Type Usage Examples
+   Appendix A.  "cable-name and "link-type" Usage Examples
    Appendix B.  JSON Example of an MPO Breakout-Channel Port
    Acknowledgments
    Contributors
@@ -251,11 +251,9 @@ Table of Contents
 
 4.1.  Cable-Level Extensions: cable-name and link-type
 
-   The dedicated passive-network inventory defined in draft-ygb-ivy-
-   passive-network-inventory tracks and manages complex passive paths.
-   For the simpler case of a direct point-to-point cable or fibre
-   between two devices, this document adds lightweight leaves to the
-   topology link:
+   In order to provide a direct point-to-point cable or fibre between
+   two devices, this document adds lightweight leaves to the topology
+   link:
 
    *  cable-name – optional asset identifier for a single physical cable
       (e.g., "CAB-2025-042").
@@ -265,10 +263,13 @@ Table of Contents
 
    When the link is formed by a single physical cable (e.g., one
    factory-terminated patch cord), both leaves may be populated.  If the
-   link is composed of several passive elements—such as jumpers,
-   adapters, patch panels, or splice points—the cable-name leaf can be
-   omitted, and the controller can derive the full path by traversing
-   the TP → port-ref references and using the passive-inventory module.
+   link is composed of several passive elements (such as jumpers,
+   adapters, patch panels, or splice points), the "cable-name" data node
+   can be omitted, and the controller can derive the full path by
+   traversing the TP → port-ref references and usig a more elaborated
+   passive network inventory.  An example of such module is defined
+   [I-D.ygb-ivy-passive-network-inventory] which tracks and manages
+   complex passive paths.
 
 4.2.  Port-Breakout Capability
 
@@ -623,6 +624,16 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
               network-digital-twin-arch-11>.
 
+   [I-D.ygb-ivy-passive-network-inventory]
+              Yu, C., Guo, A., Busi, I., Boroon, M., Belotti, S., van
+              caenegem, T., S., S. 1., B., S., Davis, N., Tilocca, M.,
+              Peters, B., Yoon, B. Y., LIUYUCONG, Zhao, Y., and A.
+              Sakalabhaktula, "A YANG Data Model for Passive Network
+              Inventory", Work in Progress, Internet-Draft, draft-ygb-
+              ivy-passive-network-inventory-02, 7 July 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ygb-ivy-
+              passive-network-inventory-02>.
+
    [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
               January 2006, <https://www.rfc-editor.org/rfc/rfc4252>.
@@ -658,18 +669,18 @@ Table of Contents
               DOI 10.17487/RFC8944, November 2020,
               <https://www.rfc-editor.org/rfc/rfc8944>.
 
-Appendix A.  Cable-Name / Link-Type Usage Examples
+Appendix A.  "cable-name and "link-type" Usage Examples
 
-   This appendix illustrates when to populate the link-level cable-name
-   and link-type leaves defined and when to rely on the forthcoming
-   ietf-passive-inventory module for multi-segment passive paths.
+   This appendix illustrates when to populate the link-level "cable-
+   name" and "link-type" data nodes and when to rely on "ietf-passive-
+   inventory" module for multi-segment passive paths.
 
    *  Direct Point-to-Point Cable
 
    Topology: [TP-A] ——— 3 m duplex fibre ——— [TP-B]
 
-   The link is realised by exactly one cable stock-keeping unit. cable-
-   name is filled with the operator's asset tag; link-type is set to
+   The link is realised by exactly one cable stock-keeping unit. "cable-
+   name" is filled with the operator's asset tag; "link-type" is set to
    "fiber".
 
    *  Three-Segment Passive Path of Fiber Distribution Terminal (FDT)
@@ -677,9 +688,13 @@ Appendix A.  Cable-Name / Link-Type Usage Examples
    Topology: [TP-A] —— FDT-1 —— segment —— FDT-2 —— [TP-B]
 
    The link spans two FDTs and one cable segment (no active inventory).
-   cable-name is omitted; the controller derives the complete passive
-   path by: 1. reading port-ref of TP-A and TP-B; 2. walking the
-   passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-2).
+   "cable-name" is omitted; the controller derives the complete passive
+   path by:
+
+   1.  Retrieving "port-ref" of TP-A and TP-B.
+
+   2.  Walking the passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-
+       2).
 
 Appendix B.  JSON Example of an MPO Breakout-Channel Port
 
