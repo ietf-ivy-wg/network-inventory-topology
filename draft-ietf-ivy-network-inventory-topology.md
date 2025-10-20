@@ -1,5 +1,5 @@
 ---
-title: "A Network Data Model for Inventory Topology Mapping"
+title: "A YANG Network Data Model for Inventory Topology Mapping"
 abbrev: "Inventory Topology Mapping"
 category: std
 
@@ -69,7 +69,7 @@ informative:
   firmware, and software components.  Examples
    of inventory hardware components could be rack, shelf, slot, board,
    or physical port.  Examples of inventory software components could
-   be platform Operating System (OS), software-patches, bios, or boot-
+   be platform Operating System (OS), software-modules, bios, or boot-
    loader {{?I-D.ietf-ivy-network-inventory-software}}.
 
 In order to ease navigation from (or to) inventory and network topologies,
@@ -77,14 +77,9 @@ this document extends the network topology data model {{!RFC8345}} for network
 inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).  This data model provides a mechanism for the correlation with existing
 network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{!RFC9408}}, "A YANG Data Model for Layer 2 Network Topologies" {{?RFC8944}}, and "A YANG Data Model for Layer 3 Topologies" {{?RFC8346}}.
 
-The network inventory topology mapping data model ("ietf-network-inventory-topology") also provides anchor
-points to mount specific device configuration and state information,
-e.g.,  Quality of Service (QoS) and Access Control List (ACL) policies, to support configuration
-verification of policies at the network level. Further sample uses are discussed in {{sample}}.
-
 Similar to the base inventory data model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
 does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
-model can be applied indepent of the network type (optical local loops, access network, core network, etc.) and application.
+model can be applied independent of the network type (optical local loops, access network, core network, etc.) and application.
 
 ## Editorial Note (To be removed by RFC Editor)
 
@@ -107,15 +102,15 @@ This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
 
 ## Determine Available Resources of Service Attachment Points (SAPs)
 
-The inventory topology data model can be used as a base to correlate
-   underlay information, such as physical port components.  {{nwi-topology-usage}} exemplifies such a usage.
+The inventory topology data model can be used as a basis for correlating
+   underlay information, such as physical port components.  {{nwi-topology-usage}} exemplifies this usage.
 
  During service provisioning, to check available physical port
    resources, the SAPs information can be
    associated with the underlay inventory information and interface
    information associated with the inventory topology, e.g.,
    "parent-termination-point" of SAP Model can be associated with the
-   "port-component-ref" and "interface-name" of the inventory topology data model,
+   "port-component-ref" of the inventory topology data model,
    which can be used to check the availability and capacity of physical
    ports.
 
@@ -175,13 +170,9 @@ to control the navigation direction (from topology to inventory and vice versa).
 
 The module augments the "ietf-network-topology" module as follows:
 
-* A new network topology type: "network-inventory-mapping".  The
-        corresponding container augments the "network-types" of the "ietf-network" module.
-
 * Inventory mapping attributes for nodes, links, and termination
         points: The corresponding containers augments the topology module
-        with the references to the base network inventory, references to
-        interface management, and policy mount points
+        with the references to the base network inventory
 
    The inventory topology
    model associates inventory data with overlay topologies.  It can be
@@ -217,18 +208,7 @@ provides the means to restrict access for particular NETCONF or
 RESTCONF users to a preconfigured subset of all available NETCONF or
 RESTCONF protocol operations and content.
 
-There are a number of data nodes defined in this YANG module that are
-writable/creatable/deletable (i.e., "config true", which is the
-default).  All writable data nodes are likely to be sensitive or
-vulnerable in some network environments.  Write
-operations (e.g., edit-config) and delete operations to these data
-nodes without proper protection or authentication can have a negative
-effect on network operations.  The following subtrees and data nodes
-have particular sensitivities/vulnerabilities:
-
-   'ne-ref', 'node-ref', 'port-ref':
-   : Altering the content of these data nodes may alter the accuracy of the correlation between network topology and inventory.
-   : Applications that rely upon such correlations would thus be distorted.
+No writable data nodes are defined in this module; all nodes are read-only ("config false").
 
 Some of the readable data nodes in this YANG module may be considered
 sensitive or vulnerable in some network environments.  It is thus
