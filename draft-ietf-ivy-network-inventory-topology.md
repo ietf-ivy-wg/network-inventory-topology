@@ -182,6 +182,16 @@ The module augments the "ietf-network-topology" module as follows:
 Also, the "ietf-network-inventory-topology" module augments the "ietf-network-inventory" to add
 required references to navigate from the inventory to topologies ('node-ref' and 'network-ref').
 
+## Cable-Level Extensions: cable-name and link-type
+
+The dedicated passive-network inventory defined in draft-ygb-ivy-passive-network-inventory tracks and manages complex passive paths. For the simpler case of a direct point-to-point cable or fibre between two devices, this document adds lightweight leaves to the topology link:
+
+- cable-name – optional asset identifier for a single physical cable (e.g., "CAB-2025-042").  
+- link-type – flexible-text hint such as "copper", "single-mode-fibre", "multi-mode-fibre", "coax".
+
+When the link is formed by a single physical cable (e.g., one factory-terminated patch cord), both leaves may be populated.  
+If the link is composed of several passive elements—such as jumpers, adapters, patch panels, or splice points—the cable-name leaf can be omitted, and the controller can derive the full path by traversing the TP → port-ref references and using the passive-inventory module.
+
 # Network Inventory Topology YANG Module {#sec-module}
 
 This module augments the Network Topology {{!RFC8345}}.
@@ -243,6 +253,27 @@ vulnerabilities:
 ~~~~
 
 --- back
+
+# Cable-Name / Link-Type Usage Examples
+This appendix illustrates when to populate the link-level `cable-name` and `link-type` leaves defined and when to rely on the forthcoming `ietf-passive-inventory` module for multi-segment passive paths.
+
+* Direct Point-to-Point Cable
+
+Topology:  
+[TP-A] ——— 3 m duplex fibre ——— [TP-B]
+
+The link is realised by exactly one cable stock-keeping unit.  
+`cable-name` is filled with the operator's asset tag; `link-type` is set to "fiber".
+
+* Three-Segment Passive Path of Fiber Distribution Terminal (FDT)
+
+Topology:  
+[TP-A] —— FDT-1 —— segment —— FDT-2 —— [TP-B]
+
+The link spans two FDTs and one cable segment (no active inventory).  
+`cable-name` is omitted; the controller derives the complete passive path by:
+1. reading `port-ref` of TP-A and TP-B;
+2. walking the passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-2).
 
 # Acknowledgments
 {:numbered="false"}
