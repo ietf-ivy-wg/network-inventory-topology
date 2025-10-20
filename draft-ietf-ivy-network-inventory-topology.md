@@ -304,9 +304,10 @@ The link spans two FDTs and one cable segment (no active inventory).
 2. walking the passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-2).
 
 # JSON Example of an MPO Breakout-Channel Port
-This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding {{?RFC7951}} of the port-breakout container for this port.
 
-{::include-fold ./port-breakout-example.json}
+This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding {{?RFC7951}} of the "port-breakout" container for this port.
+
+{::include-fold ./yang/examples/port-breakout-example.json}
 
 # Acknowledgments
 {:numbered="false"}
