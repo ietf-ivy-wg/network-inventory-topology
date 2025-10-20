@@ -1193,6 +1193,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-module-tree-structure" class="internal xref">Module Tree Structure</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-cable-level-extensions-cabl" class="internal xref">Cable-Level Extensions: cable-name and link-type</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-port-breakout-capability" class="internal xref">Port-Breakout Capability</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-network-inventory-topology-" class="internal xref">Network Inventory Topology YANG Module</a></p>
@@ -1215,13 +1223,19 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-cable-name-link-type-usage-" class="internal xref">Cable-Name / Link-Type Usage Examples</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-json-example-of-an-mpo-brea" class="internal xref">JSON Example of an MPO Breakout-Channel Port</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-contributors" class="internal xref">Contributors</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1433,6 +1447,52 @@ The inventory topology
       </ul>
 <p id="section-4-6">Also, the "ietf-network-inventory-topology" module augments the "ietf-network-inventory" to add
 required references to navigate from the inventory to topologies ('node-ref' and 'network-ref').<a href="#section-4-6" class="pilcrow">¶</a></p>
+<div id="cable-level-extensions-cable-name-and-link-type">
+<section id="section-4.1">
+        <h3 id="name-cable-level-extensions-cabl">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-cable-level-extensions-cabl" class="section-name selfRef">Cable-Level Extensions: cable-name and link-type</a>
+        </h3>
+<p id="section-4.1-1">The dedicated passive-network inventory defined in draft-ygb-ivy-passive-network-inventory tracks and manages complex passive paths. For the simpler case of a direct point-to-point cable or fibre between two devices, this document adds lightweight leaves to the topology link:<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1-2.1">
+            <p id="section-4.1-2.1.1">cable-name – optional asset identifier for a single physical cable (e.g., "CAB-2025-042").<a href="#section-4.1-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.1-2.2">
+            <p id="section-4.1-2.2.1">link-type – flexible-text hint such as "copper", "single-mode-fibre", "multi-mode-fibre", "coax".<a href="#section-4.1-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-4.1-3">When the link is formed by a single physical cable (e.g., one factory-terminated patch cord), both leaves may be populated.
+If the link is composed of several passive elements—such as jumpers, adapters, patch panels, or splice points—the cable-name leaf can be omitted, and the controller can derive the full path by traversing the TP → port-ref references and using the passive-inventory module.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="port-breakout-capability">
+<section id="section-4.2">
+        <h3 id="name-port-breakout-capability">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-port-breakout-capability" class="section-name selfRef">Port-Breakout Capability</a>
+        </h3>
+<p id="section-4.2-1">High-density Ethernet ports (e.g., 400 Gb/s DR4) can be split into
+multiple independent lower-speed channels. The breakout channels
+represent the intrinsic capability of the port to be partitioned,
+regardless of whether the port is currently configured as a trunk or as
+a breakout port.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">A trunk port is associated with exactly one physical interface.
+A breakout port is a port that is decomposed into two or more physical
+interfaces; those interfaces may run at the same or different speeds
+and may consume the same or a different number of breakout channels.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">The container breakout-config is added under the termination-point
+augmentation.  It lists the logical channels into which the single
+physical port can be divided.  Only termination-points whose parent
+port is breakout-capable need to instantiate the container; otherwise
+the container is omitted, keeping the topology model minimal for the
+common non-breakout case.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">Breakout channel is an atomic resource element obtained by partitioning a breakout port.
+One physical interface may be associated with one or more breakout
+channels, but one breakout channel MUST NOT be associated with more
+than one physical interface. Appendix B provides example configurations.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-5">It is assumed that a port which supports breakout can be configured
+either as a trunk port or as a breakout port. Interface channelisation (e.g., VLAN sub-interfaces) is outside the scope of this document and is addressed by the Layer 2 network topology model <span>[<a href="#RFC8944" class="cite xref">RFC8944</a>]</span>.<a href="#section-4.2-5" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="sec-module">
@@ -1768,6 +1828,10 @@ vulnerabilities:<a href="#section-6-5" class="pilcrow">¶</a></p>
         <dd>
 <span class="refAuthor">Enns, R., Ed.</span>, <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refAuthor">Schoenwaelder, J., Ed.</span>, and <span class="refAuthor">A. Bierman, Ed.</span>, <span class="refTitle">"Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6241</span>, <span class="seriesInfo">DOI 10.17487/RFC6241</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6241">https://www.rfc-editor.org/rfc/rfc6241</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC7951">[RFC7951]</dt>
+        <dd>
+<span class="refAuthor">Lhotka, L.</span>, <span class="refTitle">"JSON Encoding of Data Modeled with YANG"</span>, <span class="seriesInfo">RFC 7951</span>, <span class="seriesInfo">DOI 10.17487/RFC7951</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7951">https://www.rfc-editor.org/rfc/rfc7951</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8040">[RFC8040]</dt>
         <dd>
 <span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8040">https://www.rfc-editor.org/rfc/rfc8040</a>&gt;</span>. </dd>
@@ -1793,18 +1857,85 @@ vulnerabilities:<a href="#section-6-5" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
-<div id="acknowledgments">
+<div id="cable-name-link-type-usage-examples">
 <section id="appendix-A">
+      <h2 id="name-cable-name-link-type-usage-">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-cable-name-link-type-usage-" class="section-name selfRef">Cable-Name / Link-Type Usage Examples</a>
+      </h2>
+<p id="appendix-A-1">This appendix illustrates when to populate the link-level <code>cable-name</code> and <code>link-type</code> leaves defined and when to rely on the forthcoming <code>ietf-passive-inventory</code> module for multi-segment passive paths.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A-2.1">
+          <p id="appendix-A-2.1.1">Direct Point-to-Point Cable<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-A-3">Topology:
+[TP-A] ——— 3 m duplex fibre ——— [TP-B]<a href="#appendix-A-3" class="pilcrow">¶</a></p>
+<p id="appendix-A-4">The link is realised by exactly one cable stock-keeping unit.
+<code>cable-name</code> is filled with the operator's asset tag; <code>link-type</code> is set to "fiber".<a href="#appendix-A-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-A-5.1">
+          <p id="appendix-A-5.1.1">Three-Segment Passive Path of Fiber Distribution Terminal (FDT)<a href="#appendix-A-5.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="appendix-A-6">Topology:
+[TP-A] —— FDT-1 —— segment —— FDT-2 —— [TP-B]<a href="#appendix-A-6" class="pilcrow">¶</a></p>
+<p id="appendix-A-7">The link spans two FDTs and one cable segment (no active inventory).
+<code>cable-name</code> is omitted; the controller derives the complete passive path by:
+1. reading <code>port-ref</code> of TP-A and TP-B;
+2. walking the passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-2).<a href="#appendix-A-7" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="json-example-of-an-mpo-breakout-channel-port">
+<section id="appendix-B">
+      <h2 id="name-json-example-of-an-mpo-brea">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-json-example-of-an-mpo-brea" class="section-name selfRef">JSON Example of an MPO Breakout-Channel Port</a>
+      </h2>
+<p id="appendix-B-1">This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> of the port-breakout container for this port.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">{
+  "network-topology:networks": {
+    "network": [
+      {
+        "network-id": "underlay-topology-400g-example",
+        "node": [
+          {
+            "node-id": "n1",
+            "termination-point": [
+              {
+                "tp-id": "400g-1/0/1",
+                "nwit:inventory-mapping-attributes": {
+                  "ne-ref": "NE-1",
+                  "port-ref": "port-1",
+                  "breakout-config": {
+                    "breakout-channel": [
+                      { "channel-id": 1 },
+                      { "channel-id": 2 },
+                      { "channel-id": 3 },
+                      { "channel-id": 4 }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}<a href="#appendix-B-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-C">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">The authors wish to thank Italo Busi, Olga Havel, Aihua Guo, Oscar
+<p id="appendix-C-1">The authors wish to thank Italo Busi, Olga Havel, Aihua Guo, Oscar
    Gonzalez de Dios, and many others for their helpful comments and
-   suggestions.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+   suggestions.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="contributors">
-<section id="appendix-B">
+<section id="appendix-D">
       <h2 id="name-contributors">
 <a href="#name-contributors" class="section-name selfRef">Contributors</a>
       </h2>
@@ -1819,7 +1950,7 @@ vulnerabilities:<a href="#section-6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-C">
+<section id="appendix-E">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
