@@ -57,7 +57,7 @@ module ietf-network-inventory-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-03-03 {
+  revision 2025-10-20 {
     description
       "Initial revision.";
     reference
@@ -85,6 +85,7 @@ module ietf-network-inventory-topology {
       "Network Inventory mapping node scope attributes";
     container inventory-mapping-attributes {
       if-feature "topology-to-inventory-navigate";
+      config false;
       description
         "The container node attributes of Network Inventory
          mapping.";
@@ -104,16 +105,31 @@ module ietf-network-inventory-topology {
        attributes.";
     container inventory-mapping-attributes {
       if-feature "topology-to-inventory-navigate";
+      config false;
       description
         "Specifies the TP attributes of Network Inventory mapping.";
       /* 1:1 mapping to physical port component */
       uses nwi:port-ref;
-      leaf physical-interface-name {
-        type string;
-        config false;
+      // breakout channels (lightweight, per physical port)
+      container port-breakout {
+        presence "When present, it indicates that port breakout is
+                  supported.";
         description
-          "1:1 mapping to physical interface name (e.g., eth0/1).";
-      }
+          "Breakout capability of the physical port represented by
+           this TP.
+           One TP = one physical port; channels are listed here.";
+        list breakout-channel {
+          key "channel-id";
+          description
+            "A single lane or sub-port that the physical port can be
+             partitioned into.";
+          leaf channel-id {
+            type uint16;
+            description
+              "Unique index of the breakout channel within the port.";
+          }
+        } // breakout-channel
+      } // port-breakout	  
     }
   }
 
@@ -122,6 +138,7 @@ module ietf-network-inventory-topology {
       "Network Inventory mapping link scope attributes.";
     container inventory-mapping-attributes {
       if-feature "topology-to-inventory-navigate";
+      config false;
       description
         "Specifies  the link attributes of network inventory
          mapping.";
