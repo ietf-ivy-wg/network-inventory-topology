@@ -192,6 +192,34 @@ The dedicated passive-network inventory defined in draft-ygb-ivy-passive-network
 When the link is formed by a single physical cable (e.g., one factory-terminated patch cord), both leaves may be populated.  
 If the link is composed of several passive elements—such as jumpers, adapters, patch panels, or splice points—the cable-name leaf can be omitted, and the controller can derive the full path by traversing the TP → port-ref references and using the passive-inventory module.
 
+## Port-Breakout Capability
+
+High-density Ethernet ports (e.g., 400 Gb/s DR4) can be split into
+multiple independent lower-speed channels. The breakout channels
+represent the intrinsic capability of the port to be partitioned,
+regardless of whether the port is currently configured as a trunk or as
+a breakout port.
+
+A trunk port is associated with exactly one physical interface.
+A breakout port is a port that is decomposed into two or more physical
+interfaces; those interfaces may run at the same or different speeds
+and may consume the same or a different number of breakout channels.
+
+The container breakout-config is added under the termination-point
+augmentation.  It lists the logical channels into which the single
+physical port can be divided.  Only termination-points whose parent
+port is breakout-capable need to instantiate the container; otherwise
+the container is omitted, keeping the topology model minimal for the
+common non-breakout case.
+
+Breakout channel is an atomic resource element obtained by partitioning a breakout port.
+One physical interface may be associated with one or more breakout
+channels, but one breakout channel MUST NOT be associated with more
+than one physical interface. Appendix B provides example configurations.
+
+It is assumed that a port which supports breakout can be configured
+either as a trunk port or as a breakout port. Interface channelisation (e.g., VLAN sub-interfaces) is outside the scope of this document and is addressed by the Layer 2 network topology model {{?RFC8944}}.
+
 # Network Inventory Topology YANG Module {#sec-module}
 
 This module augments the Network Topology {{!RFC8345}}.
@@ -274,6 +302,11 @@ The link spans two FDTs and one cable segment (no active inventory).
 `cable-name` is omitted; the controller derives the complete passive path by:
 1. reading `port-ref` of TP-A and TP-B;
 2. walking the passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-2).
+
+# JSON Example of an MPO Breakout-Channel Port
+This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout).  The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces.  The instance data below shows the minimal JSON encoding {{?RFC7951}} of the port-breakout container for this port.
+
+{::include-fold ./port-breakout-example.json}
 
 # Acknowledgments
 {:numbered="false"}
