@@ -97,9 +97,11 @@
     },
     "ietf-nwi-passive-inventory:cable": [
       {
-        "id": "example:fibre/p2p-cable",
+        "id": "example:CAB-2025-042",
         "length": 3,
         "cable-type": "ietf-nwi-passive-inventory:optical-fiber",
+        "name": "CAB-2025-042",
+        "description": "Example of a point-to-point direct cable.",
         "a-end": {
           "device-type": "ietf-nwi-passive-inventory:active-device",
           "ne-ref": "example:NE-1",
