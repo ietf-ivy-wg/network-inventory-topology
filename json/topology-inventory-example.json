@@ -1,0 +1,118 @@
+{
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "example:topology/simple-link",
+        "network-types": {},
+        "node": [
+          {
+            "node-id": "example:node-1",
+            "ietf-network-inventory-topology:ne-ref": "example:NE-1",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "example:TP-A",
+                "ietf-network-inventory-topology:inventory-mapping-attributes": {
+                  "ne-ref": "example:NE-1",
+                  "port-ref": "example:port/NE-1/A"
+                }
+              }
+            ]
+          },
+          {
+            "node-id": "example:node-2",
+            "ietf-network-inventory-topology:ne-ref": "example:NE-2",
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "example:TP-B",
+                "ietf-network-inventory-topology:inventory-mapping-attributes": {
+                  "ne-ref": "example:NE-2",
+                  "port-ref": "example:port/NE-2/B"
+                }
+              }
+            ]
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "link/direct-p2p-cable",
+            "source": {
+              "source-node": "example:node-1",
+              "source-tp": "TP-A"
+            },
+            "destination": {
+              "dest-node": "example:node-2",
+              "dest-tp": "TP-B"
+            },
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "cable-name": "???",
+              "link-type": "fiber"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ietf-network-inventory:network-inventory": {
+    "network-elements": {
+      "network-element": [
+        {
+          "ne-id": "example:NE-1",
+          "components": {
+            "component": [
+              {
+                "component-id": "example:port/NE-1/chassis",
+                "class": "iana-hardware:chassis"
+              },
+              {
+                "component-id": "example:port/NE-1/A",
+                "class": "iana-hardware:port",
+                "parent": [
+                  "example:port/NE-1/chassis"
+                ],
+                "parent-rel-pos": 3
+              }
+            ]
+          }
+        },
+        {
+          "ne-id": "example:NE-2",
+          "components": {
+            "component": [
+              {
+                "component-id": "example:port/NE-2/chassis",
+                "class": "iana-hardware:chassis"
+              },
+              {
+                "component-id": "example:port/NE-2/B",
+                "class": "iana-hardware:port",
+                "parent": [
+                  "example:port/NE-2/chassis"
+                ],
+                "parent-rel-pos": 5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "ietf-nwi-passive-inventory:cable": [
+      {
+        "id": "example:CAB-2025-042",
+        "length": 3,
+        "cable-type": "ietf-nwi-passive-inventory:optical-fiber",
+        "name": "CAB-2025-042",
+        "description": "Example of a point-to-point direct cable.",
+        "a-end": {
+          "device-type": "ietf-nwi-passive-inventory:active-device",
+          "ne-ref": "example:NE-1",
+          "component-ref": "example:port/NE-1/A"
+        },
+        "z-end": {
+          "device-type": "ietf-nwi-passive-inventory:active-device",
+          "ne-ref": "example:NE-2",
+          "component-ref": "example:port/NE-2/B"
+        }
+      }
+    ]
+  }
+}
