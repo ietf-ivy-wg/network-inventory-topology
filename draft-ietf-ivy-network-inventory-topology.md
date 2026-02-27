@@ -69,8 +69,7 @@ informative:
   firmware, and software components.  Examples
    of inventory hardware components could be rack, shelf, slot, board,
    or physical port.  Examples of inventory software components could
-   be platform Operating System (OS), software-modules, bios, or boot-
-   loader {{?I-D.ietf-ivy-network-inventory-software}}.
+   be platform Operating System (OS), software-modules, bios, or boot-loader {{?I-D.ietf-ivy-network-inventory-software}}.
 
 In order to ease navigation from (or to) inventory and network topologies,
 this document extends the network topology data model {{!RFC8345}} for network
@@ -145,16 +144,17 @@ The inventory topology data model can be used as a basis for correlating
    diagnose, emulate, and then manage the physical network based on
    data, models, and interfaces.
 
-The management system can use NDT to build
-   multi-layer topology maps for networks and endpoints with
-   relationship types and dependencies, and identify potential impacts
-   on configuration management information from incidents, problems, and
-   changes. More generally, the inventory topology data model can be used as part of the Service & Infrastructure Maps (SIMAP) {{?I-D.ietf-nmop-simap-concept}}.
+ {{?I-D.ietf-nmop-simap-concept}} defines Service and Infrastructure Maps (SIMAP)
+ as an abstraction model that provides a unified view of both service and
+ infrastructure information, enabling correlation between service requirements
+ and underlying resource capabilities.
 
-The inventory topology data model can, for example, be used to emulate
-   several "what-if" scenarios such as the impact of End of Life (EOL) or depletion of a
-   hardware component (chipset) on the network resilience and service
-   availability.
+Both architectures require accurate mapping between logical network topology
+ and physical inventory as a foundational data layer. This model provides
+ the essential physical resource information to such systems, enabling
+ them to perform accurate "what-if" analysis (e.g., impact prediction
+ of hardware EOL, path re-optimization under resource constraints, service
+ availability assessment).
 
 # Module Tree Structure
 
@@ -179,18 +179,18 @@ The module augments the "ietf-network-topology" module as follows:
    used as the "supporting-networks" of SAP, Layer 2, or Layer 3
    topologies.
 
-Also, the "ietf-network-inventory-topology" module augments the "ietf-network-inventory" to add
-required references to navigate from the inventory to topologies ('node-ref' and 'network-ref').
+## Link Extensions
 
-## Cable-Level Extensions: cable-name and link-type
+This document adds a lightweight "link-type" leaf to the topology link mapping to enable basic physical media classification.
 
-In order to provide a direct point-to-point cable or fibre between two devices, this document adds lightweight leaves to the topology link:
 
-- cable-name – optional asset identifier for a single physical cable (e.g., "CAB-2025-042").
-- link-type – flexible-text hint such as "copper", "single-mode-fibre", "multi-mode-fibre", "coax".
+- "link-type" – A string indicating the link media type, such as
+   "copper", "fiber", or "coax". For wireless media, values such as "microwave", or "wifi" may be used
 
-When the link is formed by a single physical cable (e.g., one factory-terminated patch cord), both leaves may be populated.
-If the link is composed of several passive elements (such as jumpers, adapters, patch panels, or splice points), the "cable-name" data node can be omitted, and the controller can derive the full path by traversing the TP → port-ref references and usig a more elaborated passive network inventory. An example of such module is defined {{?I-D.ygb-ivy-passive-network-inventory}} which tracks and manages complex passive paths.
+The "link-type" serves as a lightweight discriminator that guides to the
+ appropriate specialized inventory model for detailed resource information.
+ For example, wired media (fiber, copper) typically reference a passive
+ network inventory model, such as the one defined in {{?I-D.ygb-ivy-passive-network-inventory}}.
 
 ## Port-Breakout Capability
 
@@ -205,7 +205,7 @@ A breakout port is a port that is decomposed into two or more physical
 interfaces; those interfaces may run at the same or different speeds
 and may consume the same or a different number of breakout channels.
 
-The container breakout-config is added under the termination-point
+The container "port-breakout" is added under the termination-point
 augmentation.  It lists the logical channels into which the single
 physical port can be divided.  Only termination-points whose parent
 port is breakout-capable need to instantiate the container; otherwise
@@ -231,6 +231,23 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 ~~~~
 {: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2025-10-20.yang"}
 
+# Operational Considerations
+
+This model enables a network controller to report discovered network topology and inventory information. Automatic discovery serves as the primary mechanism, with selective configuration capabilities provided for scenarios where discovery is not feasible.
+
+For typical operations such as service provisioning and network planning, the model offers read-only query access to authoritative mappings between logical topology and physical inventory.
+The inventory-mapping-attributes containers are defined as read-write (config true) to accommodate cases where automatic discovery is not possible, including:
+
+- Customer-premises equipment (CPE) outside the operator's management domain
+- Leased lines and third-party transport resources
+- Planned or hypothetical resources for future deployment
+
+In these cases, the operator manually configures the mapping to maintain accurate topology-to-inventory correlation.
+
+The following nodes are read-only (config false) as they represent hardware-determined state:
+
+port-breakout: Hardware capability determined by physical port characteristics
+
 # Security Considerations
 
 This section is modeled after the template described in {{Section 3.7 of ?I-D.ietf-netmod-rfc8407bis}}.
@@ -246,7 +263,20 @@ provides the means to restrict access for particular NETCONF or
 RESTCONF users to a preconfigured subset of all available NETCONF or
 RESTCONF protocol operations and content.
 
-No writable data nodes are defined in this module; all nodes are read-only ("config false").
+There are a number of data nodes defined in this YANG module that are
+   writable/creatable/deletable (i.e., "config true", which is the
+   default).  All writable data nodes are likely to be sensitive or
+   vulnerable in some network environments.  Write
+   operations (e.g., edit-config) and delete operations to these data
+   nodes without proper protection or authentication can have a negative
+   effect on network operations.  The following subtrees and data nodes
+   have particular sensitivities/vulnerabilities:
+
+  'ne-ref', 'port-ref', 'link-type':
+  These nodes are sensitive as they establish the mapping
+  between logical topology and physical inventory. Unauthorized
+  modification could lead to incorrect resource allocation or
+  service disruption.
 
 Some of the readable data nodes in this YANG module may be considered
 sensitive or vulnerable in some network environments.  It is thus
@@ -256,7 +286,11 @@ subtrees and data nodes have particular sensitivities/
 vulnerabilities:
 
    'ne-ref':
-   :  The reference may be used to track the set of network elements.
+   The references may be used to track the set of network elements. While
+   read-only, they may reveal network infrastructure details.
+
+   'port-breakout':
+   This node exposes hardware capabilities.
 
 # IANA Considerations
 
@@ -282,28 +316,86 @@ vulnerabilities:
 
 --- back
 
-# "cable-name and "link-type" Usage Examples
+# "link-type" Usage Examples
 
-This appendix illustrates when to populate the link-level "cable-name" and "link-type" data nodes and when to rely on "ietf-passive-inventory" module for multi-segment passive paths.
+This appendix provides examples illustrating the usage of the
+ link-type data node.
 
-* Direct Point-to-Point Cable
+Scenario: Device SW-1 and device SW-2 are directly connected by a fiber.
 
-Topology:
-[TP-A] ——— 3 m duplex fibre ——— [TP-B]
+Physical topology:
 
-The link is realised by exactly one cable stock-keeping unit.
-"cable-name" is filled with the operator's asset tag; "link-type" is set to "fiber".
+~~~~ aasvg
++--------+                                    +--------+
+|        |                                    |        |
+| [SW-1] +========= fiber link ===============+ [SW-2] |
+|        |                                    |        |
++--------+                                    +--------+
+~~~~
 
-* Three-Segment Passive Path of Fiber Distribution Terminal (FDT)
+Key parts of the JSON example is as follows:
 
-Topology:
-[TP-A] —— FDT-1 —— segment —— FDT-2 —— [TP-B]
+~~~~ JSON
+{
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "campus-topology",
+        "node": [
+          {
+            "node-id": "SW-1",
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "ne-ref": "NE-SW1"
+            },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "TP-SW1-P1",
+                "ietf-network-inventory-topology:inventory-mapping-attributes": {
+                  "ne-ref": "NE-SW1",
+                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW1']/nwi:components/nwi:component[component-id='eth-port-1']"
+                }
+              }
+            ]
+          },
+          {
+            "node-id": "SW-2",
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "ne-ref": "NE-SW2"
+            },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "TP-SW2-P1",
+                "ietf-network-inventory-topology:inventory-mapping-attributes": {
+                  "ne-ref": "NE-SW2",
+                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:component[component-id='eth-port-1']"
+                }
+              }
+            ]
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "Link-SW1-SW2",
+            "source": {
+              "source-node": "SW-1",
+              "source-tp": "TP-SW1-P1"
+            },
+            "destination": {
+              "dest-node": "SW-2",
+              "dest-tp": "TP-SW2-P1"
+            },
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "link-type": "fiber"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+~~~~
 
-The link spans two FDTs and one cable segment (no active inventory).
-"cable-name" is omitted; the controller derives the complete passive path by:
 
-1. Retrieving "port-ref" of TP-A and TP-B.
-2. Walking the passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-2).
 
 # JSON Example of an MPO Breakout-Channel Port
 
