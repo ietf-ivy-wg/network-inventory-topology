@@ -1,0 +1,752 @@
+
+
+
+
+Network Inventory YANG                                        B. Wu, Ed.
+Internet-Draft                                                    Huawei
+Intended status: Standards Track                            M. Boucadair
+Expires: 31 August 2026                                           Orange
+                                                                 C. Zhou
+                                                            China Mobile
+                                                                   Q. Wu
+                                                                  Huawei
+                                                        27 February 2026
+
+
+        A YANG Network Data Model for Inventory Topology Mapping
+            draft-ietf-ivy-network-inventory-topology-latest
+
+Abstract
+
+   This document defines a YANG data model to map the network inventory
+   data with the topology data to form a base underlay network.  The
+   data model facilitates the correlation between the layer (e.g., Layer
+   2 or Layer 3) topology information and the inventory data of the
+   underlay network for better service provisioning, network maintenance
+   operations, and other assessment scenarios.
+
+Discussion Venues
+
+   This note is to be removed before publishing as an RFC.
+
+   Discussion of this document takes place on the Network Inventory YANG
+   Working Group mailing list (inventory-yang@ietf.org), which is
+   archived at https://mailarchive.ietf.org/arch/browse/inventory-yang/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/ietf-ivy-wg/network-inventory-topology.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 31 August 2026.
+
+Copyright Notice
+
+   Copyright (c) 2026 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+     1.1.  Editorial Note (To be removed by RFC Editor)
+   2.  Conventions and Definitions
+   3.  Sample Use Cases of the Data Model
+     3.1.  Determine Available Resources of Service Attachment Points
+           (SAPs)
+     3.2.  "What-if" Scenarios
+   4.  Module Tree Structure
+     4.1.  Cable-Level Extensions: cable-name and link-type
+     4.2.  Port-Breakout Capability
+   5.  Network Inventory Topology YANG Module
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  References
+     8.1.  Normative References
+     8.2.  Informative References
+   Appendix A.  "cable-name and "link-type" Usage Examples
+   Appendix B.  JSON Example of an MPO Breakout-Channel Port
+   Acknowledgments
+   Contributors
+   Authors' Addresses
+
+1.  Introduction
+
+   [I-D.ietf-ivy-network-inventory-yang] defines the base network
+   inventory model to aggregate the inventory data of Network Elements
+   (NEs).  This data includes identification of these NEs and their
+   hardware, firmware, and software components.  Examples of inventory
+   hardware components could be rack, shelf, slot, board, or physical
+   port.  Examples of inventory software components could be platform
+   Operating System (OS), software-modules, bios, or boot- loader
+   [I-D.ietf-ivy-network-inventory-software].
+
+   In order to ease navigation from (or to) inventory and network
+   topologies, this document extends the network topology data model
+   [RFC8345] for network inventory mapping: "ietf-network-inventory-
+   topology" (Section 5).  This data model provides a mechanism for the
+   correlation with existing network and topology data models, such as
+   "A YANG Network Data Model for Service Attachment Points (SAPs)"
+   [RFC9408], "A YANG Data Model for Layer 2 Network Topologies"
+   [RFC8944], and "A YANG Data Model for Layer 3 Topologies" [RFC8346].
+
+   Similar to the base inventory data model
+   [I-D.ietf-ivy-network-inventory-yang], the network inventory topology
+   does not make any assumption about involved NEs and their roles in
+   topologies.  As such, the mapping model can be applied independent of
+   the network type (optical local loops, access network, core network,
+   etc.) and application.
+
+1.1.  Editorial Note (To be removed by RFC Editor)
+
+      Note to the RFC Editor: This section is to be removed prior to
+      publication.
+
+   This document contains placeholder values that need to be replaced
+   with finalized values at the time of publication.  This note
+   summarizes all of the substitutions that are needed.
+
+   Please apply the following replacements:
+
+   *  XXXX --> the assigned RFC number for this I-D
+
+   *  AAAA --> the assigned RFC number for
+      [I-D.ietf-ivy-network-inventory-yang]
+
+2.  Conventions and Definitions
+
+   The meanings of the symbols in the YANG tree diagrams are defined in
+   [RFC8340].
+
+   This document uses terms defined in
+   [I-D.ietf-ivy-network-inventory-yang].
+
+3.  Sample Use Cases of the Data Model
+
+3.1.  Determine Available Resources of Service Attachment Points (SAPs)
+
+   The inventory topology data model can be used as a basis for
+   correlating underlay information, such as physical port components.
+   Figure 1 exemplifies this usage.
+
+   During service provisioning, to check available physical port
+   resources, the SAPs information can be associated with the underlay
+   inventory information and interface information associated with the
+   inventory topology, e.g., "parent-termination-point" of SAP Model can
+   be associated with the "port-component-ref" of the inventory topology
+   data model, which can be used to check the availability and capacity
+   of physical ports.
+
+                               +-----------------+
+                               |     Customer    |
+                               +--------+--------+
+               Customer Service Models  |
+                  (e.g., L3SM, L2SM)    |
+                               +--------+--------+
+                               |    Service      |
+                               |  Orchestration  |
+                               +------+---+------+
+                                      |   |
+                    SAP Network Model |   | Inventory Topology Model
+                               +------+---+------+
+                               |     Network     |
+                               |   Controller    |
+                               +--------+--------+
+                                        |
+                  +---------------------+---------------------+
+                  |                  Network                  |
+                  +-------------------------------------------+
+
+          Figure 1: An Example Usage of Network Inventory Topology
+
+3.2.  "What-if" Scenarios
+
+   [I-D.irtf-nmrg-network-digital-twin-arch] defines Network Digital
+   Twin (NDT) as a virtual representation of the physical network.  Such
+   representation is meant to be used to analyze, diagnose, emulate, and
+   then manage the physical network based on data, models, and
+   interfaces.
+
+   The management system can use NDT to build multi-layer topology maps
+   for networks and endpoints with relationship types and dependencies,
+   and identify potential impacts on configuration management
+   information from incidents, problems, and changes.  More generally,
+   the inventory topology data model can be used as part of the Service
+   & Infrastructure Maps (SIMAP) [I-D.ietf-nmop-simap-concept].
+
+   The inventory topology data model can, for example, be used to
+   emulate several "what-if" scenarios such as the impact of End of Life
+   (EOL) or depletion of a hardware component (chipset) on the network
+   resilience and service availability.
+
+4.  Module Tree Structure
+
+   An overview of the structure of the "ietf-network-inventory-topology"
+   module is shown in Figure 2.
+
+      module: ietf-network-inventory-topology
+        augment /nw:networks/nw:network/nw:node:
+          +--rw inventory-mapping-attributes
+             +--rw ne-ref?   nwi:ne-ref
+        augment /nw:networks/nw:network/nt:link:
+          +--rw inventory-mapping-attributes
+             +--rw link-type?   string
+        augment /nw:networks/nw:network/nw:node/nt:termination-point:
+          +--rw inventory-mapping-attributes
+             +--rw ne-ref?          nwi:ne-ref
+             +--rw port-ref?        leafref
+             +--ro port-breakout!
+                +--ro breakout-channel* [channel-id]
+                   +--ro channel-id    uint16
+
+    Figure 2: The Structure of the Network Inventory Mapping Data Model
+
+   The module defines two features "inventory-to-topology-navigate" and
+   "topology-to-inventory-navigate" to control the navigation direction
+   (from topology to inventory and vice versa).
+
+   The module augments the "ietf-network-topology" module as follows:
+
+   *  Inventory mapping attributes for nodes, links, and termination
+      points: The corresponding containers augments the topology module
+      with the references to the base network inventory
+
+      The inventory topology model associates inventory data with
+      overlay topologies.  It can be used as the "supporting-networks"
+      of SAP, Layer 2, or Layer 3 topologies.
+
+   Also, the "ietf-network-inventory-topology" module augments the
+   "ietf-network-inventory" to add required references to navigate from
+   the inventory to topologies ('node-ref' and 'network-ref').
+
+4.1.  Cable-Level Extensions: cable-name and link-type
+
+   In order to provide a direct point-to-point cable or fibre between
+   two devices, this document adds lightweight leaves to the topology
+   link:
+
+   *  cable-name – optional asset identifier for a single physical cable
+      (e.g., "CAB-2025-042").
+
+   *  link-type – flexible-text hint such as "copper", "single-mode-
+      fibre", "multi-mode-fibre", "coax".
+
+   When the link is formed by a single physical cable (e.g., one
+   factory-terminated patch cord), both leaves may be populated.  If the
+   link is composed of several passive elements (such as jumpers,
+   adapters, patch panels, or splice points), the "cable-name" data node
+   can be omitted, and the controller can derive the full path by
+   traversing the TP → port-ref references and usig a more elaborated
+   passive network inventory.  An example of such module is defined
+   [I-D.ygb-ivy-passive-network-inventory] which tracks and manages
+   complex passive paths.
+
+4.2.  Port-Breakout Capability
+
+   High-density Ethernet ports (e.g., 400 Gb/s DR4) can be split into
+   multiple independent lower-speed channels.  The breakout channels
+   represent the intrinsic capability of the port to be partitioned,
+   regardless of whether the port is currently configured as a trunk or
+   as a breakout port.
+
+   A trunk port is associated with exactly one physical interface.  A
+   breakout port is a port that is decomposed into two or more physical
+   interfaces; those interfaces may run at the same or different speeds
+   and may consume the same or a different number of breakout channels.
+
+   The container breakout-config is added under the termination-point
+   augmentation.  It lists the logical channels into which the single
+   physical port can be divided.  Only termination-points whose parent
+   port is breakout-capable need to instantiate the container; otherwise
+   the container is omitted, keeping the topology model minimal for the
+   common non-breakout case.
+
+   Breakout channel is an atomic resource element obtained by
+   partitioning a breakout port.  One physical interface may be
+   associated with one or more breakout channels, but one breakout
+   channel MUST NOT be associated with more than one physical interface.
+   Appendix B provides example configurations.
+
+   It is assumed that a port which supports breakout can be configured
+   either as a trunk port or as a breakout port.  Interface
+   channelisation (e.g., VLAN sub-interfaces) is outside the scope of
+   this document and is addressed by the Layer 2 network topology model
+   [RFC8944].
+
+5.  Network Inventory Topology YANG Module
+
+   This module augments the Network Topology [RFC8345].
+
+   This module imports the base network inventory
+   [I-D.ietf-ivy-network-inventory-yang].
+
+   <CODE BEGINS> file "ietf-network-inventory-topology@2025-10-20.yang"
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   module ietf-network-inventory-topology {
+     yang-version 1.1;
+     namespace
+       "urn:ietf:params:xml:ns:yang:ietf-network-inventory-topology";
+     prefix nwit;
+
+     import ietf-network {
+       prefix nw;
+       reference
+         "RFC 8345: A YANG Data Model for Network Topologies,
+                    Section 4.1";
+     }
+     import ietf-network-topology {
+       prefix nt;
+       reference
+         "RFC 8345: A YANG Data Model for Network Topologies,
+                    Section 4.2";
+     }
+     import ietf-network-inventory {
+       prefix nwi;
+       reference
+         "RFC AAAA: A YANG Data Model for Network Inventory";
+     }
+
+     organization
+       "IETF Network Inventory YANG (ivy) Working Group";
+     contact
+       "WG Web:   <https://datatracker.ietf.org/wg/ivy>
+        WG List:  <mailto:inventory-yang@ietf.org>
+
+        Editor: Bo Wu
+                <lana.wubo@huawei.com>
+        Editor: Mohamed Boucadair
+                <mohamed.boucadair@orange.com>
+        Author: Cheng Zhou
+                <zhouchengyjy@chinamobile.com>
+        Author: Qin Wu
+                <bill.wu@huawei.com>";
+     description
+       "This YANG module defines a YANG module for network
+        topology and inventory mapping.
+
+        Copyright (c) 2026 IETF Trust and the persons identified
+        as authors of the code. All rights reserved.
+
+        Redistribution and use in source and binary forms, with
+        or without modification, is permitted pursuant to, and
+        subject to the license terms contained in, the Revised
+        BSD License set forth in Section 4.c of the IETF Trust's
+        Legal Provisions Relating to IETF Documents
+        (https://trustee.ietf.org/license-info).
+
+        All revisions of IETF and IANA published modules can be found
+        at the YANG Parameters registry group
+        (https://www.iana.org/assignments/yang-parameters).
+
+        This version of this YANG module is part of RFC XXXX; see
+        the RFC itself for full legal notices.";
+
+     revision 2026-02-27 {
+       description
+         "Initial revision.";
+       reference
+         "RFC XXXX: A Network Data Model for Inventory Topology
+                    Mapping";
+     }
+
+     // Groupings
+     // Node Grouping Feature with 1:1 mapping to NE
+
+     grouping node-inventory-mapping-attributes {
+       description
+         "Attributes for mapping a topology node to a network element(\
+                                                                     NE)
+          in the physical inventory.";
+       container inventory-mapping-attributes {
+         description
+           "Container for inventory mapping attributes of a node.";
+         leaf ne-ref {
+           type nwi:ne-ref;
+           description
+             "Reference to the Network Element in the inventory that
+              corresponds to this topology node.
+              This reference establishes a 1:1 mapping between the \
+                                                                 logical
+              node and its physical network element.";
+         }
+       }
+     }
+
+     // TP Grouping Feature with 1:1 mapping to physical port
+
+     grouping tp-inventory-mapping-attributes {
+       description
+         "Attributes for mapping a topology termination point to a
+          physical port in the network inventory.";
+       container inventory-mapping-attributes {
+         description
+           "Container for inventory mapping attributes of a termination
+            point (TP).";
+         uses nwi:port-ref {
+           refine "port-ref" {
+             description
+               "Reference to the physical port component in the
+                network inventory. This reference establishes a 1:1
+                mapping between the logical TP and its physical port
+                component.";
+           }
+         }
+         // breakout channels (lightweight, per physical port)
+         container port-breakout {
+           presence "Indicates the physical port supports
+                     channel breakout.";
+           config false;
+           description
+             "Breakout capability of the physical port represented by
+              this TP. One TP maps to one physical port; channels are
+              listed here. This container is present only when the
+              underlying hardware supports partitioning the port into
+              multiple independent channels (e.g., 400G to 4x100G).";
+           list breakout-channel {
+             key "channel-id";
+             description
+               "List of breakout channels available on this port. Each
+                entry represents an independent lane or sub-port that \
+                                                                     can
+                be used for channelized interfaces.";
+             leaf channel-id {
+               type uint16;
+               description
+                 "Unique identifier for the breakout channel within the
+                  scope of the parent port.";
+             }
+           } // breakout-channel
+         } // port-breakout
+       }
+     }
+
+     // Link Grouping Feature with place holder for augumentation
+
+     grouping link-inventory-mapping-attributes {
+       description
+         "Attributes for classifying link media type.
+          Detailed inventory reference is intentionally omitted from \
+                                                                    this
+          version; implementations should use the appropriate \
+                                                             specialized
+          inventory model based on the indicated link-type.";
+       container inventory-mapping-attributes {
+         description
+           "Container for inventory-related attributes of a link.
+
+            This container provides lightweight media classification.
+            The link-type indicates which specialized inventory model
+            contains detailed resource information:
+
+            - Wired media (fiber, copper): passive network inventory
+            - Wireless media (microwave, wifi): wireless-specific
+              inventory
+
+              Detailed inventory references may be added in future
+              companion documents.";
+         leaf link-type {
+           type string;
+           description
+             "Classification of the link media type at the topology
+              layer. Example values include 'copper', 'fiber',
+              'microwave', or 'wifi'.";
+         }
+       }
+     }
+
+     // Main blocks
+
+     augment "/nw:networks/nw:network/nw:node" {
+       description
+         "Augments the network topology node with inventory mapping
+          attributes. This enables correlation between the logical node
+          and its physical network element.";
+       uses node-inventory-mapping-attributes;
+     }
+
+     augment "/nw:networks/nw:network/nt:link" {
+       description
+         "Augments the network topology link with inventory-related
+          attributes.";
+       uses link-inventory-mapping-attributes;
+     }
+
+     augment "/nw:networks/nw:network/nw:node/nt:termination-point" {
+       description
+         "Augments the termination point with inventory mapping \
+                                                              attributes
+          for physical port correlation and breakout capability \
+                                                            reporting.";
+       uses tp-inventory-mapping-attributes;
+     }
+   }
+   <CODE ENDS>
+
+6.  Security Considerations
+
+   This section is modeled after the template described in Section 3.7
+   of [I-D.ietf-netmod-rfc8407bis].
+
+   The "ietf-network-inventory-topology" YANG module defines a data
+   model that is designed to be accessed via YANG-based management
+   protocols, such as NETCONF [RFC6241] and RESTCONF [RFC8040].  These
+   YANG-based management (1) have to use a secure transport layer (e.g.,
+   SSH [RFC4252], TLS [RFC8446], and QUIC {{?RFC9000]) and (2) have to
+   use mutual authentication.
+
+   The Network Configuration Access Control Model (NACM) [RFC8341]
+   provides the means to restrict access for particular NETCONF or
+   RESTCONF users to a preconfigured subset of all available NETCONF or
+   RESTCONF protocol operations and content.
+
+   No writable data nodes are defined in this module; all nodes are
+   read-only ("config false").
+
+   Some of the readable data nodes in this YANG module may be considered
+   sensitive or vulnerable in some network environments.  It is thus
+   important to control read access (e.g., via get, get-config, or
+   notification) to these data nodes.  Specifically, the following
+   subtrees and data nodes have particular sensitivities/
+   vulnerabilities:
+
+   'ne-ref':  The reference may be used to track the set of network
+      elements.
+
+7.  IANA Considerations
+
+   IANA is requested to register the following URI in the "ns"
+   subregistry within the "IETF XML Registry" [RFC3688]:
+
+      URI:  urn:ietf:params:xml:ns:yang:ietf-network-inventory-topology
+      Registrant Contact:  The IESG.
+      XML:  N/A; the requested URI is an XML namespace.
+
+   IANA is requested to register the following YANG module in the "YANG
+   Module Names" registry [RFC6020] within the "YANG Parameters"
+   registry group:
+
+   Name:  ietf-network-inventory-topology
+   Namespace:  urn:ietf:params:xml:ns:yang:ietf-network-inventory-topology
+   Prefix:  nwit
+   Maintained by IANA?  N
+   Reference:  RFC XXXX
+
+8.  References
+
+8.1.  Normative References
+
+   [I-D.ietf-ivy-network-inventory-yang]
+              Yu, C., Belotti, S., Bouquier, J., Peruzzini, F., and P.
+              Bedard, "A Base YANG Data Model for Network Inventory",
+              Work in Progress, Internet-Draft, draft-ietf-ivy-network-
+              inventory-yang-14, 5 February 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
+              network-inventory-yang-14>.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/rfc/rfc3688>.
+
+   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
+              the Network Configuration Protocol (NETCONF)", RFC 6020,
+              DOI 10.17487/RFC6020, October 2010,
+              <https://www.rfc-editor.org/rfc/rfc6020>.
+
+   [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
+              Access Control Model", STD 91, RFC 8341,
+              DOI 10.17487/RFC8341, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8341>.
+
+   [RFC8345]  Clemm, A., Medved, J., Varga, R., Bahadur, N.,
+              Ananthakrishnan, H., and X. Liu, "A YANG Data Model for
+              Network Topologies", RFC 8345, DOI 10.17487/RFC8345, March
+              2018, <https://www.rfc-editor.org/rfc/rfc8345>.
+
+   [RFC9408]  Boucadair, M., Ed., Gonzalez de Dios, O., Barguil, S., Wu,
+              Q., and V. Lopez, "A YANG Network Data Model for Service
+              Attachment Points (SAPs)", RFC 9408, DOI 10.17487/RFC9408,
+              June 2023, <https://www.rfc-editor.org/rfc/rfc9408>.
+
+8.2.  Informative References
+
+   [I-D.ietf-ivy-network-inventory-software]
+              Wu, B., Zhou, C., Wu, Q., and M. Boucadair, "A YANG
+              Network Data Model of Network Inventory Software
+              Extensions", Work in Progress, Internet-Draft, draft-ietf-
+              ivy-network-inventory-software-02, 20 October 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
+              network-inventory-software-02>.
+
+   [I-D.ietf-netmod-rfc8407bis]
+              Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
+              Authors and Reviewers of Documents Containing YANG Data
+              Models", Work in Progress, Internet-Draft, draft-ietf-
+              netmod-rfc8407bis-28, 5 June 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
+              rfc8407bis-28>.
+
+   [I-D.ietf-nmop-simap-concept]
+              Havel, O., Claise, B., de Dios, O. G., and T. Graf,
+              "SIMAP: Concept, Requirements, and Use Cases", Work in
+              Progress, Internet-Draft, draft-ietf-nmop-simap-concept-
+              08, 23 February 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
+              simap-concept-08>.
+
+   [I-D.irtf-nmrg-network-digital-twin-arch]
+              Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
+              Q., Boucadair, M., and C. Jacquenet, "Network Digital
+              Twin: Concepts and Reference Architecture", Work in
+              Progress, Internet-Draft, draft-irtf-nmrg-network-digital-
+              twin-arch-12, 27 February 2026,
+              <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
+              network-digital-twin-arch-12>.
+
+   [I-D.ygb-ivy-passive-network-inventory]
+              Yu, C., Guo, A., Busi, I., Boroon, M., Belotti, S., van
+              caenegem, T., S., S. 1., B., S., Davis, N., Tilocca, M.,
+              Peters, B., Yoon, B. Y., LIUYUCONG, Zhao, Y., and A.
+              Sakalabhaktula, "A YANG Data Model for Passive Network
+              Inventory", Work in Progress, Internet-Draft, draft-ygb-
+              ivy-passive-network-inventory-03, 7 January 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ygb-ivy-
+              passive-network-inventory-03>.
+
+   [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
+              Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
+              January 2006, <https://www.rfc-editor.org/rfc/rfc4252>.
+
+   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
+              and A. Bierman, Ed., "Network Configuration Protocol
+              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
+              <https://www.rfc-editor.org/rfc/rfc6241>.
+
+   [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
+              RFC 7951, DOI 10.17487/RFC7951, August 2016,
+              <https://www.rfc-editor.org/rfc/rfc7951>.
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8040>.
+
+   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
+              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8340>.
+
+   [RFC8346]  Clemm, A., Medved, J., Varga, R., Liu, X.,
+              Ananthakrishnan, H., and N. Bahadur, "A YANG Data Model
+              for Layer 3 Topologies", RFC 8346, DOI 10.17487/RFC8346,
+              March 2018, <https://www.rfc-editor.org/rfc/rfc8346>.
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
+
+   [RFC8944]  Dong, J., Wei, X., Wu, Q., Boucadair, M., and A. Liu, "A
+              YANG Data Model for Layer 2 Network Topologies", RFC 8944,
+              DOI 10.17487/RFC8944, November 2020,
+              <https://www.rfc-editor.org/rfc/rfc8944>.
+
+Appendix A.  "cable-name and "link-type" Usage Examples
+
+   This appendix illustrates when to populate the link-level "cable-
+   name" and "link-type" data nodes and when to rely on "ietf-passive-
+   inventory" module for multi-segment passive paths.
+
+   *  Direct Point-to-Point Cable
+
+   Topology: [TP-A] ——— 3 m duplex fibre ——— [TP-B]
+
+   The link is realised by exactly one cable stock-keeping unit. "cable-
+   name" is filled with the operator's asset tag; "link-type" is set to
+   "fiber".
+
+   *  Three-Segment Passive Path of Fiber Distribution Terminal (FDT)
+
+   Topology: [TP-A] —— FDT-1 —— segment —— FDT-2 —— [TP-B]
+
+   The link spans two FDTs and one cable segment (no active inventory).
+   "cable-name" is omitted; the controller derives the complete passive
+   path by:
+
+   1.  Retrieving "port-ref" of TP-A and TP-B.
+
+   2.  Walking the passive-inventory relationships (FDT-1 ↔ cable ↔ FDT-
+       2).
+
+Appendix B.  JSON Example of an MPO Breakout-Channel Port
+
+   This appendix provides an example of a 400 Gb/s DR4 port that is
+   physically implemented as four independent 100 Gb/s lanes (an MPO
+   breakout).  The lanes are exposed as breakout-channel entries so that
+   the port can later be configured as either a single 400G trunk or
+   four 100G breakout interfaces.  The instance data below shows the
+   minimal JSON encoding [RFC7951] of the "port-breakout" container for
+   this port.
+
+   =============== NOTE: '' line wrapping per RFC 8792 ================
+
+   { "ietf-network-topology:networks": { "network": [ { "network-id":
+   "example:underlay-topology-400g", "node": [ { "node-id":
+   "example:n1", "termination-point": [ { "tp-id": "example:400g-1/0/1",
+   "ietf-network-inventory-topology:inventory-mapping-\ attributes": {
+   "ne-ref": "example:NE-1", "port-ref": "example:port-1", "port-
+   breakout": { "breakout-channel": [ { "channel-id": 1 }, { "channel-
+   id": 2 }, { "channel-id": 3 }, { "channel-id": 4 } ] } } } ] } ] } ]
+   } }
+
+Acknowledgments
+
+   The authors wish to thank Italo Busi, Olga Havel, Aihua Guo, Oscar
+   Gonzalez de Dios, and many others for their helpful comments and
+   suggestions.
+
+Contributors
+
+   Chaode Yu
+   Huawei
+   Email: yuchaode@huawei.com
+
+
+Authors' Addresses
+
+   Bo Wu (editor)
+   Huawei
+   Email: lana.wubo@huawei.com
+
+
+   Mohamed Boucadair
+   Orange
+   Email: mohamed.boucadair@orange.com
+
+
+   Cheng Zhou
+   China Mobile
+   Email: zhouchengyjy@chinamobile.com
+
+
+   Qin Wu
+   Huawei
+   Email: bill.wu@huawei.com
