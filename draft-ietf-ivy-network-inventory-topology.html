@@ -1498,6 +1498,8 @@ either as a trunk port or as a breakout port. Interface channelisation (e.g., VL
 <div class="breakable lang-yang sourcecode" id="section-5-3">
 <pre>&lt;CODE BEGINS&gt; file "ietf-network-inventory-topology@2025-10-20.yang"
 
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 module ietf-network-inventory-topology {
   yang-version 1.1;
   namespace
@@ -1540,7 +1542,7 @@ module ietf-network-inventory-topology {
     "This YANG module defines a YANG module for network
      topology and inventory mapping.
 
-     Copyright (c) 2025 IETF Trust and the persons identified
+     Copyright (c) 2026 IETF Trust and the persons identified
      as authors of the code. All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -1557,7 +1559,7 @@ module ietf-network-inventory-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-10-20 {
+  revision 2026-02-27 {
     description
       "Initial revision.";
     reference
@@ -1565,130 +1567,138 @@ module ietf-network-inventory-topology {
                  Mapping";
   }
 
-  /* features */
+  // Groupings
+  // Node Grouping Feature with 1:1 mapping to NE
 
-  feature inventory-to-topology-navigate {
+  grouping node-inventory-mapping-attributes {
     description
-      "Indicates support for navigating from inventory to topology.";
-  }
-
-  feature topology-to-inventory-navigate {
-    description
-      "Indicates support for navigating from topology to inventory.";
-  }
-
-  /* Groupings */
-  /* Node Grouping Feature with 1:1 mapping to NE*/
-
-  grouping node-inventory-feature-attributes {
-    description
-      "Network Inventory mapping node scope attributes";
+      "Attributes for mapping a topology node to a network element(\
+                                                                  NE)
+       in the physical inventory.";
     container inventory-mapping-attributes {
-      if-feature "topology-to-inventory-navigate";
-      config false;
       description
-        "The container node attributes of Network Inventory
-         mapping.";
+        "Container for inventory mapping attributes of a node.";
       leaf ne-ref {
         type nwi:ne-ref;
-        config false;
         description
-          "1:1 mapping to the Network Element (NE) from which this
-           node is abstracted.";
+          "Reference to the Network Element in the inventory that
+           corresponds to this topology node.
+           This reference establishes a 1:1 mapping between the \
+                                                              logical
+           node and its physical network element.";
       }
     }
   }
 
-  grouping tp-inventory-feature-attributes {
+  // TP Grouping Feature with 1:1 mapping to physical port
+
+  grouping tp-inventory-mapping-attributes {
     description
-      "Network Inventory mapping Termination Point (TP) scope
-       attributes.";
+      "Attributes for mapping a topology termination point to a
+       physical port in the network inventory.";
     container inventory-mapping-attributes {
-      if-feature "topology-to-inventory-navigate";
-      config false;
       description
-        "Specifies the TP attributes of Network Inventory mapping.";
-      /* 1:1 mapping to physical port component */
-      uses nwi:port-ref;
+        "Container for inventory mapping attributes of a termination
+         point (TP).";
+      uses nwi:port-ref {
+        refine "port-ref" {
+          description
+            "Reference to the physical port component in the
+             network inventory. This reference establishes a 1:1
+             mapping between the logical TP and its physical port
+             component.";
+        }
+      }
       // breakout channels (lightweight, per physical port)
       container port-breakout {
-        presence "When present, it indicates that port breakout is
-                  supported.";
+        presence "Indicates the physical port supports
+                  channel breakout.";
+        config false;
         description
           "Breakout capability of the physical port represented by
-           this TP.
-           One TP = one physical port; channels are listed here.";
+           this TP. One TP maps to one physical port; channels are
+           listed here. This container is present only when the
+           underlying hardware supports partitioning the port into
+           multiple independent channels (e.g., 400G to 4x100G).";
         list breakout-channel {
           key "channel-id";
           description
-            "A single lane or sub-port that the physical port can be
-             partitioned into.";
+            "List of breakout channels available on this port. Each
+             entry represents an independent lane or sub-port that \
+                                                                  can
+             be used for channelized interfaces.";
           leaf channel-id {
             type uint16;
             description
-              "Unique index of the breakout channel within the port.";
+              "Unique identifier for the breakout channel within the
+               scope of the parent port.";
           }
         } // breakout-channel
       } // port-breakout
     }
   }
 
-  grouping link-inventory-feature-attributes {
+  // Link Grouping Feature with place holder for augumentation
+
+  grouping link-inventory-mapping-attributes {
     description
-      "Network Inventory mapping link scope attributes.";
+      "Attributes for classifying link media type.
+       Detailed inventory reference is intentionally omitted from \
+                                                                 this
+       version; implementations should use the appropriate \
+                                                          specialized
+       inventory model based on the indicated link-type.";
     container inventory-mapping-attributes {
-      if-feature "topology-to-inventory-navigate";
-      config false;
       description
-        "Specifies  the link attributes of network inventory
-         mapping.";
-      leaf cable-name {
-        type string;
-        config false;
-        description
-          "Reports the reference of the cable inventory from which
-           this link is abstracted.";
-      }
+        "Container for inventory-related attributes of a link.
+
+         This container provides lightweight media classification.
+         The link-type indicates which specialized inventory model
+         contains detailed resource information:
+
+         - Wired media (fiber, copper): passive network inventory
+         - Wireless media (microwave, wifi): wireless-specific
+           inventory
+
+           Detailed inventory references may be added in future
+           companion documents.";
       leaf link-type {
         type string;
-        config false;
         description
-          "Reports the type of the link.";
+          "Classification of the link media type at the topology
+           layer. Example values include 'copper', 'fiber',
+           'microwave', or 'wifi'.";
       }
     }
   }
 
-  /* Main blocks */
+  // Main blocks
 
   augment "/nw:networks/nw:network/nw:node" {
     description
-      "Groups parameters for inventory at the node level.";
-    uses node-inventory-feature-attributes;
+      "Augments the network topology node with inventory mapping
+       attributes. This enables correlation between the logical node
+       and its physical network element.";
+    uses node-inventory-mapping-attributes;
   }
 
   augment "/nw:networks/nw:network/nt:link" {
     description
-      "Augments inventory topology link information.";
-    uses link-inventory-feature-attributes;
+      "Augments the network topology link with inventory-related
+       attributes.";
+    uses link-inventory-mapping-attributes;
   }
 
   augment "/nw:networks/nw:network/nw:node/nt:termination-point" {
     description
-      "Augments inventory termination point information.";
-    uses tp-inventory-feature-attributes;
-  }
-
-  /* Augment the network-inventory to add topology navigate */
-
-  augment "/nwi:network-inventory/nwi:network-elements"
-        + "/nwi:network-element" {
-    if-feature "inventory-to-topology-navigate";
-    description
-      "Augments the network element with 1:1 mapping with the network
-       the element is part of.";
-    uses nw:node-ref;
+      "Augments the termination point with inventory mapping \
+                                                           attributes
+       for physical port correlation and breakout capability \
+                                                         reporting.";
+    uses tp-inventory-mapping-attributes;
   }
 }
+
 
 
 &lt;CODE ENDS&gt;</pre><a href="#section-5-3" class="pilcrow">¶</a>
@@ -1811,7 +1821,7 @@ vulnerabilities:<a href="#section-6-5" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="I-D.irtf-nmrg-network-digital-twin-arch">[I-D.irtf-nmrg-network-digital-twin-arch]</dt>
         <dd>
-<span class="refAuthor">Zhou, C.</span>, <span class="refAuthor">Yang, H.</span>, <span class="refAuthor">Duan, X.</span>, <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">C. Jacquenet</span>, <span class="refTitle">"Network Digital Twin: Concepts and Reference Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-network-digital-twin-arch-11</span>, <time datetime="2025-07-06" class="refDate">6 July 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-11">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-11</a>&gt;</span>. </dd>
+<span class="refAuthor">Zhou, C.</span>, <span class="refAuthor">Yang, H.</span>, <span class="refAuthor">Duan, X.</span>, <span class="refAuthor">Lopez, D.</span>, <span class="refAuthor">Pastor, A.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">C. Jacquenet</span>, <span class="refTitle">"Network Digital Twin: Concepts and Reference Architecture"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-irtf-nmrg-network-digital-twin-arch-12</span>, <time datetime="2026-02-27" class="refDate">27 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-12">https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-network-digital-twin-arch-12</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ygb-ivy-passive-network-inventory">[I-D.ygb-ivy-passive-network-inventory]</dt>
         <dd>
