@@ -1499,8 +1499,6 @@ either as a trunk port or as a breakout port. Interface channelisation (e.g., VL
 <div class="breakable lang-yang sourcecode" id="section-5-3">
 <pre>&lt;CODE BEGINS&gt; file "ietf-network-inventory-topology@2026-02-28.yang"
 
-=============== NOTE: '\' line wrapping per RFC 8792 ================
-
 module ietf-network-inventory-topology {
   yang-version 1.1;
   namespace
@@ -1573,9 +1571,8 @@ module ietf-network-inventory-topology {
 
   grouping node-inventory-mapping-attributes {
     description
-      "Attributes for mapping a topology node to a Network Element (\
-                                                                  NE)
-       in the physical inventory.";
+      "Attributes for mapping a topology node to a Network Element
+       (NE) in the physical inventory.";
     container inventory-mapping-attributes {
       description
         "Container for inventory mapping attributes of a node.";
@@ -1585,9 +1582,8 @@ module ietf-network-inventory-topology {
           "Reference to the NE in the inventory that corresponds to
            this topology node.
 
-           This reference establishes a 1:1 mapping between the \
-                                                              logical
-           node and its physical NE.";
+           This reference establishes a 1:1 mapping between the
+           logical node and its physical NE.";
       }
     }
   }
@@ -1612,8 +1608,7 @@ module ietf-network-inventory-topology {
       }
       // breakout channels (lightweight, per physical port)
       container port-breakout {
-        presence "Indicates the physical port supports
-                  channel breakout.";
+        presence "Indicates the port supports channel breakout.";
         config false;
         description
           "Breakout capability of the physical port represented by
@@ -1624,10 +1619,9 @@ module ietf-network-inventory-topology {
         list breakout-channel {
           key "channel-id";
           description
-            "List of breakout channels available on this port. Each
-             entry represents an independent lane or sub-port that \
-                                                                  can
-             be used for channelized interfaces.";
+            "List of breakout channels available on this port.
+             Each entry represents an independent lane or sub-port
+             that can be used for channelized interfaces.";
           leaf channel-id {
             type uint16;
             description
@@ -1644,11 +1638,10 @@ module ietf-network-inventory-topology {
   grouping link-inventory-mapping-attributes {
     description
       "Attributes for classifying link media type.
-       Detailed inventory reference is intentionally omitted from \
-                                                                 this
-       version; implementations should use the appropriate \
-                                                          specialized
-       inventory model based on the indicated link-type.";
+       Detailed inventory reference is intentionally omitted from
+       this model; implementations should use the appropriate
+       specialized inventory modules based on the indicated
+       link-type.";
     container inventory-mapping-attributes {
       description
         "Container for inventory-related attributes of a link.
