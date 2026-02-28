@@ -26,7 +26,7 @@ module ietf-network-inventory-topology {
     "IETF Network Inventory YANG (ivy) Working Group";
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/ivy>
-     WG List:  <mailto:inventory-yang@ietf.org>
+     WG List:  IVY <mailto:inventory-yang@ietf.org>
 
      Editor: Bo Wu
              <lana.wubo@huawei.com>
@@ -66,11 +66,11 @@ module ietf-network-inventory-topology {
   }
 
   // Groupings
-  // Node Grouping Feature with 1:1 mapping to NE
+  // Node Grouping with 1:1 mapping to NE
 
   grouping node-inventory-mapping-attributes {
     description
-      "Attributes for mapping a topology node to a network element(NE)
+      "Attributes for mapping a topology node to a Network Element (NE)
        in the physical inventory.";
     container inventory-mapping-attributes {
       description
@@ -78,24 +78,24 @@ module ietf-network-inventory-topology {
       leaf ne-ref {
         type nwi:ne-ref;
         description
-          "Reference to the Network Element in the inventory that
-           corresponds to this topology node.
+          "Reference to the NE in the inventory that corresponds to
+           this topology node.
+
            This reference establishes a 1:1 mapping between the logical
-           node and its physical network element.";
+           node and its physical NE.";
       }
     }
   }
 
-  // TP Grouping Feature with 1:1 mapping to physical port
+  // TP Grouping with 1:1 mapping to physical port
 
   grouping tp-inventory-mapping-attributes {
     description
-      "Attributes for mapping a topology termination point to a
-       physical port in the network inventory.";
+      "Attributes for mapping a topology termination point (TP)
+       to a physical port in the network inventory.";
     container inventory-mapping-attributes {
       description
-        "Container for inventory mapping attributes of a termination
-         point (TP).";
+        "Container for inventory mapping attributes of a TP.";
       uses nwi:port-ref {
         refine "port-ref" {
           description
@@ -133,7 +133,7 @@ module ietf-network-inventory-topology {
     }
   }
 
-  // Link Grouping Feature with place holder for augumentation
+  // Link Grouping  with placeholder for future augumentation
 
   grouping link-inventory-mapping-attributes {
     description
@@ -150,11 +150,11 @@ module ietf-network-inventory-topology {
          contains detailed resource information:
 
          - Wired media (fiber, copper): passive network inventory
-         - Wireless media (microwave, wifi): wireless-specific
+         - Wireless media (microwave, Wi-Fi): wireless-specific
            inventory
 
            Detailed inventory references may be added in future
-           companion documents.";
+           modules.";
       leaf link-type {
         type string;
         description
@@ -184,10 +184,8 @@ module ietf-network-inventory-topology {
 
   augment "/nw:networks/nw:network/nw:node/nt:termination-point" {
     description
-      "Augments the termination point with inventory mapping attributes
-       for physical port correlation and breakout capability reporting.";
+      "Augments the TP with inventory mapping attributes for
+       physical port correlation and breakout capability reporting.";
     uses tp-inventory-mapping-attributes;
   }
 }
-
-
