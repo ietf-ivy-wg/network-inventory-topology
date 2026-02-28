@@ -160,7 +160,7 @@ Both architectures require accurate mapping between logical network topology
 
  An overview of the structure of the "ietf-network-inventory-topology" module is shown in {{tree}}.
 
-~~~~~~~~~~
+~~~~~~~~~~ ascii-art
 {::include-fold ./yang/full-trees/ietf-network-inventory-topology.tree}
 ~~~~~~~~~~
 {: #tree title="The Structure of the Network Inventory Mapping Data Model" artwork-align="center"}
@@ -335,7 +335,7 @@ Physical topology:
 
 Key parts of the JSON example is as follows:
 
-~~~~ JSON
+~~~~ ascii-art
 {
   "ietf-network:networks": {
     "network": [
@@ -401,7 +401,9 @@ Key parts of the JSON example is as follows:
 
 This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding {{?RFC7951}} of the "port-breakout" container for this port.
 
+~~~~ ascii-art
 {::include-fold ./yang/examples/port-breakout-example.json}
+~~~~
 
 # Acknowledgments
 {:numbered="false"}
