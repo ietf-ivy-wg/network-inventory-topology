@@ -57,7 +57,7 @@ module ietf-network-inventory-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2026-02-27 {
+  revision 2026-02-28 {
     description
       "Initial revision.";
     reference
