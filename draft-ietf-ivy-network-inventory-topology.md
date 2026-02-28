@@ -229,7 +229,7 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 ~~~~ yang
 {::include-fold ./yang/ietf-network-inventory-topology.yang}
 ~~~~
-{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2025-10-20.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-02-28.yang"}
 
 # Operational Considerations
 
