@@ -719,63 +719,63 @@ Appendix A.  "link-type" Usage Examples
 
    Key parts of the JSON example is as follows:
 
-   {
-     "ietf-network:networks": {
-       "network": [
-         {
-           "network-id": "campus-topology",
-           "node": [
-             {
-               "node-id": "SW-1",
-               "ietf-network-inventory-topology:inventory-mapping-attributes": {
-                 "ne-ref": "NE-SW1"
-               },
-               "ietf-network-topology:termination-point": [
-                 {
-                   "tp-id": "TP-SW1-P1",
-                   "ietf-network-inventory-topology:inventory-mapping-attributes": {
-                     "ne-ref": "NE-SW1",
-                     "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW1']/nwi:components/nwi:component[component-id='eth-port-1']"
-                   }
-                 }
-               ]
-             },
-             {
-               "node-id": "SW-2",
-               "ietf-network-inventory-topology:inventory-mapping-attributes": {
-                 "ne-ref": "NE-SW2"
-               },
-               "ietf-network-topology:termination-point": [
-                 {
-                   "tp-id": "TP-SW2-P1",
-                   "ietf-network-inventory-topology:inventory-mapping-attributes": {
-                     "ne-ref": "NE-SW2",
-                     "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:component[component-id='eth-port-1']"
-                   }
-                 }
-               ]
-             }
-           ],
-           "ietf-network-topology:link": [
-             {
-               "link-id": "Link-SW1-SW2",
-               "source": {
-                 "source-node": "SW-1",
-                 "source-tp": "TP-SW1-P1"
-               },
-               "destination": {
-                 "dest-node": "SW-2",
-                 "dest-tp": "TP-SW2-P1"
-               },
-               "ietf-network-inventory-topology:inventory-mapping-attributes": {
-                 "link-type": "fiber"
-               }
-             }
-           ]
-         }
-       ]
-     }
-   }
+{
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "campus-topology",
+        "node": [
+          {
+            "node-id": "SW-1",
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "ne-ref": "NE-SW1"
+            },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "TP-SW1-P1",
+                "ietf-network-inventory-topology:inventory-mapping-attributes": {
+                  "ne-ref": "NE-SW1",
+                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW1']/nwi:components/nwi:component[component-id='eth-port-1']"
+                }
+              }
+            ]
+          },
+          {
+            "node-id": "SW-2",
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "ne-ref": "NE-SW2"
+            },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "TP-SW2-P1",
+                "ietf-network-inventory-topology:inventory-mapping-attributes": {
+                  "ne-ref": "NE-SW2",
+                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:component[component-id='eth-port-1']"
+                }
+              }
+            ]
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "Link-SW1-SW2",
+            "source": {
+              "source-node": "SW-1",
+              "source-tp": "TP-SW1-P1"
+            },
+            "destination": {
+              "dest-node": "SW-2",
+              "dest-tp": "TP-SW2-P1"
+            },
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "link-type": "fiber"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
 
 Appendix B.  JSON Example of an MPO Breakout-Channel Port
 
@@ -787,16 +787,40 @@ Appendix B.  JSON Example of an MPO Breakout-Channel Port
    minimal JSON encoding [RFC7951] of the "port-breakout" container for
    this port.
 
-   =============== NOTE: '' line wrapping per RFC 8792 ================
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
 
-   { "ietf-network-topology:networks": { "network": [ { "network-id":
-   "example:underlay-topology-400g", "node": [ { "node-id":
-   "example:n1", "termination-point": [ { "tp-id": "example:400g-1/0/1",
-   "ietf-network-inventory-topology:inventory-mapping-\ attributes": {
-   "ne-ref": "example:NE-1", "port-ref": "example:port-1", "port-
-   breakout": { "breakout-channel": [ { "channel-id": 1 }, { "channel-
-   id": 2 }, { "channel-id": 3 }, { "channel-id": 4 } ] } } } ] } ] } ]
-   } }
+   {
+     "ietf-network-topology:networks": {
+       "network": [
+         {
+           "network-id": "example:underlay-topology-400g",
+           "node": [
+             {
+               "node-id": "example:n1",
+               "termination-point": [
+                 {
+                   "tp-id": "example:400g-1/0/1",
+                   "ietf-network-inventory-topology:inventory-mapping-\
+                                                          attributes": {
+                     "ne-ref": "example:NE-1",
+                     "port-ref": "example:port-1",
+                     "port-breakout": {
+                       "breakout-channel": [
+                         { "channel-id": 1 },
+                         { "channel-id": 2 },
+                         { "channel-id": 3 },
+                         { "channel-id": 4 }
+                       ]
+                     }
+                   }
+                 }
+               ]
+             }
+           ]
+         }
+       ]
+     }
+   }
 
 Acknowledgments
 

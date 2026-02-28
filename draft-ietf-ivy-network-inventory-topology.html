@@ -1403,7 +1403,7 @@ model can be applied independent of the network type (optical local loops, acces
 <p id="section-4-1">An overview of the structure of the "ietf-network-inventory-topology" module is shown in <a href="#tree" class="auto internal xref">Figure 2</a>.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <span id="name-the-structure-of-the-networ"></span><div id="tree">
 <figure id="figure-2">
-        <div class="alignCenter art-text artwork" id="section-4-2.1">
+        <div class="alignCenter art-ascii-art art-text artwork" id="section-4-2.1">
 <pre>
 module: ietf-network-inventory-topology
   augment /nw:networks/nw:network/nw:node:
@@ -1929,7 +1929,7 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
 </div>
 </div>
 <p id="appendix-A-5">Key parts of the JSON example is as follows:<a href="#appendix-A-5" class="pilcrow">¶</a></p>
-<div class="breakable lang-JSON sourcecode" id="appendix-A-6">
+<div class="alignLeft art-ascii-art art-text artwork" id="appendix-A-6">
 <pre>
 {
   "ietf-network:networks": {
@@ -1998,8 +1998,11 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-json-example-of-an-mpo-brea" class="section-name selfRef">JSON Example of an MPO Breakout-Channel Port</a>
       </h2>
 <p id="appendix-B-1">This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> of the "port-breakout" container for this port.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<p id="appendix-B-2">=============== NOTE: '' line wrapping per RFC 8792 ================<a href="#appendix-B-2" class="pilcrow">¶</a></p>
-<p id="appendix-B-3">{
+<div class="alignLeft art-ascii-art art-text artwork" id="appendix-B-2">
+<pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
+{
   "ietf-network-topology:networks": {
     "network": [
       {
@@ -2030,7 +2033,9 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
       }
     ]
   }
-}<a href="#appendix-B-3" class="pilcrow">¶</a></p>
+}
+</pre><a href="#appendix-B-2" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 <div id="acknowledgments">
