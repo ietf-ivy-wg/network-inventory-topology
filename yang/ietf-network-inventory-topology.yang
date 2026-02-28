@@ -107,8 +107,7 @@ module ietf-network-inventory-topology {
       }
       // breakout channels (lightweight, per physical port)
       container port-breakout {
-        presence "Indicates the physical port supports
-                  channel breakout.";
+        presence "Indicates the port supports channel breakout.";
         config false;
         description
           "Breakout capability of the physical port represented by
