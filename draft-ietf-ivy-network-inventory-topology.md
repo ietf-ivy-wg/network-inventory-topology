@@ -165,9 +165,6 @@ Both architectures require accurate mapping between logical network topology
 ~~~~~~~~~~
 {: #tree title="The Structure of the Network Inventory Mapping Data Model" artwork-align="center"}
 
-The module defines two features "inventory-to-topology-navigate" and "topology-to-inventory-navigate"
-to control the navigation direction (from topology to inventory and vice versa).
-
 The module augments the "ietf-network-topology" module as follows:
 
 * Inventory mapping attributes for nodes, links, and termination
@@ -175,7 +172,7 @@ The module augments the "ietf-network-topology" module as follows:
         with the references to the base network inventory
 
    The inventory topology
-   model associates inventory data with overlay topologies.  It can be
+   module associates inventory data with overlay topologies.  It can be
    used as the "supporting-networks" of SAP, Layer 2, or Layer 3
    topologies.
 
@@ -222,7 +219,7 @@ either as a trunk port or as a breakout port. Interface channelisation (e.g., VL
 
 # Network Inventory Topology YANG Module {#sec-module}
 
-This module augments the Network Topology {{!RFC8345}}.
+This module augments the Network Topology module defined in {{!RFC8345}}.
 
 This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory-yang}}.
 
@@ -246,16 +243,17 @@ In these cases, the operator manually configures the mapping to maintain accurat
 
 The following nodes are read-only (config false) as they represent hardware-determined state:
 
-port-breakout: Hardware capability determined by physical port characteristics
+port-breakout:
+: Hardware capability determined by physical port characteristics
 
 # Security Considerations
 
-This section is modeled after the template described in {{Section 3.7 of ?I-D.ietf-netmod-rfc8407bis}}.
+This section is modeled after the template described in {{Section 3.7.1 of ?RFC9907}}.
 
 The "ietf-network-inventory-topology" YANG module defines a data model that is
 designed to be accessed via YANG-based management protocols, such as
-NETCONF {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management (1) have to
-use a secure transport layer (e.g., SSH {{?RFC4252}}, TLS {{?RFC8446}}, and
+Network Configuration (NETCONF) {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management (1) have to
+use a secure transport layer (e.g., Secure Shell (SSH) {{?RFC4252}}, TLS {{?RFC8446}}, and
 QUIC {{?RFC9000]) and (2) have to use mutual authentication.
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}}
@@ -308,100 +306,42 @@ vulnerabilities:
 
 ~~~~
    Name:  ietf-network-inventory-topology
+   Maintained by IANA?  N
    Namespace:  urn:ietf:params:xml:ns:yang:ietf-network-inventory-topology
    Prefix:  nwit
-   Maintained by IANA?  N
    Reference:  RFC XXXX
 ~~~~
 
 --- back
 
-# "link-type" Usage Examples
+# 'link-type' Usage Examples
 
 This appendix provides examples illustrating the usage of the
- link-type data node.
+ 'link-type' data node.
 
-Scenario: Device SW-1 and device SW-2 are directly connected by a fiber.
+Scenario: Device "SW-1" and device "SW-2" are directly connected by a fiber.
 
 Physical topology:
 
 ~~~~ aasvg
-+--------+                                    +--------+
+.--------.                                    .--------.
 |        |                                    |        |
-| [SW-1] +========= fiber link ===============+ [SW-2] |
+|  SW-1  +========= fiber link ===============+  SW-2  |
 |        |                                    |        |
-+--------+                                    +--------+
+'--------'                                    '--------'
 ~~~~
 
 Key parts of the JSON example is as follows:
 
-~~~~ ascii-art
-{
-  "ietf-network:networks": {
-    "network": [
-      {
-        "network-id": "campus-topology",
-        "node": [
-          {
-            "node-id": "SW-1",
-            "ietf-network-inventory-topology:inventory-mapping-attributes": {
-              "ne-ref": "NE-SW1"
-            },
-            "ietf-network-topology:termination-point": [
-              {
-                "tp-id": "TP-SW1-P1",
-                "ietf-network-inventory-topology:inventory-mapping-attributes": {
-                  "ne-ref": "NE-SW1",
-                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW1']/nwi:components/nwi:component[component-id='eth-port-1']"
-                }
-              }
-            ]
-          },
-          {
-            "node-id": "SW-2",
-            "ietf-network-inventory-topology:inventory-mapping-attributes": {
-              "ne-ref": "NE-SW2"
-            },
-            "ietf-network-topology:termination-point": [
-              {
-                "tp-id": "TP-SW2-P1",
-                "ietf-network-inventory-topology:inventory-mapping-attributes": {
-                  "ne-ref": "NE-SW2",
-                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:component[component-id='eth-port-1']"
-                }
-              }
-            ]
-          }
-        ],
-        "ietf-network-topology:link": [
-          {
-            "link-id": "Link-SW1-SW2",
-            "source": {
-              "source-node": "SW-1",
-              "source-tp": "TP-SW1-P1"
-            },
-            "destination": {
-              "dest-node": "SW-2",
-              "dest-tp": "TP-SW2-P1"
-            },
-            "ietf-network-inventory-topology:inventory-mapping-attributes": {
-              "link-type": "fiber"
-            }
-          }
-        ]
-      }
-    ]
-  }
-}
+~~~~ json
+{::include-fold ./yang/examples/link-type-example.json}
 ~~~~
-
-
 
 # JSON Example of an MPO Breakout-Channel Port
 
 This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding {{?RFC7951}} of the "port-breakout" container for this port.
 
-~~~~ ascii-art
+~~~~ json
 {::include-fold ./yang/examples/port-breakout-example.json}
 ~~~~
 
