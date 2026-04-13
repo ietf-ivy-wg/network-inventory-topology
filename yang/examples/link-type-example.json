@@ -1,0 +1,57 @@
+{
+  "ietf-network:networks": {
+    "network": [
+      {
+        "network-id": "example:campus-topology",
+        "node": [
+          {
+            "node-id": "example:SW-1",
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "ne-ref": "example:NE-SW1"
+            },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "example:TP-SW1-P1",
+                "ietf-network-inventory-topology:inventory-mapping-attributes": {
+                  "ne-ref": "example:NE-SW1",
+                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='example:NE-SW1']/nwi:components/nwi:component[component-id='eth-port-1']"
+                }
+              }
+            ]
+          },
+          {
+            "node-id": "example:SW-2",
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "ne-ref": "example:NE-SW2"
+            },
+            "ietf-network-topology:termination-point": [
+              {
+                "tp-id": "example:TP-SW2-P1",
+                "ietf-network-inventory-topology:inventory-mapping-attributes": {
+                  "ne-ref": "example:NE-SW2",
+                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:component[component-id='eth-port-1']"
+                }
+              }
+            ]
+          }
+        ],
+        "ietf-network-topology:link": [
+          {
+            "link-id": "example:Link-SW1-SW2",
+            "source": {
+              "source-node": "example:SW-1",
+              "source-tp": "example:TP-SW1-P1"
+            },
+            "destination": {
+              "dest-node": "example:SW-2",
+              "dest-tp": "example:TP-SW2-P1"
+            },
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "link-type": "fiber"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
