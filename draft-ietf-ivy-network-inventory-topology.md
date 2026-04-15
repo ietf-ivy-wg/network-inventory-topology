@@ -74,7 +74,8 @@ informative:
 In order to ease navigation from (or to) inventory and network topologies,
 this document extends the network topology data model {{!RFC8345}} for network
 inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).  This data model provides a mechanism for the correlation with existing
-network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{!RFC9408}}, "A YANG Data Model for Layer 2 Network Topologies" {{?RFC8944}}, and "A YANG Data Model for Layer 3 Topologies" {{?RFC8346}}.
+network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{!RFC9408}},
+"A YANG Data Model for Layer 2 Network Topologies" {{?RFC8944}}, and "A YANG Data Model for Layer 3 Topologies" {{?RFC8346}}.
 
 Similar to the base inventory data model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
 does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
@@ -215,7 +216,8 @@ channels, but one breakout channel MUST NOT be associated with more
 than one physical interface. Appendix B provides example configurations.
 
 It is assumed that a port which supports breakout can be configured
-either as a trunk port or as a breakout port. Interface channelisation (e.g., VLAN sub-interfaces) is outside the scope of this document and is addressed by the Layer 2 network topology model {{?RFC8944}}.
+either as a trunk port or as a breakout port. Interface channelisation (e.g., VLAN sub-interfaces) is
+outside the scope of this document and is addressed by the Layer 2 network topology model {{?RFC8944}}.
 
 # Network Inventory Topology YANG Module {#sec-module}
 
@@ -232,7 +234,8 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 
 This model enables a network controller to report discovered network topology and inventory information. Automatic discovery serves as the primary mechanism, with selective configuration capabilities provided for scenarios where discovery is not feasible.
 
-For typical operations such as service provisioning and network planning, the model offers read-only query access to authoritative mappings between logical topology and physical inventory.
+For typical operations such as service provisioning and network planning, the model offers read-only query
+access to authoritative mappings between logical topology and physical inventory.
 The inventory-mapping-attributes containers are defined as read-write (config true) to accommodate cases where automatic discovery is not possible, including:
 
 - Customer-premises equipment (CPE) outside the operator's management domain
