@@ -317,7 +317,7 @@ vulnerabilities:
 # 'link-type' Usage Examples
 
 This appendix provides examples illustrating the usage of the
- 'link-type' data node.
+"link-type" data node.
 
 Scenario: Device "SW-1" and device "SW-2" are directly connected by a fiber.
 
