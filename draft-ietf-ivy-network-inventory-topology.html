@@ -17,7 +17,7 @@
    and the inventory data of the underlay network for better service
    provisioning, network maintenance operations, and other assessment scenarios. 
     " name="description">
-<meta content="xml2rfc 3.31.0" name="generator">
+<meta content="xml2rfc 3.32.0" name="generator">
 <meta content="Automation" name="keyword">
 <meta content="Network Digital Map" name="keyword">
 <meta content="Network Inventory" name="keyword">
@@ -25,18 +25,18 @@
 <meta content="Network Topology" name="keyword">
 <meta content="draft-ietf-ivy-network-inventory-topology-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.31.0
+  xml2rfc 3.32.0
     Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.0.2
-    platformdirs 4.5.1
+    platformdirs 4.9.4
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.32.5
-    wcwidth 0.3.0
+    wcwidth 0.6.0
 -->
 <link href="draft-ietf-ivy-network-inventory-topology.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1057,11 +1057,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Inventory Topology Mapping</td>
-<td class="right">February 2026</td>
+<td class="right">April 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Wu, et al.</td>
-<td class="center">Expires 1 September 2026</td>
+<td class="center">Expires 18 October 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1074,12 +1074,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ietf-ivy-network-inventory-topology-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-02-28" class="published">28 February 2026</time>
+<time datetime="2026-04-16" class="published">16 April 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-09-01">1 September 2026</time></dd>
+<dd class="expires"><time datetime="2026-10-18">18 October 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1142,7 +1142,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 September 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 18 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1228,7 +1228,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-link-type-usage-examples" class="internal xref">"link-type" Usage Examples</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-link-type-usage-examples" class="internal xref">'link-type' Usage Examples</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
             <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-json-example-of-an-mpo-brea" class="internal xref">JSON Example of an MPO Breakout-Channel Port</a></p>
@@ -1260,7 +1260,8 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-1-2">In order to ease navigation from (or to) inventory and network topologies,
 this document extends the network topology data model <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span> for network
 inventory mapping: "ietf-network-inventory-topology" (<a href="#sec-module" class="auto internal xref">Section 5</a>).  This data model provides a mechanism for the correlation with existing
-network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" <span>[<a href="#RFC9408" class="cite xref">RFC9408</a>]</span>, "A YANG Data Model for Layer 2 Network Topologies" <span>[<a href="#RFC8944" class="cite xref">RFC8944</a>]</span>, and "A YANG Data Model for Layer 3 Topologies" <span>[<a href="#RFC8346" class="cite xref">RFC8346</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" <span>[<a href="#RFC9408" class="cite xref">RFC9408</a>]</span>,
+"A YANG Data Model for Layer 2 Network Topologies" <span>[<a href="#RFC8944" class="cite xref">RFC8944</a>]</span>, and "A YANG Data Model for Layer 3 Topologies" <span>[<a href="#RFC8346" class="cite xref">RFC8346</a>]</span>.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">Similar to the base inventory data model  <span>[<a href="#I-D.ietf-ivy-network-inventory-yang" class="cite xref">I-D.ietf-ivy-network-inventory-yang</a>]</span>, the network inventory topology
 does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
 model can be applied independent of the network type (optical local loops, access network, core network, etc.) and application.<a href="#section-1-3" class="pilcrow">¶</a></p>
@@ -1426,19 +1427,17 @@ module: ietf-network-inventory-topology
 <a href="#name-the-structure-of-the-networ" class="selfRef">The Structure of the Network Inventory Mapping Data Model</a>
         </figcaption></figure>
 </div>
-<p id="section-4-3">The module defines two features "inventory-to-topology-navigate" and "topology-to-inventory-navigate"
-to control the navigation direction (from topology to inventory and vice versa).<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4">The module augments the "ietf-network-topology" module as follows:<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-3">The module augments the "ietf-network-topology" module as follows:<a href="#section-4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-5.1">
-          <p id="section-4-5.1.1">Inventory mapping attributes for nodes, links, and termination
+<li class="normal" id="section-4-4.1">
+          <p id="section-4-4.1.1">Inventory mapping attributes for nodes, links, and termination
       points: The corresponding containers augments the topology module
-      with the references to the base network inventory<a href="#section-4-5.1.1" class="pilcrow">¶</a></p>
-<p id="section-4-5.1.2">
+      with the references to the base network inventory<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
+<p id="section-4-4.1.2">
 The inventory topology
- model associates inventory data with overlay topologies.  It can be
+ module associates inventory data with overlay topologies.  It can be
  used as the "supporting-networks" of SAP, Layer 2, or Layer 3
- topologies.<a href="#section-4-5.1.2" class="pilcrow">¶</a></p>
+ topologies.<a href="#section-4-4.1.2" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <div id="link-extensions">
@@ -1484,7 +1483,8 @@ One physical interface may be associated with one or more breakout
 channels, but one breakout channel MUST NOT be associated with more
 than one physical interface. Appendix B provides example configurations.<a href="#section-4.2-4" class="pilcrow">¶</a></p>
 <p id="section-4.2-5">It is assumed that a port which supports breakout can be configured
-either as a trunk port or as a breakout port. Interface channelisation (e.g., VLAN sub-interfaces) is outside the scope of this document and is addressed by the Layer 2 network topology model <span>[<a href="#RFC8944" class="cite xref">RFC8944</a>]</span>.<a href="#section-4.2-5" class="pilcrow">¶</a></p>
+either as a trunk port or as a breakout port. Interface channelisation (e.g., VLAN sub-interfaces) is
+outside the scope of this document and is addressed by the Layer 2 network topology model <span>[<a href="#RFC8944" class="cite xref">RFC8944</a>]</span>.<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1494,7 +1494,7 @@ either as a trunk port or as a breakout port. Interface channelisation (e.g., VL
       <h2 id="name-network-inventory-topology-">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-network-inventory-topology-" class="section-name selfRef">Network Inventory Topology YANG Module</a>
       </h2>
-<p id="section-5-1">This module augments the Network Topology <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">This module augments the Network Topology module defined in <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span>.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">This module imports the base network inventory <span>[<a href="#I-D.ietf-ivy-network-inventory-yang" class="cite xref">I-D.ietf-ivy-network-inventory-yang</a>]</span>.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <div class="breakable lang-yang sourcecode" id="section-5-3">
 <pre>&lt;CODE BEGINS&gt; file "ietf-network-inventory-topology@2026-02-28.yang"
@@ -1701,7 +1701,8 @@ module ietf-network-inventory-topology {
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
 <p id="section-6-1">This model enables a network controller to report discovered network topology and inventory information. Automatic discovery serves as the primary mechanism, with selective configuration capabilities provided for scenarios where discovery is not feasible.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">For typical operations such as service provisioning and network planning, the model offers read-only query access to authoritative mappings between logical topology and physical inventory.
+<p id="section-6-2">For typical operations such as service provisioning and network planning, the model offers read-only query
+access to authoritative mappings between logical topology and physical inventory.
 The inventory-mapping-attributes containers are defined as read-write (config true) to accommodate cases where automatic discovery is not possible, including:<a href="#section-6-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6-3.1">
@@ -1716,7 +1717,13 @@ The inventory-mapping-attributes containers are defined as read-write (config tr
       </ul>
 <p id="section-6-4">In these cases, the operator manually configures the mapping to maintain accurate topology-to-inventory correlation.<a href="#section-6-4" class="pilcrow">¶</a></p>
 <p id="section-6-5">The following nodes are read-only (config false) as they represent hardware-determined state:<a href="#section-6-5" class="pilcrow">¶</a></p>
-<p id="section-6-6">port-breakout: Hardware capability determined by physical port characteristics<a href="#section-6-6" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-6-6">
+        <dt id="section-6-6.1">port-breakout:</dt>
+        <dd style="margin-left: 1.5em" id="section-6-6.2">
+          <p id="section-6-6.2.1">Hardware capability determined by physical port characteristics<a href="#section-6-6.2.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
 </section>
 </div>
 <div id="security-considerations">
@@ -1724,11 +1731,11 @@ The inventory-mapping-attributes containers are defined as read-write (config tr
       <h2 id="name-security-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">This section is modeled after the template described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-28#section-3.7" class="relref">Section 3.7</a> of [<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">This section is modeled after the template described in <span><a href="https://rfc-editor.org/rfc/rfc9907#section-3.7.1" class="relref">Section 3.7.1</a> of [<a href="#RFC9907" class="cite xref">RFC9907</a>]</span>.<a href="#section-7-1" class="pilcrow">¶</a></p>
 <p id="section-7-2">The "ietf-network-inventory-topology" YANG module defines a data model that is
 designed to be accessed via YANG-based management protocols, such as
-NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>. These YANG-based management (1) have to
-use a secure transport layer (e.g., SSH <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, and
+Network Configuration (NETCONF) <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>. These YANG-based management (1) have to
+use a secure transport layer (e.g., Secure Shell (SSH) <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, and
 QUIC {{?RFC9000]) and (2) have to use mutual authentication.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <p id="section-7-3">The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span>
 provides the means to restrict access for particular NETCONF or
@@ -1779,9 +1786,9 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-8-4">
 <pre>
    Name:  ietf-network-inventory-topology
+   Maintained by IANA?  N
    Namespace:  urn:ietf:params:xml:ns:yang:ietf-network-inventory-topology
    Prefix:  nwit
-   Maintained by IANA?  N
    Reference:  RFC XXXX
 </pre><a href="#section-8-4" class="pilcrow">¶</a>
 </div>
@@ -1833,15 +1840,11 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
 <dl class="references">
 <dt id="I-D.ietf-ivy-network-inventory-software">[I-D.ietf-ivy-network-inventory-software]</dt>
         <dd>
-<span class="refAuthor">Wu, B.</span>, <span class="refAuthor">Zhou, C.</span>, <span class="refAuthor">Wu, Q.</span>, and <span class="refAuthor">M. Boucadair</span>, <span class="refTitle">"A YANG Network Data Model of Network Inventory Software Extensions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ivy-network-inventory-software-02</span>, <time datetime="2025-10-20" class="refDate">20 October 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ivy-network-inventory-software-02">https://datatracker.ietf.org/doc/html/draft-ietf-ivy-network-inventory-software-02</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
-        <dd>
-<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-28</span>, <time datetime="2025-06-05" class="refDate">5 June 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-28">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-28</a>&gt;</span>. </dd>
+<span class="refAuthor">Wu, B.</span>, <span class="refAuthor">Zhou, C.</span>, <span class="refAuthor">Wu, Q.</span>, and <span class="refAuthor">M. Boucadair</span>, <span class="refTitle">"A YANG Network Data Model of Network Inventory Software Extensions"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ivy-network-inventory-software-03</span>, <time datetime="2026-04-15" class="refDate">15 April 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ivy-network-inventory-software-03">https://datatracker.ietf.org/doc/html/draft-ietf-ivy-network-inventory-software-03</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.ietf-nmop-simap-concept">[I-D.ietf-nmop-simap-concept]</dt>
         <dd>
-<span class="refAuthor">Havel, O.</span>, <span class="refAuthor">Claise, B.</span>, <span class="refAuthor">de Dios, O. G.</span>, and <span class="refAuthor">T. Graf</span>, <span class="refTitle">"SIMAP: Concept, Requirements, and Use Cases"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-nmop-simap-concept-08</span>, <time datetime="2026-02-23" class="refDate">23 February 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-nmop-simap-concept-08">https://datatracker.ietf.org/doc/html/draft-ietf-nmop-simap-concept-08</a>&gt;</span>. </dd>
+<span class="refAuthor">Havel, O.</span>, <span class="refAuthor">Claise, B.</span>, <span class="refAuthor">de Dios, O. G.</span>, and <span class="refAuthor">T. Graf</span>, <span class="refTitle">"SIMAP: Concept, Requirements, and Use Cases"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-nmop-simap-concept-10</span>, <time datetime="2026-03-31" class="refDate">31 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-nmop-simap-concept-10">https://datatracker.ietf.org/doc/html/draft-ietf-nmop-simap-concept-10</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.irtf-nmrg-network-digital-twin-arch">[I-D.irtf-nmrg-network-digital-twin-arch]</dt>
         <dd>
@@ -1849,7 +1852,7 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
 <dd class="break"></dd>
 <dt id="I-D.ygb-ivy-passive-network-inventory">[I-D.ygb-ivy-passive-network-inventory]</dt>
         <dd>
-<span class="refAuthor">Yu, C.</span>, <span class="refAuthor">Guo, A.</span>, <span class="refAuthor">Busi, I.</span>, <span class="refAuthor">Boroon, M.</span>, <span class="refAuthor">Belotti, S.</span>, <span class="refAuthor">van caenegem, T.</span>, <span class="refAuthor">S., S. 1.</span>, <span class="refAuthor">B., S.</span>, <span class="refAuthor">Davis, N.</span>, <span class="refAuthor">Tilocca, M.</span>, <span class="refAuthor">Peters, B.</span>, <span class="refAuthor">Yoon, B. Y.</span>, <span class="refAuthor">LIUYUCONG</span>, <span class="refAuthor">Zhao, Y.</span>, and <span class="refAuthor">A. Sakalabhaktula</span>, <span class="refTitle">"A YANG Data Model for Passive Network Inventory"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ygb-ivy-passive-network-inventory-03</span>, <time datetime="2026-01-07" class="refDate">7 January 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ygb-ivy-passive-network-inventory-03">https://datatracker.ietf.org/doc/html/draft-ygb-ivy-passive-network-inventory-03</a>&gt;</span>. </dd>
+<span class="refAuthor">Guo, A.</span>, <span class="refAuthor">van caenegem, T.</span>, <span class="refAuthor">Davis, N.</span>, <span class="refAuthor">Tilocca, M.</span>, and <span class="refAuthor">B. Peters</span>, <span class="refTitle">"A YANG Data Model for Passive Network Inventory"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ygb-ivy-passive-network-inventory-04</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ygb-ivy-passive-network-inventory-04">https://datatracker.ietf.org/doc/html/draft-ygb-ivy-passive-network-inventory-04</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4252">[RFC4252]</dt>
         <dd>
@@ -1880,8 +1883,12 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
 <span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8944">[RFC8944]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Dong, J.</span>, <span class="refAuthor">Wei, X.</span>, <span class="refAuthor">Wu, Q.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">A. Liu</span>, <span class="refTitle">"A YANG Data Model for Layer 2 Network Topologies"</span>, <span class="seriesInfo">RFC 8944</span>, <span class="seriesInfo">DOI 10.17487/RFC8944</span>, <time datetime="2020-11" class="refDate">November 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8944">https://www.rfc-editor.org/rfc/rfc8944</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9907">[RFC9907]</dt>
+      <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="seriesInfo">BCP 216</span>, <span class="seriesInfo">RFC 9907</span>, <span class="seriesInfo">DOI 10.17487/RFC9907</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9907">https://www.rfc-editor.org/rfc/rfc9907</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -1891,11 +1898,11 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
 <div id="link-type-usage-examples">
 <section id="appendix-A">
       <h2 id="name-link-type-usage-examples">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-link-type-usage-examples" class="section-name selfRef">"link-type" Usage Examples</a>
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-link-type-usage-examples" class="section-name selfRef">'link-type' Usage Examples</a>
       </h2>
 <p id="appendix-A-1">This appendix provides examples illustrating the usage of the
- link-type data node.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
-<p id="appendix-A-2">Scenario: Device SW-1 and device SW-2 are directly connected by a fiber.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
+"link-type" data node.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">Scenario: Device "SW-1" and device "SW-2" are directly connected by a fiber.<a href="#appendix-A-2" class="pilcrow">¶</a></p>
 <p id="appendix-A-3">Physical topology:<a href="#appendix-A-3" class="pilcrow">¶</a></p>
 <div id="appendix-A-4">
         <div class="alignLeft art-svg artwork" id="appendix-A-4.1">
@@ -1913,49 +1920,59 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
             <path d="M 8,96 L 80,96" fill="none" stroke="black"></path>
             <path d="M 376,96 L 448,96" fill="none" stroke="black"></path>
             <g class="text">
-              <text x="44" y="68">[SW-1]</text>
+              <text x="44" y="68">SW-1</text>
               <text x="184" y="68">fiber</text>
               <text x="228" y="68">link</text>
-              <text x="412" y="68">[SW-2]</text>
+              <text x="412" y="68">SW-2</text>
             </g>
           </svg><a href="#appendix-A-4.1" class="pilcrow">¶</a>
 </div>
 </div>
 <p id="appendix-A-5">Key parts of the JSON example is as follows:<a href="#appendix-A-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-ascii-art art-text artwork" id="appendix-A-6">
+<div class="breakable lang-json sourcecode" id="appendix-A-6">
 <pre>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
   "ietf-network:networks": {
     "network": [
       {
-        "network-id": "campus-topology",
+        "network-id": "example:campus-topology",
         "node": [
           {
-            "node-id": "SW-1",
-            "ietf-network-inventory-topology:inventory-mapping-attributes": {
-              "ne-ref": "NE-SW1"
+            "node-id": "example:SW-1",
+            "ietf-network-inventory-topology:inventory-mapping-\
+                                                       attributes": {
+              "ne-ref": "example:NE-SW1"
             },
             "ietf-network-topology:termination-point": [
               {
-                "tp-id": "TP-SW1-P1",
-                "ietf-network-inventory-topology:inventory-mapping-attributes": {
-                  "ne-ref": "NE-SW1",
-                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW1']/nwi:components/nwi:component[component-id='eth-port-1']"
+                "tp-id": "example:TP-SW1-P1",
+                "ietf-network-inventory-topology:inventory-mapping-\
+                                                       attributes": {
+                  "ne-ref": "example:NE-SW1",
+                  "port-ref": "/nwi:network-inventory/nwi:network-\
+elements/nwi:network-element[ne-id='example:NE-SW1']/nwi:components/\
+                            nwi:component[component-id='eth-port-1']"
                 }
               }
             ]
           },
           {
-            "node-id": "SW-2",
-            "ietf-network-inventory-topology:inventory-mapping-attributes": {
-              "ne-ref": "NE-SW2"
+            "node-id": "example:SW-2",
+            "ietf-network-inventory-topology:inventory-mapping-\
+                                                       attributes": {
+              "ne-ref": "example:NE-SW2"
             },
             "ietf-network-topology:termination-point": [
               {
-                "tp-id": "TP-SW2-P1",
-                "ietf-network-inventory-topology:inventory-mapping-attributes": {
-                  "ne-ref": "NE-SW2",
-                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:component[component-id='eth-port-1']"
+                "tp-id": "example:TP-SW2-P1",
+                "ietf-network-inventory-topology:inventory-mapping-\
+                                                       attributes": {
+                  "ne-ref": "example:NE-SW2",
+                  "port-ref": "/nwi:network-inventory/nwi:network-\
+elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:\
+                                component[component-id='eth-port-1']"
                 }
               }
             ]
@@ -1963,16 +1980,17 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
         ],
         "ietf-network-topology:link": [
           {
-            "link-id": "Link-SW1-SW2",
+            "link-id": "example:Link-SW1-SW2",
             "source": {
-              "source-node": "SW-1",
-              "source-tp": "TP-SW1-P1"
+              "source-node": "example:SW-1",
+              "source-tp": "example:TP-SW1-P1"
             },
             "destination": {
-              "dest-node": "SW-2",
-              "dest-tp": "TP-SW2-P1"
+              "dest-node": "example:SW-2",
+              "dest-tp": "example:TP-SW2-P1"
             },
-            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+            "ietf-network-inventory-topology:inventory-mapping-\
+                                                       attributes": {
               "link-type": "fiber"
             }
           }
@@ -1991,7 +2009,7 @@ vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-json-example-of-an-mpo-brea" class="section-name selfRef">JSON Example of an MPO Breakout-Channel Port</a>
       </h2>
 <p id="appendix-B-1">This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> of the "port-breakout" container for this port.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-ascii-art art-text artwork" id="appendix-B-2">
+<div class="lang-json sourcecode" id="appendix-B-2">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
