@@ -114,7 +114,7 @@ The inventory topology data model can be used as a basis for correlating
    which can be used to check the availability and capacity of physical
    ports.
 
-~~~~ ascii-art
+~~~~ aasvg
                         +-----------------+
                         |     Customer    |
                         +--------+--------+
@@ -326,7 +326,7 @@ Scenario: Device "SW-1" and device "SW-2" are directly connected by a fiber.
 
 Physical topology:
 
-~~~~ ascii-art
+~~~~ aasvg
 .--------.                                    .--------.
 |        |                                    |        |
 |  SW-1  +========= fiber link ===============+  SW-2  |
