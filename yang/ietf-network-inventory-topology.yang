@@ -194,7 +194,7 @@ module ietf-network-inventory-topology {
            value is 'microwave', detailed microwave link attributes
            are defined in the microwave topology data model.
            Wired media (e.g., fiber, copper, or coax) may be detailed in
-           inventory attributes are defined in the passive network
+          a passive network inventory data model.";
       }
     }
   }
