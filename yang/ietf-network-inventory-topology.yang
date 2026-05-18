@@ -195,7 +195,6 @@ module ietf-network-inventory-topology {
            are defined in the microwave topology model (RFC 9656).
            For wired media (fiber, copper, coax), detailed passive
            inventory attributes are defined in the passive network
-           inventory model.";
       }
     }
   }
