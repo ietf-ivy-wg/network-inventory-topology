@@ -98,6 +98,8 @@ The meanings of the symbols in the YANG tree diagrams are defined in {{?RFC8340}
 
 This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
 
+The document adheres to the folding conventions in {{?RFC8792}}.
+
 # Sample Use Cases of the Data Model {#sample}
 
 ## Determine Available Resources of Service Attachment Points (SAPs)
