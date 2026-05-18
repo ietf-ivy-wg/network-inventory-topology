@@ -405,7 +405,7 @@ Table of Contents
           Detailed microwave radio attributes are defined in the
           microwave topology data model.";
        reference
-         "RFC 9656: A YANG Data Model for Microwave Topology"
+         "RFC 9656: A YANG Data Model for Microwave Topology";
      }
 
      identity wlan {
