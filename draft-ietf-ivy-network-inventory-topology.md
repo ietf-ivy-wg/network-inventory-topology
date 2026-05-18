@@ -58,7 +58,7 @@ informative:
    to form a base underlay network. The data model facilitates the
    correlation between the layer (e.g.,  Layer 2 or Layer 3) topology information
    and the inventory data of the underlay network for better service
-   provisioning, network maintenance operations, and other assessment scenarios.
+   provisioning, network maintenance, operations, and other assessment scenarios.
 
 --- middle
 
@@ -102,38 +102,57 @@ This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
 
 ## Determine Available Resources of Service Attachment Points (SAPs)
 
-The inventory topology data model can be used as a basis for correlating
-   underlay information, such as physical port components.  {{nwi-topology-usage}} exemplifies this usage.
+The inventory topology data model correlates underlay physical
+resource information with the SAP network model {{!RFC9408}}.
+While the SAP model provides the provider network view with the
+points from which services can be attached, the inventory
+topology model maps those SAPs to their underlying physical
+ports, enabling the orchestrator to verify whether a candidate
+SAP has sufficient physical capacity.
 
- During service provisioning, to check available physical port
-   resources, the SAPs information can be
-   associated with the underlay inventory information and interface
-   information associated with the inventory topology, e.g.,
-   "parent-termination-point" of SAP Model can be associated with the
-   "port-component-ref" of the inventory topology data model,
-   which can be used to check the availability and capacity of physical
-   ports.
+{{nwi-topology-usage}} illustrates the query interactions.
+During service provisioning, the orchestrator queries the SAP
+model (e.g., obtaining a list of SAPs across multiple PE nodes
+as shown in Appendix A of {{!RFC9408}}), and then uses the
+inventory topology model to check the physical resources of the
+candidate SAPs.  Specifically, the "parent-termination-point"
+of a SAP is mapped to the corresponding "port-component-ref"
+in the inventory topology, allowing the orchestrator to verify
+port availability and capacity.
+
+If the physical port underlying a candidate SAP has insufficient
+resources (e.g., port speed fully utilized), the orchestrator
+can select an alternative SAP that maps to a different port
+with adequate capacity.  If no alternative SAP is available,
+the orchestrator flags the request for manual intervention,
+providing the operator with precise inventory information
+about the bottleneck (e.g., "Port GE0/6/1 on NE-PE1 is at 95% utilization").
+The resource constraint can also feed into a "what-if" analysis
+(see {{sec-whatif}}) to evaluate hardware upgrades or
+alternative underlay paths.
+
 
 ~~~~ aasvg
-                        .-----------------.
-                        |     Customer    |
-                        '--------+--------'
-        Customer Service Models  |
-           (e.g., L3SM, L2SM)    |
-                        .--------+--------.
-                        |    Service      |
-                        |  Orchestration  |
-                        '------+---+------'
-                               |   |
-             SAP Network Model |   | Inventory Topology Model
-                        .------+---+------.
-                        |     Network     |
-                        |   Controller    |
-                        '--------+--------'
-                                 |
-           .---------------------+---------------------.
-           |                  Network                  |
-           '-------------------------------------------'
+                     +-----------------+
+                     |     Customer    |
+                     +--------+--------+
+     Customer Service request |
+        (e.g., L3SM, L2SM)    |
+                     +--------v--------+
+                     |    Service      |
+                     |  Orchestration  |
+                     +------+---+------+
+            (1a) Query SAPs |   | (1b) Verify physical
+            via SAP Model   |   | capacity via Inventory Topology
+                     +------v---v------+
+                     |     Network     |
+                     |   Controller    |
+                     +--------+--------+
+                              |
+        +---------------------+---------------------+
+        |                  Network                  |
+        +-------------------------------------------+
+
 ~~~~
 {: #nwi-topology-usage title="An Example Usage of Network Inventory Topology" artwork-align="center"}
 
@@ -154,7 +173,7 @@ Both architectures require accurate mapping between logical network topology
  and physical inventory as a foundational data layer. This model provides
  the essential physical resource information to such systems, enabling
  them to perform accurate "what-if" analysis (e.g., impact prediction
- of hardware EOL, path re-optimization under resource constraints, service
+ of hardware End-of-Life, path re-optimization under resource constraints, service
  availability assessment).
 
 # Module Tree Structure
@@ -340,7 +359,7 @@ Key parts of the JSON example are as follows:
 {::include-fold ./yang/examples/link-type-example.json}
 ~~~~
 
-# JSON Example of an MPO Breakout-Channel Port
+# JSON Example of an MPO (Multi-fibre Push On) Breakout-Channel Port
 
 This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding {{?RFC7951}} of the "port-breakout" container for this port.
 
