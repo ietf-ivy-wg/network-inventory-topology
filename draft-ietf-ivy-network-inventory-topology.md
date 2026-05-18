@@ -104,7 +104,7 @@ This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
 ## Determine Available Resources of Service Attachment Points (SAPs)
 
 The inventory topology data model correlates underlay physical
-resource information with the SAP network model {{!RFC9408}}.
+resource information with the SAP network model {{?RFC9408}}.
 While the SAP model provides the provider network view with the
 points from which services can be attached, the inventory
 topology model maps those SAPs to their underlying physical
@@ -114,7 +114,7 @@ SAP has sufficient physical capacity.
 {{nwi-topology-usage}} illustrates the query interactions.
 During service provisioning, the orchestrator queries the SAP
 model (e.g., obtaining a list of SAPs across multiple PE nodes
-as shown in Appendix A of {{!RFC9408}}), and then uses the
+as shown in Appendix A of {{?RFC9408}}), and then uses the
 inventory topology model to check the physical resources of the
 candidate SAPs.  Specifically, the "parent-termination-point"
 of a SAP is mapped to the corresponding "port-component-ref"
@@ -134,30 +134,30 @@ alternative underlay paths.
 
 
 ~~~~ aasvg
-                     +-----------------+
-                     |     Customer    |
-                     +--------+--------+
-     Customer Service request |
-        (e.g., L3SM, L2SM)    |
-                     +--------v--------+
-                     |    Service      |
-                     |  Orchestration  |
-                     +------+---+------+
-            (1a) Query SAPs |   | (1b) Verify physical
-            via SAP Model   |   | capacity via Inventory Topology
-                     +------v---v------+
-                     |     Network     |
-                     |   Controller    |
-                     +--------+--------+
-                              |
-        +---------------------+---------------------+
-        |                  Network                  |
-        +-------------------------------------------+
+                  .-----------------.
+                  |     Customer    |
+                  '--------+--------'
+  Customer Service request |
+     (e.g., L3SM, L2SM)    v
+                  .--------+--------.
+                  |    Service      |
+                  |  Orchestration  |
+                  '------+---+------'
+         (1a) Query SAPs |   | (1b) Verify physical
+         via SAP Model   v   v capacity via Inventory Topology
+                  .------+---+------.
+                  |     Network     |
+                  |   Controller    |
+                  '--------+--------'
+                           |
+     .---------------------+---------------------.
+     |                  Network                  |
+     '-------------------------------------------'
 
 ~~~~
 {: #nwi-topology-usage title="An Example Usage of Network Inventory Topology" artwork-align="center"}
 
-## "What-if" Scenarios
+## "What-if" Scenarios {#sec-whatif}
 
  {{?I-D.irtf-nmrg-network-digital-twin-arch}} defines Network Digital Twin (NDT)
    as a virtual representation of the physical network.  Such
