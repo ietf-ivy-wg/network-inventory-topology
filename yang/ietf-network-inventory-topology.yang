@@ -99,7 +99,7 @@ module ietf-network-inventory-topology {
        microwave topology model (RFC 9656).";
   }
 
-  identity wifi {
+  identity wlan {
     base link-type;
     description
       "Wi-Fi (IEEE 802.11) wireless link.";
