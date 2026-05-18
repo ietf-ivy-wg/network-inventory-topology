@@ -188,7 +188,7 @@ module ietf-network-inventory-topology {
           "Classification of the link media type at the topology layer.
            The base identity 'link-type' is extensible; currently defined
            derived identities include 'copper', 'fiber', 'coax',
-           'microwave', and 'wifi'.
+           'microwave', and 'wlan'.
 
            This leaf serves as a lightweight discriminator.  When the
            value is 'microwave', detailed microwave link attributes
