@@ -115,25 +115,25 @@ The inventory topology data model can be used as a basis for correlating
    ports.
 
 ~~~~ aasvg
-                        +-----------------+
+                        .-----------------.
                         |     Customer    |
-                        +--------+--------+
+                        '--------+--------'
         Customer Service Models  |
            (e.g., L3SM, L2SM)    |
-                        +--------+--------+
+                        .--------+--------.
                         |    Service      |
                         |  Orchestration  |
-                        +------+---+------+
+                        '------+---+------'
                                |   |
              SAP Network Model |   | Inventory Topology Model
-                        +------+---+------+
+                        .------+---+------.
                         |     Network     |
                         |   Controller    |
-                        +--------+--------+
+                        '--------+--------'
                                  |
-           +---------------------+---------------------+
+           .---------------------+---------------------.
            |                  Network                  |
-           +-------------------------------------------+
+           '-------------------------------------------'
 ~~~~
 {: #nwi-topology-usage title="An Example Usage of Network Inventory Topology" artwork-align="center"}
 
@@ -256,7 +256,7 @@ This section is modeled after the template described in {{Section 3.7.1 of ?RFC9
 The "ietf-network-inventory-topology" YANG module defines a data model that is
 designed to be accessed via YANG-based management protocols, such as
 Network Configuration (NETCONF) {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management (1) have to
-use a secure transport layer (e.g., Secure Shell (SSH) {{?RFC4252}}, TLS {{?RFC8446}}, and
+use a secure transport layer (e.g., Secure Shell (SSH) {{?RFC4252}}, TLS {{?I-D.ietf-tls-rfc8446bis}}, and
 QUIC {{?RFC9000]) and (2) have to use mutual authentication.
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}}
@@ -334,7 +334,7 @@ Physical topology:
 '--------'                                    '--------'
 ~~~~
 
-Key parts of the JSON example is as follows:
+Key parts of the JSON example are as follows:
 
 ~~~~ json
 {::include-fold ./yang/examples/link-type-example.json}
