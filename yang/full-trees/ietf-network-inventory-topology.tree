@@ -1,16 +1,18 @@
 
 module: ietf-network-inventory-topology
+
+  augment /nw:networks/nw:network/nw:network-types:
+    +--rw inventory-topology!
   augment /nw:networks/nw:network/nw:node:
     +--rw inventory-mapping-attributes
        +--rw ne-ref?   nwi:ne-ref
   augment /nw:networks/nw:network/nt:link:
     +--rw inventory-mapping-attributes
-       +--rw link-type?   string
+       +--rw link-type?   identityref
   augment /nw:networks/nw:network/nw:node/nt:termination-point:
     +--rw inventory-mapping-attributes
-       +--rw ne-ref?          nwi:ne-ref
-       +--rw port-ref?        leafref
-       +--ro port-breakout!
-          +--ro breakout-channel* [channel-id]
-             +--ro channel-id    uint16
-
+    |  +--rw ne-ref?     nwi:ne-ref
+    |  +--rw port-ref?   leafref
+    +--ro port-breakout!
+       +--ro breakout-channel* [channel-id]
+          +--ro channel-id    uint16
