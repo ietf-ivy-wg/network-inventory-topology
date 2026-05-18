@@ -53,12 +53,13 @@ informative:
 
 --- abstract
 
-   This document defines a YANG data model to
-   map the network inventory data with the topology data
-   to form a base underlay network. The data model facilitates the
-   correlation between the layer (e.g.,  Layer 2 or Layer 3) topology information
-   and the inventory data of the underlay network for better service
-   provisioning, network maintenance, operations, and other assessment scenarios.
+   This document defines a YANG data model that extends the network
+topology model RFC 8345 to represent a physical network
+that forms an underlay for logical networks above it.  The module
+introduces the "inventory-topology" network type and augmentations
+for physical entity mappings and capabilities, which may be used by
+any overlay network topology for service provisioning validation,
+network maintenance, and capacity planning.
 
 --- middle
 
@@ -187,14 +188,10 @@ Both architectures require accurate mapping between logical network topology
 
 The module augments the "ietf-network-topology" module as follows:
 
-* Inventory mapping attributes for nodes, links, and termination
+* Inventory mapping attributes for nodes, and termination
         points: The corresponding containers augments the topology module
         with the references to the base network inventory
 
-   The inventory topology
-   module associates inventory data with overlay topologies.  It can be
-   used as the "supporting-networks" of SAP, Layer 2, or Layer 3
-   topologies.
 
 ## Link Extensions
 
