@@ -53,12 +53,12 @@ informative:
 
 --- abstract
 
-   This document defines a YANG data model to
-   map the network inventory data with the topology data
-   to form a base underlay network. The data model facilitates the
-   correlation between the layer (e.g.,  Layer 2 or Layer 3) topology information
-   and the inventory data of the underlay network for better service
-   provisioning, network maintenance operations, and other assessment scenarios.
+This document defines a YANG data model that extends the network
+topology data model (RFC 8345) to map network topologies with inventories. The data model
+introduces the "inventory-topology" network type and augmentations
+for physical entity mappings and capabilities, which may be used by
+any overlay network topology for service provisioning validation,
+network maintenance, and capacity planning.
 
 --- middle
 
@@ -71,15 +71,15 @@ informative:
    or physical port.  Examples of inventory software components could
    be platform Operating System (OS), software-modules, bios, or boot-loader {{?I-D.ietf-ivy-network-inventory-software}}.
 
-In order to ease navigation from (or to) inventory and network topologies,
+In order to ease navigation between inventory and network topologies,
 this document extends the network topology data model {{!RFC8345}} for network
 inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).  This data model provides a mechanism for the correlation with existing
-network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{!RFC9408}},
+network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{?RFC9408}},
 "A YANG Data Model for Layer 2 Network Topologies" {{?RFC8944}}, and "A YANG Data Model for Layer 3 Topologies" {{?RFC8346}}.
 
 Similar to the base inventory data model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
 does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
-model can be applied independent of the network type (optical local loops, access network, core network, etc.) and application.
+data model can be applied independent of the network type (optical local loops, access network, core network, etc.) and application.
 
 ## Editorial Note (To be removed by RFC Editor)
 
@@ -102,42 +102,60 @@ This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
 
 ## Determine Available Resources of Service Attachment Points (SAPs)
 
-The inventory topology data model can be used as a basis for correlating
-   underlay information, such as physical port components.  {{nwi-topology-usage}} exemplifies this usage.
+The inventory topology data model correlates underlay physical
+resource information with the SAP network data model {{?RFC9408}}.
+While the SAP data model provides the provider network view with the
+points from which services can be attached, the inventory
+topology model maps those SAPs to their underlying physical
+ports, enabling the orchestrator to verify whether a candidate
+SAP has sufficient physical capacity.
 
- During service provisioning, to check available physical port
-   resources, the SAPs information can be
-   associated with the underlay inventory information and interface
-   information associated with the inventory topology, e.g.,
-   "parent-termination-point" of SAP Model can be associated with the
-   "port-component-ref" of the inventory topology data model,
-   which can be used to check the availability and capacity of physical
-   ports.
+{{nwi-topology-usage}} illustrates the query interactions.
+During service provisioning, the orchestrator can issue a query using the SAP
+data model (e.g., obtaining a list of SAPs across multiple PEs
+as shown in {{Appendix A of ?RFC9408}}), and then uses the
+inventory topology data model to check the physical resources of the
+candidate SAPs.  Specifically, the "parent-termination-point"
+of a SAP is mapped to the corresponding "port-component-ref"
+in the inventory topology, allowing the orchestrator to verify
+port availability and capacity.
+
+If the physical port underlying a candidate SAP has insufficient
+resources (e.g., port speed fully utilized), the orchestrator
+can select an alternate SAP that maps to a different port
+with adequate capacity.  If no alternative SAP is available,
+the orchestrator flags the request for manual intervention,
+providing the operator with precise inventory information
+about the bottleneck (e.g., "Port GE0/6/1 on NE-PE1 is at 95% utilization").
+The resource constraint can also feed into a "what-if" analysis
+(see {{sec-whatif}}) to evaluate hardware upgrades or
+alternative underlay paths.
+
 
 ~~~~ aasvg
-                        .-----------------.
-                        |     Customer    |
-                        '--------+--------'
-        Customer Service Models  |
-           (e.g., L3SM, L2SM)    |
-                        .--------+--------.
-                        |    Service      |
-                        |  Orchestration  |
-                        '------+---+------'
-                               |   |
-             SAP Network Model |   | Inventory Topology Model
-                        .------+---+------.
-                        |     Network     |
-                        |   Controller    |
-                        '--------+--------'
-                                 |
-           .---------------------+---------------------.
-           |                  Network                  |
-           '-------------------------------------------'
+                  .-----------------.
+                  |     Customer    |
+                  '--------+--------'
+  Customer Service request |
+     (e.g., L3SM and L2SM) v
+                  .--------+--------.
+                  |    Service      |
+                  |  Orchestration  |
+                  '------+---+------'
+         (1a) Query SAPs |   | (1b) Verify physical
+    via SAP Data Model   v   v capacity via Inventory Topology
+                  .------+---+------.
+                  |     Network     |
+                  |   Controller    |
+                  '--------+--------'
+                           |
+     .---------------------+---------------------.
+     |                  Network                  |
+     '-------------------------------------------'
 ~~~~
 {: #nwi-topology-usage title="An Example Usage of Network Inventory Topology" artwork-align="center"}
 
-## "What-if" Scenarios
+## "What-if" Scenarios {#sec-whatif}
 
  {{?I-D.irtf-nmrg-network-digital-twin-arch}} defines Network Digital Twin (NDT)
    as a virtual representation of the physical network.  Such
@@ -154,7 +172,7 @@ Both architectures require accurate mapping between logical network topology
  and physical inventory as a foundational data layer. This model provides
  the essential physical resource information to such systems, enabling
  them to perform accurate "what-if" analysis (e.g., impact prediction
- of hardware EOL, path re-optimization under resource constraints, service
+ of hardware End-of-Life, path re-optimization under resource constraints, service
  availability assessment).
 
 # Module Tree Structure
@@ -168,14 +186,10 @@ Both architectures require accurate mapping between logical network topology
 
 The module augments the "ietf-network-topology" module as follows:
 
-* Inventory mapping attributes for nodes, links, and termination
+* Inventory mapping attributes for nodes, and termination
         points: The corresponding containers augments the topology module
         with the references to the base network inventory
 
-   The inventory topology
-   module associates inventory data with overlay topologies.  It can be
-   used as the "supporting-networks" of SAP, Layer 2, or Layer 3
-   topologies.
 
 ## Link Extensions
 
@@ -183,7 +197,7 @@ This document adds a lightweight "link-type" leaf to the topology link mapping t
 
 
 - "link-type" – A string indicating the link media type, such as
-   "copper", "fiber", or "coax". For wireless media, values such as "microwave", or "wifi" may be used
+   "copper", "fiber", or "coax". For wireless media, values such as "microwave", or "wlan" may be used
 
 The "link-type" serves as a lightweight discriminator that guides to the
  appropriate specialized inventory model for detailed resource information.
@@ -340,7 +354,7 @@ Key parts of the JSON example are as follows:
 {::include-fold ./yang/examples/link-type-example.json}
 ~~~~
 
-# JSON Example of an MPO Breakout-Channel Port
+# JSON Example of an Multi-fibre Push On (MPO) Breakout-Channel Port
 
 This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding {{?RFC7951}} of the "port-breakout" container for this port.
 
