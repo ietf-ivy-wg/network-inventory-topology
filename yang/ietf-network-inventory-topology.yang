@@ -110,7 +110,7 @@ module ietf-network-inventory-topology {
     description
       "The link media type is unknown or could not be determined.
        This identity is used as a fallback when the physical medium
-       cannot be classified into any of the currently defined types.";
+       cannot be classified into any of the other defined types.";
   }
 
   identity leased-fiber {
