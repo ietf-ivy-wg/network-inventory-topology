@@ -57,7 +57,7 @@ module ietf-network-inventory-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2026-02-28 {
+  revision 2026-05-18 {
     description
       "Initial revision.";
     reference
@@ -128,9 +128,9 @@ module ietf-network-inventory-topology {
       "Introduces a new network type for inventory topology mapping.";
     container inventory-topology {
       presence
-        "Indicates this is a bottom-most physical topology instance,
-         containing physical-layer attributes including inventory
-         mapping, port breakout capabilities, and link media types.";
+        "Indicates a physical network topology, containing
+         physical-layer attributes including inventory mapping, port
+         breakout capabilities, and link media types.";
       description
         "Container for the inventory-topology network type.
          When present, it signals that the network contains
@@ -147,6 +147,9 @@ module ietf-network-inventory-topology {
        attributes. This enables correlation between the logical node
        and its physical network element.";
     container inventory-mapping-attributes {
+      presence
+        "Indicates a physical node, at the lowest underlay
+         abstraction level.";
       description
         "Container for inventory mapping attributes of a node.";
       leaf ne-ref {
@@ -167,6 +170,9 @@ module ietf-network-inventory-topology {
       "Augments the network topology link with inventory-related
        attributes.";
     container inventory-mapping-attributes {
+      presence
+        "Indicates a physical link, at the lowest underlay
+         abstraction level.";
       description
         "Container for inventory-related attributes of a link.
 
@@ -204,6 +210,9 @@ module ietf-network-inventory-topology {
     description
       "Augments the TP with inventory mapping and port breakout.";
     container inventory-mapping-attributes {
+      presence
+        "Indicates a physical termination point (TP), at the lowest
+         underlay abstraction level.";
       description
         "Container for inventory mapping attributes of a TP.";
       uses nwi:port-ref {
