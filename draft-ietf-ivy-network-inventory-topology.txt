@@ -247,8 +247,8 @@ Table of Contents
 
    The module augments the "ietf-network-topology" module as follows:
 
-   *  Inventory mapping attributes for nodes, and termination points:
-      The corresponding containers augments the topology module with the
+   Inventory mapping attributes for nodes, and termination points:  The
+      corresponding containers augments the topology module with the
       references to the base network inventory
 
 4.1.  Link Extensions
@@ -256,15 +256,19 @@ Table of Contents
    This document adds a lightweight "link-type" leaf to the topology
    link mapping to enable basic physical media classification.
 
-   *  "link-type" – A string indicating the link media type, such as
-      "copper", "fiber", or "coax".  For wireless media, values such as
-      "microwave", or "wlan" may be used
+   "link-type":  An identityref indicating the link media type.
 
-   The "link-type" serves as a lightweight discriminator that guides to
-   the appropriate specialized inventory model for detailed resource
-   information.  For example, wired media (fiber, copper) typically
-   reference a passive network inventory model, such as the one defined
-   in [I-D.ygb-ivy-passive-network-inventory].
+      Examples of wired link types are "copper", "fiber", or "coax".
+      For wireless media, values such as "microwave", or "wlan" may be
+      used.  See also [RFC9656] for more detailed microwave radio
+      attributes.
+
+      The "link-type" serves as a lightweight discriminator that guides
+      to the appropriate specialized inventory model for detailed
+      resource information.  For example, wired media ("fiber" or
+      "copper") typically references a passive network inventory model
+      such as the one defined in
+      [I-D.ygb-ivy-passive-network-inventory].
 
 4.2.  Port-Breakout Capability
 
@@ -766,6 +770,11 @@ Table of Contents
               Q., and V. Lopez, "A YANG Network Data Model for Service
               Attachment Points (SAPs)", RFC 9408, DOI 10.17487/RFC9408,
               June 2023, <https://www.rfc-editor.org/rfc/rfc9408>.
+
+   [RFC9656]  Mansfield, S., Ed., Ahlberg, J., Ye, M., Li, X., and D.
+              Spreafico, "A YANG Data Model for Microwave Topology",
+              RFC 9656, DOI 10.17487/RFC9656, September 2024,
+              <https://www.rfc-editor.org/rfc/rfc9656>.
 
    [RFC9907]  Bierman, A., Boucadair, M., Ed., and Q. Wu, "Guidelines
               for Authors and Reviewers of Documents Containing YANG
