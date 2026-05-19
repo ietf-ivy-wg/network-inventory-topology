@@ -145,6 +145,8 @@ Table of Contents
    This document uses terms defined in
    [I-D.ietf-ivy-network-inventory-yang].
 
+   The document adheres to the folding conventions in [RFC8792].
+
 3.  Sample Use Cases of the Data Model
 
 3.1.  Determine Available Resources of Service Attachment Points (SAPs)
@@ -749,6 +751,11 @@ Table of Contents
               Ananthakrishnan, H., and N. Bahadur, "A YANG Data Model
               for Layer 3 Topologies", RFC 8346, DOI 10.17487/RFC8346,
               March 2018, <https://www.rfc-editor.org/rfc/rfc8346>.
+
+   [RFC8792]  Watsen, K., Auerswald, E., Farrel, A., and Q. Wu,
+              "Handling Long Lines in Content of Internet-Drafts and
+              RFCs", RFC 8792, DOI 10.17487/RFC8792, June 2020,
+              <https://www.rfc-editor.org/rfc/rfc8792>.
 
    [RFC8944]  Dong, J., Wei, X., Wu, Q., Boucadair, M., and A. Liu, "A
               YANG Data Model for Layer 2 Network Topologies", RFC 8944,
