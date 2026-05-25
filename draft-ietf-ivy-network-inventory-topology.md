@@ -73,13 +73,17 @@ network maintenance, and capacity planning.
 
 In order to ease navigation between inventory and network topologies,
 this document extends the network topology data model {{!RFC8345}} for network
-inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).  This data model provides a mechanism for the correlation with existing
-network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{?RFC9408}},
-"A YANG Data Model for Layer 2 Network Topologies" {{?RFC8944}}, and "A YANG Data Model for Layer 3 Topologies" {{?RFC8346}}.
+inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).
 
 Similar to the base inventory data model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
 does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
 data model can be applied independent of the network type (optical local loops, access network, core network, etc.) and application.
+
+Therefore, this YANG data model can be used to represent a physical network instance at the lowest underlay abstraction level, as shown in {{Section 4.4.9 of !RFC8345}}.
+Alternatively, it can be used in conjunction with existing network topology
+models, such as {{?RFC9408}}, {{?RFC8944}}, {{?RFC8346}}, and
+{{?I-D.ietf-ccamp-otn-topo-yang}}, when they contain nodes, links,
+or termination points belonging to the lowest underlay level.
 
 ## Editorial Note (To be removed by RFC Editor)
 
@@ -176,6 +180,16 @@ Both architectures require accurate mapping between logical network topology
  them to perform accurate "what-if" analysis (e.g., impact prediction
  of hardware End-of-Life, path re-optimization under resource constraints, service
  availability assessment).
+
+## Multi-layer Optical Networks
+
+Optical networks are inherently multi-layer encompassing at least Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers.
+
+An OTN network topology comprises multiple link types, including physical links supported by cables and hierarchical links supported by underlay WDM tunnels.
+
+Modelling the relationship between a hierarchical OTN link and its underlay WDM tunnel is in the scope of the OTN network topology and of the WDM tunnel models in {{?I-D.ietf-ccamp-otn-topo-yang}} and {{?I-D.ietf-ccamp-wdm-tunnel-yang}} and therefore outside the scope of this document.
+
+The YANG data model defined in this document can be used to model the relationship between an OTN physical link and the ports within the network inventory YANG data model in {{?I-D.ietf-ivy-network-inventory-yang}}.
 
 # Module Tree Structure
 
