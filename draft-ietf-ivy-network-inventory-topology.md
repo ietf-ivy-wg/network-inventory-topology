@@ -79,7 +79,7 @@ Similar to the base inventory data model  {{!I-D.ietf-ivy-network-inventory-yang
 does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
 data model can be applied independent of the network type (optical local loops, access network, core network, etc.) and application.
 
-Therefore, this YANG data model can be used to represent a physical network instance at the lowest underlay abstraction level, as shown in {{Section 4.49 of ?RFC8345}}.
+Therefore, this YANG data model can be used to represent a physical network instance at the lowest underlay abstraction level, as shown in {{Section 4.4.9 of !RFC8345}}.
 Alternatively, it can be used in conjunction with existing network topology
 models, such as {{?RFC9408}}, {{?RFC8944}}, {{?RFC8346}}, and
 {{?I-D.ietf-ccamp-otn-topo-yang}}, when they contain nodes, links,
@@ -179,7 +179,7 @@ Both architectures require accurate mapping between logical network topology
  of hardware End-of-Life, path re-optimization under resource constraints, service
  availability assessment).
 
-## Multi-layer optical networks
+## Multi-layer Optical Networks
 
 Optical networks are inherently multi-layer encompassing at least Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers.
 
