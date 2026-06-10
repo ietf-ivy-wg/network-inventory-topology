@@ -21,3 +21,5 @@ draft-ietf-ivy-network-inventory-topology.xml
 package-lock.json
 report.xml
 !requirements.txt
+*.bash
+temp/

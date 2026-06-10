@@ -57,7 +57,7 @@ module ietf-network-inventory-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2026-05-18 {
+  revision 2026-06-10 {
     description
       "Initial revision.";
     reference
@@ -148,8 +148,9 @@ module ietf-network-inventory-topology {
        and its physical network element.";
     container inventory-mapping-attributes {
       presence
-        "Indicates a physical node, at the lowest underlay
-         abstraction level.";
+        "If present, it indicates this is a physical node, which
+         maps to a network element. If not present, it indicates it
+         is an abstract node.";
       description
         "Container for inventory mapping attributes of a node.";
       leaf ne-ref {
@@ -211,8 +212,9 @@ module ietf-network-inventory-topology {
       "Augments the TP with inventory mapping and port breakout.";
     container inventory-mapping-attributes {
       presence
-        "Indicates a physical termination point (TP), at the lowest
-         underlay abstraction level.";
+        "If present, it indicates this is a physical termination
+         point (TP), which maps to a port component. If not present,
+         it indicates it is a logical TP.";
       description
         "Container for inventory mapping attributes of a TP.";
       uses nwi:port-ref {
