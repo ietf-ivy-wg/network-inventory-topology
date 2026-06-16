@@ -99,6 +99,8 @@ The meanings of the symbols in the YANG tree diagrams are defined in {{?RFC8340}
 
 This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
 
+The document adheres to the folding conventions in {{?RFC8792}}.
+
 # Sample Use Cases of the Data Model {#sample}
 
 ## Determine Available Resources of Service Attachment Points (SAPs)
@@ -187,23 +189,21 @@ Both architectures require accurate mapping between logical network topology
 
 The module augments the "ietf-network-topology" module as follows:
 
-* Inventory mapping attributes for nodes, and termination
-        points: The corresponding containers augments the topology module
-        with the references to the base network inventory
+Inventory mapping attributes for nodes, and termination points:
+: The corresponding containers augments the topology module with the references to the base network inventory
 
 
 ## Link Extensions
 
 This document adds a lightweight "link-type" leaf to the topology link mapping to enable basic physical media classification.
 
-
-- "link-type" – A string indicating the link media type, such as
-   "copper", "fiber", or "coax". For wireless media, values such as "microwave", or "wlan" may be used
-
-The "link-type" serves as a lightweight discriminator that guides to the
+"link-type":
+: An identityref indicating the link media type.
+: Examples of wired link types are "copper", "fiber", or "coax". For wireless media, values such as "microwave", or "wlan" may be used. See also {{?RFC9656}} for more detailed microwave radio attributes.
+: The "link-type" serves as a lightweight discriminator that guides to the
  appropriate specialized inventory model for detailed resource information.
- For example, wired media (fiber, copper) typically reference a passive
- network inventory model, such as the one defined in {{?I-D.ygb-ivy-passive-network-inventory}}.
+ For example, wired media ("fiber" or "copper") typically references a passive
+ network inventory model such as the one defined in {{?I-D.ygb-ivy-passive-network-inventory}}.
 
 ## Port-Breakout Capability
 
@@ -243,7 +243,7 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 ~~~~ yang
 {::include-fold ./yang/ietf-network-inventory-topology.yang}
 ~~~~
-{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-05-18.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-06-10.yang"}
 
 # Operational Considerations
 
