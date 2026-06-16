@@ -179,7 +179,7 @@ Both architectures require accurate mapping between logical network topology
  of hardware End-of-Life, path re-optimization under resource constraints, service
  availability assessment).
 
-## Multi-layer Optical Networks
+## Multi-layer Networks
 
 A multi-layer network encompasses multiple layers (e.g., Layer 2 and Layer 3 layers, or Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers).
 
