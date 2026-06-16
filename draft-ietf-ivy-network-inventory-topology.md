@@ -181,13 +181,19 @@ Both architectures require accurate mapping between logical network topology
 
 ## Multi-layer Optical Networks
 
-Optical networks are inherently multi-layer encompassing at least Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers.
+A multi-layer network encompasses multiple layers (e.g., Layer 2 and Layer 3 layers, or Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers).
 
-An OTN network topology comprises multiple link types, including physical links supported by cables and hierarchical links supported by underlay WDM tunnels.
+A multi-layer network topology can comprises nodes, links and termination points that can belong to different layers.
 
-Modelling the relationship between a hierarchical OTN link and its underlay WDM tunnel is in the scope of the OTN network topology and of the WDM tunnel models in {{?I-D.ietf-ccamp-otn-topo-yang}} and {{?I-D.ietf-ccamp-wdm-tunnel-yang}} and therefore outside the scope of this document.
+An multi-layer network can contain multiple node, link and termination types, including physical nodes, links and termination points, which can be associated to components within the network inventory, and hierarchical links, which are supported by underlay paths (or TE tunnels) in the serer layer.
 
-The YANG data model defined in this document can be used to model the relationship between an OTN physical link and the ports within the network inventory YANG data model in {{?I-D.ietf-ivy-network-inventory-yang}}.
+Modelling the relationship between a link and its underlay paths is in the scope of the topology models and therefore outside the scope of this document.
+
+The YANG data model defined in this document can be used to model the relationship between physical nodes and termination points and their associated network elements and port components within the network inventory YANG data model, defined in {{?I-D.ietf-ivy-network-inventory-yang}}.
+
+The following figure shows, as an example, an optical network encompassing Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers.
+
+> Note: example to be completed
 
 # Module Tree Structure
 
