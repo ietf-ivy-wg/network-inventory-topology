@@ -159,6 +159,16 @@ alternative underlay paths.
 ~~~~
 {: #nwi-topology-usage title="An Example Usage of Network Inventory Topology" artwork-align="center"}
 
+## Multi-layer network navigation
+
+A multi-layer network encompasses multiple layers (e.g., Layer 2 and Layer 3 layers, or Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers).
+
+A multi-layer network topology can comprises nodes, links and termination points that can belong to different layers.
+
+A multi-layer network can contain multiple types of topological elements which can be physical (and associated with an inventory element) or logical (and associated with topology elements in the underlay layer).
+
+The topology models support navigation across the different layers, down to the physical layer, as defined in {{Section 4.4.9 of !RFC8345}}. The navigation between the physical layer amd the network inventory is outside the scope of the topology models and addressed in this document.
+
 ## "What-if" Scenarios {#sec-whatif}
 
  {{?I-D.irtf-nmrg-network-digital-twin-arch}} defines Network Digital Twin (NDT)
@@ -178,22 +188,6 @@ Both architectures require accurate mapping between logical network topology
  them to perform accurate "what-if" analysis (e.g., impact prediction
  of hardware End-of-Life, path re-optimization under resource constraints, service
  availability assessment).
-
-## Multi-layer Networks
-
-A multi-layer network encompasses multiple layers (e.g., Layer 2 and Layer 3 layers, or Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers).
-
-A multi-layer network topology can comprises nodes, links and termination points that can belong to different layers.
-
-An multi-layer network can contain multiple node, link and termination types, including physical nodes, links and termination points, which can be associated to components within the network inventory, and hierarchical links, which are supported by underlay paths (or TE tunnels) in the serer layer.
-
-Modelling the relationship between a link and its underlay paths is in the scope of the topology models and therefore outside the scope of this document.
-
-The YANG data model defined in this document can be used to model the relationship between physical nodes and termination points and their associated network elements and port components within the network inventory YANG data model, defined in {{?I-D.ietf-ivy-network-inventory-yang}}.
-
-The following figure shows, as an example, an optical network encompassing Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers.
-
-> Note: example to be completed
 
 # Module Tree Structure
 
