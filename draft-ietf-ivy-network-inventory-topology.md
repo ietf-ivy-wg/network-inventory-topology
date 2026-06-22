@@ -95,6 +95,7 @@ Please apply the following replacements:
 
   * XXXX --> the assigned RFC number for this I-D
   * AAAA --> the assigned RFC number for {{!I-D.ietf-ivy-network-inventory-yang}}
+  * 2026-05-18 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -256,7 +257,7 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 ~~~~ yang
 {::include-fold ./yang/ietf-network-inventory-topology.yang}
 ~~~~
-{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-05-19.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-06-10.yang"}
 
 # Operational Considerations
 
