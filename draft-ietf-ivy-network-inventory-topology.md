@@ -73,13 +73,17 @@ network maintenance, and capacity planning.
 
 In order to ease navigation between inventory and network topologies,
 this document extends the network topology data model {{!RFC8345}} for network
-inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).  This data model provides a mechanism for the correlation with existing
-network and topology data models, such as "A YANG Network Data Model for Service Attachment Points (SAPs)" {{?RFC9408}},
-"A YANG Data Model for Layer 2 Network Topologies" {{?RFC8944}}, and "A YANG Data Model for Layer 3 Topologies" {{?RFC8346}}.
+inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).
 
 Similar to the base inventory data model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
 does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
 data model can be applied independent of the network type (optical local loops, access network, core network, etc.) and application.
+
+Therefore, this YANG data model can be used to represent a physical network instance at the lowest underlay abstraction level, as shown in {{Section 4.4.9 of !RFC8345}}.
+Alternatively, it can be used in conjunction with existing network topology
+models, such as {{?RFC9408}}, {{?RFC8944}}, {{?RFC8346}}, and
+{{?I-D.ietf-ccamp-otn-topo-yang}}, when they contain nodes, links,
+or termination points belonging to the lowest underlay level.
 
 ## Editorial Note (To be removed by RFC Editor)
 
@@ -156,6 +160,16 @@ alternative underlay paths.
      '-------------------------------------------'
 ~~~~
 {: #nwi-topology-usage title="An Example Usage of Network Inventory Topology" artwork-align="center"}
+
+## Multi-layer network navigation
+
+A multi-layer network encompasses multiple layers (e.g., Layer 2 and Layer 3 layers, or Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers).
+
+A multi-layer network topology can comprises nodes, links and termination points that can belong to different layers.
+
+A multi-layer network can contain multiple types of topological elements which can be physical (and associated with an inventory element) or logical (and associated with topology elements in the underlay layer).
+
+The topology models support navigation across the different layers, down to the physical layer, as defined in {{Section 4.4.9 of !RFC8345}}. The navigation between the physical layer amd the network inventory is outside the scope of the topology models and addressed in this document.
 
 ## "What-if" Scenarios {#sec-whatif}
 
