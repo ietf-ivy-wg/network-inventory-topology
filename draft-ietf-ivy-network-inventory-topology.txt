@@ -142,6 +142,8 @@ Table of Contents
    *  AAAA --> the assigned RFC number for
       [I-D.ietf-ivy-network-inventory-yang]
 
+   *  2026-05-18 --> the actual date of the publication of this document
+
 2.  Conventions and Definitions
 
    The meanings of the symbols in the YANG tree diagrams are defined in
@@ -335,7 +337,7 @@ Table of Contents
    This module imports the base network inventory
    [I-D.ietf-ivy-network-inventory-yang].
 
-   <CODE BEGINS> file "ietf-network-inventory-topology@2026-05-19.yang"
+   <CODE BEGINS> file "ietf-network-inventory-topology@2026-06-10.yang"
    module ietf-network-inventory-topology {
      yang-version 1.1;
      namespace
@@ -395,7 +397,7 @@ Table of Contents
         This version of this YANG module is part of RFC XXXX; see
         the RFC itself for full legal notices.";
 
-     revision 2026-05-19 {
+     revision 2026-06-10 {
        description
          "Initial revision.";
        reference
@@ -469,9 +471,9 @@ Table of Contents
           mapping.";
        container inventory-topology {
          presence
-           "Indicates this is a bottom-most physical topology instance,
-            containing physical-layer attributes including inventory
-            mapping, port breakout capabilities, and link media types.";
+           "Indicates a physical network topology, containing
+            physical-layer attributes including inventory mapping, port
+            breakout capabilities, and link media types.";
          description
            "Container for the inventory-topology network type.
             When present, it signals that the network contains
@@ -489,6 +491,10 @@ Table of Contents
           attributes. This enables correlation between the logical node
           and its physical network element.";
        container inventory-mapping-attributes {
+         presence
+           "If present, it indicates this is a physical node, which
+            maps to a network element. If not present, it indicates it
+            is an abstract node.";
          description
            "Container for inventory mapping attributes of a node.";
          leaf ne-ref {
@@ -509,6 +515,9 @@ Table of Contents
          "Augments the network topology link with inventory-related
           attributes.";
        container inventory-mapping-attributes {
+         presence
+           "Indicates a physical link, at the lowest underlay
+            abstraction level.";
          description
            "Container for inventory-related attributes of a link.
 
@@ -549,6 +558,10 @@ Table of Contents
        description
          "Augments the TP with inventory mapping and port breakout.";
        container inventory-mapping-attributes {
+         presence
+           "If present, it indicates this is a physical termination
+            point (TP), which maps to a port component. If not present,
+            it indicates it is a logical TP.";
          description
            "Container for inventory mapping attributes of a TP.";
          uses nwi:port-ref {
