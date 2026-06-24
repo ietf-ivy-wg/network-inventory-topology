@@ -81,7 +81,7 @@ data model can be applied independent of the network type (optical local loops, 
 
 Therefore, this YANG data model can be used to represent a physical network instance at the lowest underlay abstraction level, as shown in {{Section 4.4.9 of !RFC8345}}.
 Alternatively, it can be used in conjunction with existing network topology
-models, such as {{?RFC9408}}, {{?RFC8944}}, {{?RFC8346}}, and
+models, such as {{?RFC9408}}, {{?RFC8944}}, {{?RFC8346}}, {{?RFC8795}}, and
 {{?I-D.ietf-ccamp-otn-topo-yang}}, when they contain nodes, links,
 or termination points belonging to the lowest underlay level.
 
@@ -109,23 +109,24 @@ The document adheres to the folding conventions in {{?RFC8792}}.
 
 ## Determine Available Resources of Service Attachment Points (SAPs)
 
-The inventory topology data model correlates underlay physical
-resource information with the SAP network data model {{?RFC9408}}.
-While the SAP data model provides the provider network view with the
-points from which services can be attached, the inventory
-topology model maps those SAPs to their underlying physical
-ports, enabling the orchestrator to verify whether a candidate
-SAP has sufficient physical capacity.
+The inventory topology data model provides a physical port
+reference (port-ref) that enables correlation between logical
+topology entities and physical inventory components.  During
+service provisioning, the SAP's parent-termination-point can be
+associated with the inventory topology's port-ref to locate the
+underlying physical resource.
 
 {{nwi-topology-usage}} illustrates the query interactions.
 During service provisioning, the orchestrator can issue a query using the SAP
 data model (e.g., obtaining a list of SAPs across multiple PEs
 as shown in {{Appendix A of ?RFC9408}}), and then uses the
-inventory topology data model to check the physical resources of the
-candidate SAPs.  Specifically, the "parent-termination-point"
-of a SAP is mapped to the corresponding "port-component-ref"
-in the inventory topology, allowing the orchestrator to verify
-port availability and capacity.
+inventory topology data model to identify the physical port underlying each
+candidate SAP. Specifically, the "parent-termination-point"
+of a SAP is mapped to the corresponding "port-ref"
+in the inventory topology, allowing the orchestrator to locate the
+physical resource. The orchestrator can then consult other relevant
+topology models (e.g., {{?RFC8795}}) to verify whether the identified
+port has adequate capacity for the requested service.
 
 If the physical port underlying a candidate SAP has insufficient
 resources (e.g., port speed fully utilized), the orchestrator
@@ -149,8 +150,8 @@ alternative underlay paths.
                   |    Service      |
                   |  Orchestration  |
                   '------+---+------'
-         (1a) Query SAPs |   | (1b) Verify physical
-    via SAP Data Model   v   v capacity via Inventory Topology
+         (1a) Query SAPs |   | (1b) Map SAP to physical port
+    via SAP Data Model   v   v      via Inventory Topology
                   .------+---+------.
                   |     Network     |
                   |   Controller    |
@@ -162,15 +163,15 @@ alternative underlay paths.
 ~~~~
 {: #nwi-topology-usage title="An Example Usage of Network Inventory Topology" artwork-align="center"}
 
-## Multi-layer network navigation
+## Multi-layer Network Navigation
 
-A multi-layer network encompasses multiple layers (e.g., Layer 2 and Layer 3 layers, or Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers).
+A multi-layer network encompasses multiple layers (e.g., Layer 2 and Layer 3, or Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers).
 
-A multi-layer network topology can comprises nodes, links and termination points that can belong to different layers.
+A multi-layer network topology comprises nodes, links, and termination points that can belong to different layers.
 
-A multi-layer network can contain multiple types of topological elements which can be physical (and associated with an inventory element) or logical (and associated with topology elements in the underlay layer).
+A multi-layer network can contain multiple types of topological elements: physical elements (associated with an inventory element) or logical elements (associated with topology elements in the underlay layer).
 
-The topology models support navigation across the different layers, down to the physical layer, as defined in {{Section 4.4.9 of !RFC8345}}. The navigation between the physical layer amd the network inventory is outside the scope of the topology models and addressed in this document.
+The topology models support navigation across the different layers, down to the physical layer, as defined in {{Section 4.4.9 of !RFC8345}}. The navigation between the physical layer and the network inventory is outside the scope of the topology models and is addressed in this document.
 
 ## "What-if" Scenarios {#sec-whatif}
 
