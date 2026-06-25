@@ -142,7 +142,7 @@ Table of Contents
    *  AAAA --> the assigned RFC number for
       [I-D.ietf-ivy-network-inventory-yang]
 
-   *  2026-05-18 --> the actual date of the publication of this document
+   *  2026-07-30 --> the actual date of the publication of this document
 
 2.  Conventions and Definitions
 
@@ -338,7 +338,7 @@ Table of Contents
    This module imports the base network inventory
    [I-D.ietf-ivy-network-inventory-yang].
 
-   <CODE BEGINS> file "ietf-network-inventory-topology@2026-06-10.yang"
+   <CODE BEGINS> file "ietf-network-inventory-topology@2026-06-25.yang"
    module ietf-network-inventory-topology {
      yang-version 1.1;
      namespace
