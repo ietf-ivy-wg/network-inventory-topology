@@ -57,7 +57,7 @@ module ietf-network-inventory-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2026-06-10 {
+  revision 2026-06-25 {
     description
       "Initial revision.";
     reference
@@ -175,9 +175,8 @@ module ietf-network-inventory-topology {
       "Augments the network topology link with inventory-related
        attributes.";
     container inventory-mapping-attributes {
-      presence
-        "Indicates a physical link, at the lowest underlay
-         abstraction level.";
+      presence "Indicates a physical link, at the lowest underlay
+                abstraction level.";
       description
         "Container for inventory-related attributes of a link.
 
