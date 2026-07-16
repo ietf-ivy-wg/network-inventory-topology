@@ -70,7 +70,6 @@ module ietf-network-inventory-topology {
       "Base identity for classifying the physical media type of a
        link at the inventory topology layer. Additional identities
        may be defined to cover media types not listed here.
-       Examples of derived identities include 'fiber', 'copper',
        or 'wlan'.";
   }
 
