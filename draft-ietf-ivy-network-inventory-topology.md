@@ -360,7 +360,7 @@ vulnerabilities:
 
 > 'port-breakout':
 > : This node exposes hardware capabilities.
-  
+
 As this module augments the network topology model defined in {{!RFC8345}},
 the module also inherits the security considerations discussed in
 {{Section 7 of !RFC8345}} for the underlying network topology model.
