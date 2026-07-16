@@ -286,8 +286,8 @@ This section is modeled after the template described in {{Section 3.7.1 of ?RFC9
 The "ietf-network-inventory-topology" YANG module defines a data model that is
 designed to be accessed via YANG-based management protocols, such as
 Network Configuration (NETCONF) {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management (1) have to
-use a secure transport layer (e.g., Secure Shell (SSH) {{?RFC4252}}, TLS {{?I-D.ietf-tls-rfc8446bis}}, and
-QUIC {{?RFC9000]) and (2) have to use mutual authentication.
+use a secure transport layer and (2) have to use mutual authentication (e.g., Secure Shell (SSH) {{?RFC4252}}, TLS {{?RFC9846}}, and
+QUIC {{?RFC9000}}).
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}}
 provides the means to restrict access for particular NETCONF or
@@ -295,19 +295,19 @@ RESTCONF users to a preconfigured subset of all available NETCONF or
 RESTCONF protocol operations and content.
 
 There are a number of data nodes defined in this YANG module that are
-   writable/creatable/deletable (i.e., "config true", which is the
-   default).  All writable data nodes are likely to be sensitive or
-   vulnerable in some network environments.  Write
-   operations (e.g., edit-config) and delete operations to these data
-   nodes without proper protection or authentication can have a negative
-   effect on network operations.  The following subtrees and data nodes
-   have particular sensitivities/vulnerabilities:
+writable/creatable/deletable (i.e., "config true", which is the
+default).  All writable data nodes are likely to be sensitive or
+vulnerable in some network environments.  Write
+operations (e.g., edit-config) and delete operations to these data
+nodes without proper protection or authentication can have a negative
+effect on network operations.  The following subtrees and data nodes
+have particular sensitivities/vulnerabilities:
 
-  'ne-ref', 'port-ref', 'link-type':
-  These nodes are sensitive as they establish the mapping
-  between logical topology and physical inventory. Unauthorized
-  modification could lead to incorrect resource allocation or
-  service disruption.
+   'ne-ref', 'port-ref', and 'link-type':
+   : These nodes are sensitive as they establish the mapping
+     between logical topology and physical inventory. Unauthorized
+     modification could lead to incorrect resource allocation or
+     service disruption.
 
 Some of the readable data nodes in this YANG module may be considered
 sensitive or vulnerable in some network environments.  It is thus
@@ -316,12 +316,12 @@ notification) to these data nodes. Specifically, the following
 subtrees and data nodes have particular sensitivities/
 vulnerabilities:
 
-   'ne-ref':
-   The references may be used to track the set of network elements. While
-   read-only, they may reveal network infrastructure details.
+    'ne-ref':
+    : The references may be used to track the set of network elements, and thus
+      reveal network infrastructure details.
 
-   'port-breakout':
-   This node exposes hardware capabilities.
+    'port-breakout':
+    : This node exposes hardware capabilities.
 
 # IANA Considerations
 
