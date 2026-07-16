@@ -69,7 +69,7 @@ module ietf-network-inventory-topology {
     description
       "Base identity for classifying the physical media type of a
        link at the inventory topology layer. Additional identities
-       may be defined to cover media types not listed here.
+       may be defined to cover other media types.";
   }
 
   identity copper {
