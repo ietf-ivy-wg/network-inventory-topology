@@ -169,9 +169,30 @@ A multi-layer network encompasses multiple layers (e.g., Layer 2 and Layer 3, or
 
 A multi-layer network topology comprises nodes, links, and termination points that can belong to different layers.
 
-A multi-layer network can contain multiple types of topological elements: physical elements (associated with an inventory element) or logical elements (associated with topology elements in the underlay layer).
+A multi-layer network can contain multiple types of topological elements: physical
+elements (associated with an inventory element) or logical elements (associated
+with topology elements in the underlay layer).
 
-The topology models support navigation across the different layers, down to the physical layer, as defined in {{Section 4.4.9 of !RFC8345}}. The navigation between the physical layer and the network inventory is outside the scope of the topology models and is addressed in this document.
+The topology models support navigation across the different layers, down
+to the physical layer, as defined in {{Section 4.4.9 of !RFC8345}}.
+The navigation between the physical layer and the network inventory
+is outside the scope of the topology models and is addressed in this document.
+
+Although {{!RFC8345}} conceptually suggests that extensions be layered
+on the base "ietf-network" module, this document intentionally
+augments both "ietf-network" (for nodes and network-types) and
+"ietf-network-topology" (for links and termination points) to
+align inventory objects with topology constructs.
+This intentional deviation is required to support multi-layer
+navigation across physical and logical resources.
+
+To make this navigation operationally explicit, this module
+provides concrete YANG nodes in the "inventory-mapping-attributes"
+container, where the leaf "ne-ref" links topology nodes to their
+corresponding network elements, and the leaf "port-ref"
+links termination points to their physical port components,
+thereby enabling direct correlation between the {{!RFC8345}}
+topology and the underlying inventory model.
 
 ## "What-if" Scenarios {#sec-whatif}
 
@@ -279,6 +300,19 @@ The following nodes are read-only (config false) as they represent hardware-dete
 port-breakout:
 : Hardware capability determined by physical port characteristics
 
+Therefore, in typical deployments, "ne-ref", "port-ref", and "link-type"
+are expected to be populated through automatic discovery and SHOULD
+only be overridden manually in exceptional cases (e.g., CPE,
+leased lines, or planned resources). The "port-breakout" container
+MUST always reflect hardware-determined state and therefore MUST
+NOT be manually configured.
+
+The "inventory-topology" presence container under "network-types" is
+typically set by the network controller when it discovers or
+provisions network instance representing the physical layer.
+It MAY be configured manually to declare a network as an
+inventory topology when discovery is not available.
+
 # Security Considerations
 
 This section is modeled after the template described in {{Section 3.7.1 of ?RFC9907}}.
@@ -303,11 +337,15 @@ nodes without proper protection or authentication can have a negative
 effect on network operations.  The following subtrees and data nodes
 have particular sensitivities/vulnerabilities:
 
-   'ne-ref', 'port-ref', and 'link-type':
+   'ne-ref', 'port-ref', and 'link-type'
    : These nodes are sensitive as they establish the mapping
-     between logical topology and physical inventory. Unauthorized
-     modification could lead to incorrect resource allocation or
-     service disruption.
+     between logical topology and physical inventory. Incorrect
+     inventory mapping (e.g., stale or manually misconfigured
+     'ne-ref' or 'port-ref' values) may lead to mis-provisioning
+     of services or misinterpretation of physical resource
+     availability, which can result in failed service
+     activation, unexpected traffic paths, or inaccurate
+     capacity planning. 
 
 Some of the readable data nodes in this YANG module may be considered
 sensitive or vulnerable in some network environments.  It is thus
@@ -316,12 +354,16 @@ notification) to these data nodes. Specifically, the following
 subtrees and data nodes have particular sensitivities/
 vulnerabilities:
 
-    'ne-ref':
+    'ne-ref'
     : The references may be used to track the set of network elements, and thus
       reveal network infrastructure details.
 
-    'port-breakout':
+    'port-breakout'
     : This node exposes hardware capabilities.
+
+As this module augments the network topology model defined in {{!RFC8345}},
+the module also inherits the security considerations discussed in
+{{Section 7 of !RFC8345}} for the underlying network topology model.
 
 # IANA Considerations
 
