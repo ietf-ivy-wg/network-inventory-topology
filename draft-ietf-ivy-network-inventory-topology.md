@@ -187,7 +187,7 @@ This intentional deviation is required to support multi-layer
 navigation across physical and logical resources.
 
 To make this navigation operationally explicit, this module
-provides concrete YANG nodes in the "inventory-mapping-attributes"
+provides concrete YANG data nodes in the "inventory-mapping-attributes"
 container, where the leaf "ne-ref" links topology nodes to their
 corresponding network elements, and the leaf "port-ref"
 links termination points to their physical port components,
