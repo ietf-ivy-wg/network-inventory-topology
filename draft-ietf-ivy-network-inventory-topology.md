@@ -426,5 +426,5 @@ This appendix provides an example of a 400 Gb/s DR4 port that is physically impl
 The authors wish to thank Italo Busi, Olga Havel, Aihua Guo, Oscar
    Gonzalez de Dios, and many others for their helpful comments and
    suggestions.
-   
-   Thanks to Olga Havel for the detailed shepherd review.
+
+Thanks to Olga Havel for the detailed shepherd review.
