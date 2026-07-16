@@ -5,12 +5,12 @@
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                            M. Boucadair
-Expires: 27 December 2026                                         Orange
+Expires: 17 January 2027                                          Orange
                                                                  C. Zhou
                                                             China Mobile
                                                                    Q. Wu
                                                                   Huawei
-                                                            25 June 2026
+                                                            16 July 2026
 
 
         A YANG Network Data Model for Inventory Topology Mapping
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 December 2026.
+   This Internet-Draft will expire on 17 January 2027.
 
 Copyright Notice
 
@@ -641,9 +641,9 @@ Table of Contents
    model that is designed to be accessed via YANG-based management
    protocols, such as Network Configuration (NETCONF) [RFC6241] and
    RESTCONF [RFC8040].  These YANG-based management (1) have to use a
-   secure transport layer (e.g., Secure Shell (SSH) [RFC4252], TLS
-   [I-D.ietf-tls-rfc8446bis], and QUIC {{?RFC9000]) and (2) have to use
-   mutual authentication.
+   secure transport layer and (2) have to use mutual authentication
+   (e.g., Secure Shell (SSH) [RFC4252], TLS [RFC9846], and QUIC
+   [RFC9000]).
 
    The Network Configuration Access Control Model (NACM) [RFC8341]
    provides the means to restrict access for particular NETCONF or
@@ -659,10 +659,10 @@ Table of Contents
    operations.  The following subtrees and data nodes have particular
    sensitivities/vulnerabilities:
 
-   'ne-ref', 'port-ref', 'link-type': These nodes are sensitive as they
-   establish the mapping between logical topology and physical
-   inventory.  Unauthorized modification could lead to incorrect
-   resource allocation or service disruption.
+   'ne-ref', 'port-ref', and 'link-type':  These nodes are sensitive as
+      they establish the mapping between logical topology and physical
+      inventory.  Unauthorized modification could lead to incorrect
+      resource allocation or service disruption.
 
    Some of the readable data nodes in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
@@ -671,11 +671,12 @@ Table of Contents
    subtrees and data nodes have particular sensitivities/
    vulnerabilities:
 
-   'ne-ref': The references may be used to track the set of network
-   elements.  While read-only, they may reveal network infrastructure
-   details.
+'ne-ref':
+: The references may be used to track the set of network elements, and thus
+  reveal network infrastructure details.
 
-   'port-breakout': This node exposes hardware capabilities.
+'port-breakout':
+: This node exposes hardware capabilities.
 
 8.  IANA Considerations
 
@@ -741,9 +742,9 @@ Table of Contents
               Wu, B., Zhou, C., Wu, Q., and M. Boucadair, "A YANG
               Network Data Model of Network Inventory Software
               Extensions", Work in Progress, Internet-Draft, draft-ietf-
-              ivy-network-inventory-software-03, 15 April 2026,
+              ivy-network-inventory-software-04, 6 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
-              network-inventory-software-03>.
+              network-inventory-software-04>.
 
    [I-D.ietf-nmop-simap-concept]
               Havel, O., Claise, B., de Dios, O. G., and T. Graf,
@@ -752,21 +753,14 @@ Table of Contents
               12, 19 June 2026, <https://datatracker.ietf.org/doc/html/
               draft-ietf-nmop-simap-concept-12>.
 
-   [I-D.ietf-tls-rfc8446bis]
-              Rescorla, E., "The Transport Layer Security (TLS) Protocol
-              Version 1.3", Work in Progress, Internet-Draft, draft-
-              ietf-tls-rfc8446bis-14, 13 September 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-tls-
-              rfc8446bis-14>.
-
    [I-D.irtf-nmrg-network-digital-twin-arch]
               Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
-              Q., Boucadair, M., and C. Jacquenet, "Network Digital
-              Twin: Concepts and Reference Architecture", Work in
+              Q., Boucadair, M., and C. Jacquenet, "Network Digital Twin
+              (NDT): Concepts and Reference Architecture", Work in
               Progress, Internet-Draft, draft-irtf-nmrg-network-digital-
-              twin-arch-12, 27 February 2026,
+              twin-arch-13, 1 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
-              network-digital-twin-arch-12>.
+              network-digital-twin-arch-13>.
 
    [I-D.ygb-ivy-passive-network-inventory]
               Guo, A., van caenegem, T., Davis, N., Tilocca, M., and B.
@@ -818,6 +812,11 @@ Table of Contents
               DOI 10.17487/RFC8944, November 2020,
               <https://www.rfc-editor.org/rfc/rfc8944>.
 
+   [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, May 2021,
+              <https://www.rfc-editor.org/rfc/rfc9000>.
+
    [RFC9408]  Boucadair, M., Ed., Gonzalez de Dios, O., Barguil, S., Wu,
               Q., and V. Lopez, "A YANG Network Data Model for Service
               Attachment Points (SAPs)", RFC 9408, DOI 10.17487/RFC9408,
@@ -827,6 +826,10 @@ Table of Contents
               Spreafico, "A YANG Data Model for Microwave Topology",
               RFC 9656, DOI 10.17487/RFC9656, September 2024,
               <https://www.rfc-editor.org/rfc/rfc9656>.
+
+   [RFC9846]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 9846, DOI 10.17487/RFC9846, July 2026,
+              <https://www.rfc-editor.org/rfc/rfc9846>.
 
    [RFC9907]  Bierman, A., Boucadair, M., Ed., and Q. Wu, "Guidelines
               for Authors and Reviewers of Documents Containing YANG
