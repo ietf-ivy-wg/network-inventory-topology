@@ -301,7 +301,7 @@ port-breakout:
 : Hardware capability determined by physical port characteristics
 
 Therefore, in typical deployments, "ne-ref", "port-ref", and "link-type"
-are expected to be populated through automatic discovery and SHOULD
+SHOULD be populated through automatic discovery but MAY
 only be overridden manually in exceptional cases (e.g., CPE,
 leased lines, or planned resources). The "port-breakout" container
 MUST always reflect hardware-determined state and therefore MUST
