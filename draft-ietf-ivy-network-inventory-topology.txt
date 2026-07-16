@@ -228,6 +228,22 @@ Table of Contents
    is outside the scope of the topology models and is addressed in this
    document.
 
+   Although [RFC8345] conceptually suggests that extensions be layered
+   on the base "ietf-network" module, this document intentionally
+   augments both "ietf-network" (for nodes and network-types) and "ietf-
+   network-topology" (for links and termination points) to align
+   inventory objects with topology constructs.  This intentional
+   deviation is required to support multi-layer navigation across
+   physical and logical resources.
+
+   To make this navigation operationally explicit, this module provides
+   concrete YANG data nodes in the "inventory-mapping-attributes"
+   container, where the leaf "ne-ref" links topology nodes to their
+   corresponding network elements, and the leaf "port-ref" links
+   termination points to their physical port components, thereby
+   enabling direct correlation between the [RFC8345] topology and the
+   underlying inventory.
+
 3.3.  "What-if" Scenarios
 
    [I-D.irtf-nmrg-network-digital-twin-arch] defines Network Digital
@@ -409,9 +425,8 @@ Table of Contents
      identity link-type {
        description
          "Base identity for classifying the physical media type of a
-          link at the inventory topology layer.  Specialized inventory
-          models are expected to define derived identities for specific
-          media, e.g., fiber, copper, or wireless.";
+          link at the inventory topology layer. Additional identities
+          may be defined to cover other media types.";
      }
 
      identity copper {
@@ -453,7 +468,12 @@ Table of Contents
        description
          "The link media type is unknown or could not be determined.
           This identity is used as a fallback when the physical medium
-          cannot be classified into any of the other defined types.";
+          cannot be classified into any of the other defined types.
+          When a discovery system is unable to determine the media
+          type, it should set this identity rather than leaving the
+          leaf unset. An unset leaf indicates that the link type has
+          not been assessed, whereas unknown explicitly records that
+          the medium could not be classified.";
      }
 
      identity leased-fiber {
@@ -479,6 +499,9 @@ Table of Contents
            "Container for the inventory-topology network type.
             When present, it signals that the network contains
             physical-layer augmentations as defined in this module.
+            This network type is typically discovered by the network
+            controller to identify a physical underlay network; it may
+            be configured manually when discovery is not available.
             This network type is intended to serve as the underlay
             for logical network topologies (Layer 2, Layer 3,
             Traffic Engineering (TE), etc.).";
@@ -632,6 +655,19 @@ Table of Contents
    port-breakout:  Hardware capability determined by physical port
       characteristics
 
+   Therefore, in typical deployments, "ne-ref", "port-ref", and "link-
+   type" SHOULD be populated through automatic discovery but MAY only be
+   overridden manually in exceptional cases (e.g., CPE, leased lines, or
+   planned resources).  The "port-breakout" container MUST always
+   reflect hardware-determined state and therefore MUST NOT be manually
+   configured.
+
+   The "inventory-topology" presence container under "network-types" is
+   typically set by the network controller when it discovers or
+   provisions network instance representing the physical layer.  It MAY
+   be configured manually to declare a network as an inventory topology
+   when discovery is not available.
+
 7.  Security Considerations
 
    This section is modeled after the template described in Section 3.7.1
@@ -659,10 +695,14 @@ Table of Contents
    operations.  The following subtrees and data nodes have particular
    sensitivities/vulnerabilities:
 
-   'ne-ref', 'port-ref', and 'link-type':  These nodes are sensitive as
-      they establish the mapping between logical topology and physical
-      inventory.  Unauthorized modification could lead to incorrect
-      resource allocation or service disruption.
+      'ne-ref', 'port-ref', and 'link-type':  These nodes are sensitive
+         as they establish the mapping between logical topology and
+         physical inventory.  Incorrect inventory mapping (e.g., stale
+         or manually misconfigured 'ne-ref' or 'port-ref' values) may
+         lead to mis-provisioning of services or misinterpretation of
+         physical resource availability, which can result in failed
+         service activation, unexpected traffic paths, or inaccurate
+         capacity planning.
 
    Some of the readable data nodes in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
@@ -671,12 +711,15 @@ Table of Contents
    subtrees and data nodes have particular sensitivities/
    vulnerabilities:
 
-'ne-ref':
-: The references may be used to track the set of network elements, and thus
-  reveal network infrastructure details.
+      'ne-ref':  The references may be used to track the set of network
+         elements, and thus reveal network infrastructure details.
 
-'port-breakout':
-: This node exposes hardware capabilities.
+      'port-breakout':  This node exposes hardware capabilities.
+
+   As this module augments the network topology model defined in
+   [RFC8345], the module also inherits the security considerations
+   discussed in Section 7 of [RFC8345] for the underlying network
+   topology data model.
 
 8.  IANA Considerations
 
@@ -974,6 +1017,8 @@ Acknowledgments
    The authors wish to thank Italo Busi, Olga Havel, Aihua Guo, Oscar
    Gonzalez de Dios, and many others for their helpful comments and
    suggestions.
+
+   Thanks to Olga Havel for the detailed shepherd review.
 
 Contributors
 

@@ -1419,8 +1419,27 @@ alternative underlay paths.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
         </h3>
 <p id="section-3.2-1">A multi-layer network encompasses multiple layers (e.g., Layer 2 and Layer 3, or Optical Transport Network (OTN) and Wavelength Division Multiplexing (WDM) layers).<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <p id="section-3.2-2">A multi-layer network topology comprises nodes, links, and termination points that can belong to different layers.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2-3">A multi-layer network can contain multiple types of topological elements: physical elements (associated with an inventory element) or logical elements (associated with topology elements in the underlay layer).<a href="#section-3.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2-4">The topology models support navigation across the different layers, down to the physical layer, as defined in <span><a href="https://rfc-editor.org/rfc/rfc8345#section-4.4.9" class="relref">Section 4.4.9</a> of [<a href="#RFC8345" class="cite xref">RFC8345</a>]</span>. The navigation between the physical layer and the network inventory is outside the scope of the topology models and is addressed in this document.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">A multi-layer network can contain multiple types of topological elements: physical
+elements (associated with an inventory element) or logical elements (associated
+with topology elements in the underlay layer).<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.2-4">The topology models support navigation across the different layers, down
+to the physical layer, as defined in <span><a href="https://rfc-editor.org/rfc/rfc8345#section-4.4.9" class="relref">Section 4.4.9</a> of [<a href="#RFC8345" class="cite xref">RFC8345</a>]</span>.
+The navigation between the physical layer and the network inventory
+is outside the scope of the topology models and is addressed in this document.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-5">Although <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span> conceptually suggests that extensions be layered
+on the base "ietf-network" module, this document intentionally
+augments both "ietf-network" (for nodes and network-types) and
+"ietf-network-topology" (for links and termination points) to
+align inventory objects with topology constructs.
+This intentional deviation is required to support multi-layer
+navigation across physical and logical resources.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.2-6">To make this navigation operationally explicit, this module
+provides concrete YANG data nodes in the "inventory-mapping-attributes"
+container, where the leaf "ne-ref" links topology nodes to their
+corresponding network elements, and the leaf "port-ref"
+links termination points to their physical port components,
+thereby enabling direct correlation between the <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span>
+topology and the underlying inventory.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-whatif">
@@ -1627,9 +1646,8 @@ module ietf-network-inventory-topology {
   identity link-type {
     description
       "Base identity for classifying the physical media type of a
-       link at the inventory topology layer.  Specialized inventory
-       models are expected to define derived identities for specific
-       media, e.g., fiber, copper, or wireless.";
+       link at the inventory topology layer. Additional identities
+       may be defined to cover other media types.";
   }
 
   identity copper {
@@ -1671,7 +1689,12 @@ module ietf-network-inventory-topology {
     description
       "The link media type is unknown or could not be determined.
        This identity is used as a fallback when the physical medium
-       cannot be classified into any of the other defined types.";
+       cannot be classified into any of the other defined types.
+       When a discovery system is unable to determine the media
+       type, it should set this identity rather than leaving the
+       leaf unset. An unset leaf indicates that the link type has
+       not been assessed, whereas unknown explicitly records that
+       the medium could not be classified.";
   }
 
   identity leased-fiber {
@@ -1697,6 +1720,9 @@ module ietf-network-inventory-topology {
         "Container for the inventory-topology network type.
          When present, it signals that the network contains
          physical-layer augmentations as defined in this module.
+         This network type is typically discovered by the network
+         controller to identify a physical underlay network; it may
+         be configured manually when discovery is not available.
          This network type is intended to serve as the underlay
          for logical network topologies (Layer 2, Layer 3,
          Traffic Engineering (TE), etc.).";
@@ -1819,6 +1845,7 @@ module ietf-network-inventory-topology {
   }
 }
 
+
 &lt;CODE ENDS&gt;</pre><a href="#section-5-3" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1852,6 +1879,17 @@ The inventory-mapping-attributes containers are defined as read-write (config tr
 </dd>
       <dd class="break"></dd>
 </dl>
+<p id="section-6-7">Therefore, in typical deployments, "ne-ref", "port-ref", and "link-type"
+SHOULD be populated through automatic discovery but MAY
+only be overridden manually in exceptional cases (e.g., CPE,
+leased lines, or planned resources). The "port-breakout" container
+MUST always reflect hardware-determined state and therefore MUST
+NOT be manually configured.<a href="#section-6-7" class="pilcrow">¶</a></p>
+<p id="section-6-8">The "inventory-topology" presence container under "network-types" is
+typically set by the network controller when it discovers or
+provisions network instance representing the physical layer.
+It MAY be configured manually to declare a network as an
+inventory topology when discovery is not available.<a href="#section-6-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1877,32 +1915,56 @@ operations (e.g., edit-config) and delete operations to these data
 nodes without proper protection or authentication can have a negative
 effect on network operations.  The following subtrees and data nodes
 have particular sensitivities/vulnerabilities:<a href="#section-7-4" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-7-5">
-        <dt id="section-7-5.1">'ne-ref', 'port-ref', and 'link-type':</dt>
-        <dd style="margin-left: 1.5em" id="section-7-5.2">
-          <p id="section-7-5.2.1">These nodes are sensitive as they establish the mapping
-between logical topology and physical inventory. Unauthorized
-modification could lead to incorrect resource allocation or
-service disruption.<a href="#section-7-5.2.1" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-7-5.1">
+          <span class="break"></span><dl class="dlParallel" id="section-7-5.1.1">
+            <dt id="section-7-5.1.1.1">'ne-ref', 'port-ref', and 'link-type':</dt>
+            <dd style="margin-left: 1.5em" id="section-7-5.1.1.2">
+              <p id="section-7-5.1.1.2.1">These nodes are sensitive as they establish the mapping
+between logical topology and physical inventory. Incorrect
+inventory mapping (e.g., stale or manually misconfigured
+'ne-ref' or 'port-ref' values) may lead to mis-provisioning
+of services or misinterpretation of physical resource
+availability, which can result in failed service
+activation, unexpected traffic paths, or inaccurate
+capacity planning.<a href="#section-7-5.1.1.2.1" class="pilcrow">¶</a></p>
 </dd>
-      <dd class="break"></dd>
+          <dd class="break"></dd>
 </dl>
+</li>
+      </ul>
 <p id="section-7-6">Some of the readable data nodes in this YANG module may be considered
 sensitive or vulnerable in some network environments.  It is thus
 important to control read access (e.g., via get, get-config, or
 notification) to these data nodes. Specifically, the following
 subtrees and data nodes have particular sensitivities/
 vulnerabilities:<a href="#section-7-6" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-7-7">
-<pre>
-'ne-ref':
-: The references may be used to track the set of network elements, and thus
-  reveal network infrastructure details.
-
-'port-breakout':
-: This node exposes hardware capabilities.
-</pre><a href="#section-7-7" class="pilcrow">¶</a>
-</div>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-7-7.1">
+          <span class="break"></span><dl class="dlParallel" id="section-7-7.1.1">
+            <dt id="section-7-7.1.1.1">'ne-ref':</dt>
+            <dd style="margin-left: 1.5em" id="section-7-7.1.1.2">
+              <p id="section-7-7.1.1.2.1">The references may be used to track the set of network elements,
+and thus reveal network infrastructure details.<a href="#section-7-7.1.1.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+</dl>
+</li>
+      </ul>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-7-8.1">
+          <span class="break"></span><dl class="dlParallel" id="section-7-8.1.1">
+            <dt id="section-7-8.1.1.1">'port-breakout':</dt>
+            <dd style="margin-left: 1.5em" id="section-7-8.1.1.2">
+              <p id="section-7-8.1.1.2.1">This node exposes hardware capabilities.<a href="#section-7-8.1.1.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+</dl>
+</li>
+      </ul>
+<p id="section-7-9">As this module augments the network topology model defined in <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span>,
+the module also inherits the security considerations discussed in
+<span><a href="https://rfc-editor.org/rfc/rfc8345#section-7" class="relref">Section 7</a> of [<a href="#RFC8345" class="cite xref">RFC8345</a>]</span> for the underlying network topology data model.<a href="#section-7-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2215,6 +2277,7 @@ elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:\
 <p id="appendix-C-1">The authors wish to thank Italo Busi, Olga Havel, Aihua Guo, Oscar
    Gonzalez de Dios, and many others for their helpful comments and
    suggestions.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-2">Thanks to Olga Havel for the detailed shepherd review.<a href="#appendix-C-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="contributors">
