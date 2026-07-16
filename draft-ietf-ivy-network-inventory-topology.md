@@ -192,7 +192,7 @@ container, where the leaf "ne-ref" links topology nodes to their
 corresponding network elements, and the leaf "port-ref"
 links termination points to their physical port components,
 thereby enabling direct correlation between the {{!RFC8345}}
-topology and the underlying inventory model.
+topology and the underlying inventory.
 
 ## "What-if" Scenarios {#sec-whatif}
 
