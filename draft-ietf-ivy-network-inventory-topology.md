@@ -337,15 +337,15 @@ nodes without proper protection or authentication can have a negative
 effect on network operations.  The following subtrees and data nodes
 have particular sensitivities/vulnerabilities:
 
-   'ne-ref', 'port-ref', and 'link-type'
-   : These nodes are sensitive as they establish the mapping
-     between logical topology and physical inventory. Incorrect
-     inventory mapping (e.g., stale or manually misconfigured
-     'ne-ref' or 'port-ref' values) may lead to mis-provisioning
-     of services or misinterpretation of physical resource
-     availability, which can result in failed service
-     activation, unexpected traffic paths, or inaccurate
-     capacity planning. 
+> 'ne-ref', 'port-ref', and 'link-type':
+> : These nodes are sensitive as they establish the mapping
+>   between logical topology and physical inventory. Incorrect
+>   inventory mapping (e.g., stale or manually misconfigured
+>   'ne-ref' or 'port-ref' values) may lead to mis-provisioning
+>   of services or misinterpretation of physical resource
+>   availability, which can result in failed service
+>   activation, unexpected traffic paths, or inaccurate
+>   capacity planning.
 
 Some of the readable data nodes in this YANG module may be considered
 sensitive or vulnerable in some network environments.  It is thus
@@ -354,13 +354,13 @@ notification) to these data nodes. Specifically, the following
 subtrees and data nodes have particular sensitivities/
 vulnerabilities:
 
-    'ne-ref'
-    : The references may be used to track the set of network elements, and thus
-      reveal network infrastructure details.
+> 'ne-ref':
+> : The references may be used to track the set of network elements,
+>   and thus reveal network infrastructure details.
 
-    'port-breakout'
-    : This node exposes hardware capabilities.
-
+> 'port-breakout':
+> : This node exposes hardware capabilities.
+  
 As this module augments the network topology model defined in {{!RFC8345}},
 the module also inherits the security considerations discussed in
 {{Section 7 of !RFC8345}} for the underlying network topology model.
