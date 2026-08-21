@@ -354,7 +354,7 @@ Table of Contents
    This module imports the base network inventory
    [I-D.ietf-ivy-network-inventory-yang].
 
-   <CODE BEGINS> file "ietf-network-inventory-topology@2026-06-25.yang"
+   <CODE BEGINS> file "ietf-network-inventory-topology@2026-08-21.yang"
    module ietf-network-inventory-topology {
      yang-version 1.1;
      namespace
