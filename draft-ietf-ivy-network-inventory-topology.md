@@ -99,6 +99,10 @@ Please apply the following replacements:
 
 # Conventions and Definitions
 
+## Requirements Notations
+
+{::boilerplate bcp14}
+
 The meanings of the symbols in the YANG tree diagrams are defined in {{?RFC8340}}.
 
 This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
@@ -382,7 +386,8 @@ the module also inherits the security considerations discussed in
 ~~~~
    Name:  ietf-network-inventory-topology
    Maintained by IANA?  N
-   Namespace:  urn:ietf:params:xml:ns:yang:ietf-network-inventory-topology
+   Namespace:
+     urn:ietf:params:xml:ns:yang:ietf-network-inventory-topology
    Prefix:  nwit
    Reference:  RFC XXXX
 ~~~~
