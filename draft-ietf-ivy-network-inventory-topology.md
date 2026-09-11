@@ -53,7 +53,7 @@ informative:
 
 --- abstract
 
-This document defines a YANG data model that extends the network
+This document specifies a YANG data model that extends the network
 topology data model (RFC 8345) to map network topologies with inventories. The data model
 introduces the "inventory-topology" network type and augmentations
 for physical entity mappings and capabilities, which may be used by
@@ -76,7 +76,7 @@ this document extends the network topology data model {{!RFC8345}} for network
 inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).
 The YANG data model in this document conforms to the YANG data modeling language {{!RFC7950}}.
 
-Similar to the base inventory data model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
+Similar to the base inventory data model {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology data model
 does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
 data model can be applied independent of the network type (optical local loops, access network, core network, etc.) and application.
 
@@ -96,7 +96,7 @@ Please apply the following replacements:
 
   * XXXX --> the assigned RFC number for this I-D
   * AAAA --> the assigned RFC number for {{!I-D.ietf-ivy-network-inventory-yang}}
-  * 2026-07-30 --> the actual date of the publication of this document
+  * 2026-09-11 --> the actual date of the publication of this document
 
 # Conventions and Definitions
 
@@ -192,7 +192,7 @@ is outside the scope of the topology models and is addressed in this document.
 This document augments both "ietf-network" (for nodes and network-
 types) and "ietf-network-topology" (for links and termination
 points), following the standard extension pattern described in
-Section 4.3 of {{!RFC8345}}. This augmentation associates inventory
+{{Section 4.3 of !RFC8345}}. This augmentation associates inventory
 data nodes with topology data nodes to support multi-layer navigation across
 physical and logical resources.
 
@@ -248,8 +248,8 @@ This document adds a lightweight "link-type" leaf to the topology link mapping t
 : Examples of wired link types are "copper", "fiber", or "coax". For wireless media, values such as "microwave", or "wlan" may be used. See also {{?RFC9656}} for more detailed microwave radio attributes.
 : The "link-type" serves as a lightweight discriminator that guides to the
  appropriate specialized inventory model for detailed resource information.
- For example, wired media ("fiber" or "copper") typically references a passive
- network inventory model such as the one defined in {{?I-D.ygb-ivy-passive-network-inventory}}.
+: For example, wired media ("fiber" or "copper") typically references a passive
+  network inventory model such as the one defined in {{?I-D.ygb-ivy-passive-network-inventory}}.
 
 ## Port-Breakout Capability
 
@@ -274,7 +274,7 @@ common non-breakout case.
 Breakout channel is an atomic resource element obtained by partitioning a breakout port.
 One physical interface may be associated with one or more breakout
 channels, but one breakout channel MUST NOT be associated with more
-than one physical interface. Appendix B provides a JSON instance example for a port with breakout capabilities.
+than one physical interface. Appendix B provides a JSON instance {{?RFC7951}} example for a port with breakout capabilities.
 
 It is assumed that a port which supports breakout can be configured
 either as a trunk port or as a breakout port. The "port-breakout"
@@ -299,13 +299,13 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 
 # Operational Considerations
 
-This model enables a network controller to report discovered network topology and inventory information. Automatic discovery serves as the primary mechanism, with selective configuration capabilities provided for scenarios where discovery is not feasible.
+The "ietf-network-inventory-topology" YANG module enables a network controller to report discovered network topology and inventory information. Automatic discovery serves as the primary mechanism, with selective configuration capabilities provided for scenarios where discovery is not feasible.
 
 For typical operations such as service provisioning and network planning, the model offers read-only query
 access to authoritative mappings between logical topology and physical inventory.
 The inventory-mapping-attributes containers are defined as read-write (config true) to accommodate cases where automatic discovery is not possible, including:
 
-- Customer-premises equipment (CPE) outside the operator's management domain
+- Customer Premises Equipment (CPE) outside the operator's management domain
 - Leased lines and third-party transport resources
 - Planned or hypothetical resources for future deployment
 
