@@ -31,8 +31,8 @@ Discussion Venues
    This note is to be removed before publishing as an RFC.
 
    Discussion of this document takes place on the Network Inventory YANG
-   Working Group mailing list (inventory-yang@ietf.org), which is
-   archived at https://mailarchive.ietf.org/arch/browse/inventory-yang/.
+   Working Group mailing list (ivy@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/ivy/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/ietf-ivy-wg/network-inventory-topology.
