@@ -18,7 +18,7 @@ Expires: 15 March 2027                                            Orange
 
 Abstract
 
-   This document defines a YANG data model that extends the network
+   This document specifies a YANG data model that extends the network
    topology data model (RFC 8345) to map network topologies with
    inventories.  The data model introduces the "inventory-topology"
    network type and augmentations for physical entity mappings and
@@ -115,8 +115,8 @@ Table of Contents
 
    Similar to the base inventory data model
    [I-D.ietf-ivy-network-inventory-yang], the network inventory topology
-   does not make any assumption about involved NEs and their roles in
-   topologies.  As such, the mapping data model can be applied
+   data model does not make any assumption about involved NEs and their
+   roles in topologies.  As such, the mapping data model can be applied
    independent of the network type (optical local loops, access network,
    core network, etc.) and application.
 
@@ -144,7 +144,7 @@ Table of Contents
    *  AAAA --> the assigned RFC number for
       [I-D.ietf-ivy-network-inventory-yang]
 
-   *  2026-07-30 --> the actual date of the publication of this document
+   *  2026-09-11 --> the actual date of the publication of this document
 
 2.  Conventions and Definitions
 
@@ -327,10 +327,11 @@ Table of Contents
 
       The "link-type" serves as a lightweight discriminator that guides
       to the appropriate specialized inventory model for detailed
-      resource information.  For example, wired media ("fiber" or
-      "copper") typically references a passive network inventory model
-      such as the one defined in
-      [I-D.ygb-ivy-passive-network-inventory].
+      resource information.
+
+      For example, wired media ("fiber" or "copper") typically
+      references a passive network inventory model such as the one
+      defined in [I-D.ygb-ivy-passive-network-inventory].
 
 4.2.  Port-Breakout Capability
 
@@ -356,8 +357,8 @@ Table of Contents
    partitioning a breakout port.  One physical interface may be
    associated with one or more breakout channels, but one breakout
    channel MUST NOT be associated with more than one physical interface.
-   Appendix B provides a JSON instance example for a port with breakout
-   capabilities.
+   Appendix B provides a JSON instance [RFC7951] example for a port with
+   breakout capabilities.
 
    It is assumed that a port which supports breakout can be configured
    either as a trunk port or as a breakout port.  The "port-breakout"
@@ -656,10 +657,11 @@ Table of Contents
 
 6.  Operational Considerations
 
-   This model enables a network controller to report discovered network
-   topology and inventory information.  Automatic discovery serves as
-   the primary mechanism, with selective configuration capabilities
-   provided for scenarios where discovery is not feasible.
+   The "ietf-network-inventory-topology" YANG module enables a network
+   controller to report discovered network topology and inventory
+   information.  Automatic discovery serves as the primary mechanism,
+   with selective configuration capabilities provided for scenarios
+   where discovery is not feasible.
 
    For typical operations such as service provisioning and network
    planning, the model offers read-only query access to authoritative
@@ -668,7 +670,7 @@ Table of Contents
    (config true) to accommodate cases where automatic discovery is not
    possible, including:
 
-   *  Customer-premises equipment (CPE) outside the operator's
+   *  Customer Premises Equipment (CPE) outside the operator's
       management domain
 
    *  Leased lines and third-party transport resources
