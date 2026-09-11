@@ -104,6 +104,12 @@ Please apply the following replacements:
 
 {::boilerplate bcp14}
 
+The following terms are defined in {{!RFC7950}} and are not redefined here:
+
+augment
+data model
+data node
+
 The meanings of the symbols in the YANG tree diagrams are defined in {{?RFC8340}}.
 
 This document uses terms defined in {{!I-D.ietf-ivy-network-inventory-yang}}.
@@ -187,7 +193,7 @@ This document augments both "ietf-network" (for nodes and network-
 types) and "ietf-network-topology" (for links and termination
 points), following the standard extension pattern described in
 Section 4.3 of {{!RFC8345}}. This augmentation associates inventory
-objects with topology constructs to support multi-layer navigation across
+data nodes with topology data nodes to support multi-layer navigation across
 physical and logical resources.
 
 To make this navigation operationally explicit, this module
