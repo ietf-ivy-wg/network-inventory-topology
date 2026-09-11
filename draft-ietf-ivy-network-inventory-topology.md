@@ -106,9 +106,9 @@ Please apply the following replacements:
 
 The following terms are defined in {{!RFC7950}} and are not redefined here:
 
-augment
-data model
-data node
+- augment
+- data model
+- data node
 
 The meanings of the symbols in the YANG tree diagrams are defined in {{?RFC8340}}.
 
@@ -295,7 +295,7 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 ~~~~ yang
 {::include-fold ./yang/ietf-network-inventory-topology.yang}
 ~~~~
-{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-08-21.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-09-11.yang"}
 
 # Operational Considerations
 
