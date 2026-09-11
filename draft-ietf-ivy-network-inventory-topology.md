@@ -186,7 +186,7 @@ is outside the scope of the topology models and is addressed in this document.
 This document augments both "ietf-network" (for nodes and network-
 types) and "ietf-network-topology" (for links and termination
 points), following the standard extension pattern described in
-Section 4.3 of {{!RFC8345}. This augmentation associates inventory
+Section 4.3 of {{!RFC8345}}. This augmentation associates inventory
 objects with topology constructs to support multi-layer navigation across
 physical and logical resources.
 
