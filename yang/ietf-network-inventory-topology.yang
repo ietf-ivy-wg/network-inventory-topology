@@ -19,14 +19,14 @@ module ietf-network-inventory-topology {
   import ietf-network-inventory {
     prefix nwi;
     reference
-      "RFC AAAA: A YANG Data Model for Network Inventory";
+      "RFC AAAA: A Base YANG Data Model for Network Inventory";
   }
 
   organization
     "IETF Network Inventory YANG (ivy) Working Group";
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/ivy>
-     WG List:  IVY <mailto:inventory-yang@ietf.org>
+     WG List:  IVY <mailto:ivy@ietf.org>
 
      Editor: Bo Wu
              <lana.wubo@huawei.com>
@@ -57,7 +57,7 @@ module ietf-network-inventory-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2026-08-21 {
+  revision 2026-09-11 {
     description
       "Initial revision.";
     reference
@@ -266,4 +266,5 @@ module ietf-network-inventory-topology {
     } // port-breakout       
   }
 }
+
 

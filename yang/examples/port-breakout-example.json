@@ -1,12 +1,15 @@
 {
-  "ietf-network-topology:networks": {
+  "ietf-network:networks": {
     "network": [
       {
         "network-id": "example:underlay-topology-400g",
+        "network-types": {
+          "ietf-network-inventory-topology:inventory-topology": {}
+        },
         "node": [
           {
             "node-id": "example:n1",
-            "termination-point": [
+            "ietf-network-topology:termination-point": [
               {
                 "tp-id": "example:400g-1/0/1",
                 "ietf-network-inventory-topology:inventory-mapping-attributes": {
@@ -15,10 +18,18 @@
                 },
                 "ietf-network-inventory-topology:port-breakout": {
                   "breakout-channel": [
-                    { "channel-id": 1 },
-                    { "channel-id": 2 },
-                    { "channel-id": 3 },
-                    { "channel-id": 4 }
+                    {
+                      "channel-id": 1
+                    },
+                    {
+                      "channel-id": 2
+                    },
+                    {
+                      "channel-id": 3
+                    },
+                    {
+                      "channel-id": 4
+                    }
                   ]
                 }
               }

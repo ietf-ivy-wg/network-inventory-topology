@@ -74,6 +74,7 @@ network maintenance, and capacity planning.
 In order to ease navigation between inventory and network topologies,
 this document extends the network topology data model {{!RFC8345}} for network
 inventory mapping: "ietf-network-inventory-topology" ({{sec-module}}).
+The YANG data model in this document conforms to the YANG data modeling language {{!RFC7950}}.
 
 Similar to the base inventory data model  {{!I-D.ietf-ivy-network-inventory-yang}}, the network inventory topology
 does not make any assumption about involved NEs and their roles in topologies. As such, the mapping
@@ -102,6 +103,12 @@ Please apply the following replacements:
 ## Requirements Notations
 
 {::boilerplate bcp14}
+
+The following terms are defined in {{!RFC7950}} and are not redefined here:
+
+augment
+data model
+data node
 
 The meanings of the symbols in the YANG tree diagrams are defined in {{?RFC8340}}.
 
@@ -182,13 +189,12 @@ to the physical layer, as defined in {{Section 4.4.9 of !RFC8345}}.
 The navigation between the physical layer and the network inventory
 is outside the scope of the topology models and is addressed in this document.
 
-Although {{!RFC8345}} conceptually suggests that extensions be layered
-on the base "ietf-network" module, this document intentionally
-augments both "ietf-network" (for nodes and network-types) and
-"ietf-network-topology" (for links and termination points) to
-align inventory objects with topology constructs.
-This intentional deviation is required to support multi-layer
-navigation across physical and logical resources.
+This document augments both "ietf-network" (for nodes and network-
+types) and "ietf-network-topology" (for links and termination
+points), following the standard extension pattern described in
+Section 4.3 of {{!RFC8345}}. This augmentation associates inventory
+data nodes with topology data nodes to support multi-layer navigation across
+physical and logical resources.
 
 To make this navigation operationally explicit, this module
 provides concrete YANG data nodes in the "inventory-mapping-attributes"
@@ -268,11 +274,17 @@ common non-breakout case.
 Breakout channel is an atomic resource element obtained by partitioning a breakout port.
 One physical interface may be associated with one or more breakout
 channels, but one breakout channel MUST NOT be associated with more
-than one physical interface. Appendix B provides example configurations.
+than one physical interface. Appendix B provides a JSON instance example for a port with breakout capabilities.
 
 It is assumed that a port which supports breakout can be configured
-either as a trunk port or as a breakout port. Interface channelisation (e.g., VLAN sub-interfaces) is
-outside the scope of this document and is addressed by the Layer 2 network topology model {{?RFC8944}}.
+either as a trunk port or as a breakout port. The "port-breakout"
+container serves as a capability advertisement for the termination-point
+of the parent physical port.  It does not provide direct references or
+pointers to the resulting lower-speed termination-points or interfaces.
+The correlation between a specific "channel-id" and its corresponding
+lower-speed termination-point is outside the scope of this document and
+is expected to be provided by a future companion module. Interface channelisation (e.g., VLAN sub-interfaces) is
+also outside the scope of this document and is addressed by the Layer 2 network topology model {{?RFC8944}}.
 
 # Network Inventory Topology YANG Module {#sec-module}
 
@@ -358,12 +370,17 @@ notification) to these data nodes. Specifically, the following
 subtrees and data nodes have particular sensitivities/
 vulnerabilities:
 
-> 'ne-ref':
-> : The references may be used to track the set of network elements,
->   and thus reveal network infrastructure details.
+> 'ne-ref', 'port-ref', and 'link-type':
+> : These nodes are sensitive as they reveal network infrastructure details.
+>   'ne-ref' may be used to track the set of network elements;
+>   'port-ref' discloses internal port and component naming;
+>   'link-type' can reveal infrastructure ownership (e.g., the 'leased-fiber' identity
+>   distinguishes third-party transport from owned infrastructure).
 
 > 'port-breakout':
 > : This node exposes hardware capabilities.
+
+There are no particularly sensitive RPC or action operations defined in this module.
 
 As this module augments the network topology model defined in {{!RFC8345}},
 the module also inherits the security considerations discussed in
