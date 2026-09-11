@@ -3,6 +3,9 @@
     "network": [
       {
         "network-id": "example:campus-topology",
+        "network-types": {
+          "ietf-network-inventory-topology:inventory-topology": {}
+        },
         "node": [
           {
             "node-id": "example:SW-1",
@@ -47,7 +50,7 @@
               "dest-tp": "example:TP-SW2-P1"
             },
             "ietf-network-inventory-topology:inventory-mapping-attributes": {
-              "link-type": "fiber"
+              "link-type": "ietf-network-inventory-topology:fiber"
             }
           }
         ]
