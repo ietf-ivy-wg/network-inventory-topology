@@ -5,12 +5,12 @@
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                            M. Boucadair
-Expires: 1 March 2027                                             Orange
+Expires: 15 March 2027                                            Orange
                                                                  C. Zhou
                                                             China Mobile
                                                                    Q. Wu
                                                                   Huawei
-                                                          28 August 2026
+                                                       11 September 2026
 
 
         A YANG Network Data Model for Inventory Topology Mapping
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 March 2027.
+   This Internet-Draft will expire on 15 March 2027.
 
 Copyright Notice
 
@@ -110,7 +110,8 @@ Table of Contents
    In order to ease navigation between inventory and network topologies,
    this document extends the network topology data model [RFC8345] for
    network inventory mapping: "ietf-network-inventory-topology"
-   (Section 5).
+   (Section 5).  The YANG data model in this document conforms to the
+   YANG data modeling language [RFC7950].
 
    Similar to the base inventory data model
    [I-D.ietf-ivy-network-inventory-yang], the network inventory topology
@@ -154,6 +155,11 @@ Table of Contents
    "OPTIONAL" in this document are to be interpreted as described in
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
+
+   The following terms are defined in [RFC7950] and are not redefined
+   here:
+
+   augment data model data node
 
    The meanings of the symbols in the YANG tree diagrams are defined in
    [RFC8340].
@@ -237,13 +243,12 @@ Table of Contents
    is outside the scope of the topology models and is addressed in this
    document.
 
-   Although [RFC8345] conceptually suggests that extensions be layered
-   on the base "ietf-network" module, this document intentionally
-   augments both "ietf-network" (for nodes and network-types) and "ietf-
-   network-topology" (for links and termination points) to align
-   inventory objects with topology constructs.  This intentional
-   deviation is required to support multi-layer navigation across
-   physical and logical resources.
+   This document augments both "ietf-network" (for nodes and network-
+   types) and "ietf-network-topology" (for links and termination
+   points), following the standard extension pattern described in
+   Section 4.3 of [RFC8345].  This augmentation associates inventory
+   data nodes with topology data nodes to support multi-layer navigation
+   across physical and logical resources.
 
    To make this navigation operationally explicit, this module provides
    concrete YANG data nodes in the "inventory-mapping-attributes"
@@ -283,13 +288,13 @@ Table of Contents
         augment /nw:networks/nw:network/nw:network-types:
           +--rw inventory-topology!
         augment /nw:networks/nw:network/nw:node:
-          +--rw inventory-mapping-attributes
+          +--rw inventory-mapping-attributes!
              +--rw ne-ref?   nwi:ne-ref
         augment /nw:networks/nw:network/nt:link:
-          +--rw inventory-mapping-attributes
+          +--rw inventory-mapping-attributes!
              +--rw link-type?   identityref
         augment /nw:networks/nw:network/nw:node/nt:termination-point:
-          +--rw inventory-mapping-attributes
+          +--rw inventory-mapping-attributes!
           |  +--rw ne-ref?     nwi:ne-ref
           |  +--rw port-ref?   leafref
           +--ro port-breakout!
@@ -347,13 +352,20 @@ Table of Contents
    partitioning a breakout port.  One physical interface may be
    associated with one or more breakout channels, but one breakout
    channel MUST NOT be associated with more than one physical interface.
-   Appendix B provides example configurations.
+   Appendix B provides a JSON instance example for a port with breakout
+   capabilities.
 
    It is assumed that a port which supports breakout can be configured
-   either as a trunk port or as a breakout port.  Interface
-   channelisation (e.g., VLAN sub-interfaces) is outside the scope of
-   this document and is addressed by the Layer 2 network topology model
-   [RFC8944].
+   either as a trunk port or as a breakout port.  The "port-breakout"
+   container serves as a capability advertisement for the termination-
+   point of the parent physical port.  It does not provide direct
+   references or pointers to the resulting lower-speed termination-
+   points or interfaces.  The correlation between a specific "channel-
+   id" and its corresponding lower-speed termination-point is outside
+   the scope of this document and is expected to be provided by a future
+   companion module.  Interface channelisation (e.g., VLAN sub-
+   interfaces) is also outside the scope of this document and is
+   addressed by the Layer 2 network topology model [RFC8944].
 
 5.  Network Inventory Topology YANG Module
 
@@ -385,14 +397,14 @@ Table of Contents
      import ietf-network-inventory {
        prefix nwi;
        reference
-         "RFC AAAA: A YANG Data Model for Network Inventory";
+         "RFC AAAA: A Base YANG Data Model for Network Inventory";
      }
 
      organization
        "IETF Network Inventory YANG (ivy) Working Group";
      contact
        "WG Web:   <https://datatracker.ietf.org/wg/ivy>
-        WG List:  IVY <mailto:inventory-yang@ietf.org>
+        WG List:  IVY <mailto:ivy@ietf.org>
 
         Editor: Bo Wu
                 <lana.wubo@huawei.com>
@@ -423,7 +435,7 @@ Table of Contents
         This version of this YANG module is part of RFC XXXX; see
         the RFC itself for full legal notices.";
 
-     revision 2026-08-21 {
+     revision 2026-09-11 {
        description
          "Initial revision.";
        reference
@@ -720,10 +732,17 @@ Table of Contents
    subtrees and data nodes have particular sensitivities/
    vulnerabilities:
 
-      'ne-ref':  The references may be used to track the set of network
-         elements, and thus reveal network infrastructure details.
+      'ne-ref', 'port-ref', and 'link-type':  These nodes are sensitive
+         as they reveal network infrastructure details. 'ne-ref' may be
+         used to track the set of network elements; 'port-ref' discloses
+         internal port and component naming; 'link-type' can reveal
+         infrastructure ownership (e.g., the 'leased-fiber' identity
+         distinguishes third-party transport from owned infrastructure).
 
       'port-breakout':  This node exposes hardware capabilities.
+
+   There are no particularly sensitive RPC or action operations defined
+   in this module.
 
    As this module augments the network topology model defined in
    [RFC8345], the module also inherits the security considerations
@@ -776,6 +795,10 @@ Table of Contents
               DOI 10.17487/RFC6020, October 2010,
               <https://www.rfc-editor.org/rfc/rfc6020>.
 
+   [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
+              RFC 7950, DOI 10.17487/RFC7950, August 2016,
+              <https://www.rfc-editor.org/rfc/rfc7950>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
@@ -812,8 +835,9 @@ Table of Contents
               Havel, O., Claise, B., de Dios, O. G., and T. Graf,
               "SIMAP: Concept, Requirements, and Use Cases", Work in
               Progress, Internet-Draft, draft-ietf-nmop-simap-concept-
-              12, 19 June 2026, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-nmop-simap-concept-12>.
+              13, 4 September 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
+              simap-concept-13>.
 
    [I-D.irtf-nmrg-network-digital-twin-arch]
               Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
@@ -923,6 +947,9 @@ Appendix A.  'link-type' Usage Examples
        "network": [
          {
            "network-id": "example:campus-topology",
+           "network-types": {
+             "ietf-network-inventory-topology:inventory-topology": {}
+           },
            "node": [
              {
                "node-id": "example:SW-1",
@@ -976,7 +1003,7 @@ Appendix A.  'link-type' Usage Examples
                },
                "ietf-network-inventory-topology:inventory-mapping-\
                                                           attributes": {
-                 "link-type": "fiber"
+                 "link-type": "ietf-network-inventory-topology:fiber"
                }
              }
            ]
@@ -999,14 +1026,17 @@ Appendix B.  JSON Example of an Multi-fibre Push On (MPO) Breakout-
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
    {
-     "ietf-network-topology:networks": {
+     "ietf-network:networks": {
        "network": [
          {
            "network-id": "example:underlay-topology-400g",
+           "network-types": {
+             "ietf-network-inventory-topology:inventory-topology": {}
+           },
            "node": [
              {
                "node-id": "example:n1",
-               "termination-point": [
+               "ietf-network-topology:termination-point": [
                  {
                    "tp-id": "example:400g-1/0/1",
                    "ietf-network-inventory-topology:inventory-mapping-\
@@ -1016,10 +1046,18 @@ Appendix B.  JSON Example of an Multi-fibre Push On (MPO) Breakout-
                    },
                    "ietf-network-inventory-topology:port-breakout": {
                      "breakout-channel": [
-                       { "channel-id": 1 },
-                       { "channel-id": 2 },
-                       { "channel-id": 3 },
-                       { "channel-id": 4 }
+                       {
+                         "channel-id": 1
+                       },
+                       {
+                         "channel-id": 2
+                       },
+                       {
+                         "channel-id": 3
+                       },
+                       {
+                         "channel-id": 4
+                       }
                      ]
                    }
                  }
