@@ -284,6 +284,36 @@ lower-speed termination-point is outside the scope of this document and
 is expected to be provided by a future companion module. Interface channelisation (e.g., VLAN sub-interfaces) is
 also outside the scope of this document and is addressed by the Layer 2 network topology model {{?RFC8944}}.
 
+## Semantics of Inventory Mappings
+
+   The interpretation of "inventory-mapping-attributes" follows
+   the rules below.  The absence of the container indicates that
+   no inventory mapping is asserted for the object.
+
+   When the container is present, it asserts a physical mapping,
+   and its content determines the mapping semantics:
+
+   - For nodes, 'ne-ref' MUST be present (enforced by a 'must'
+     statement).  A node mapping is therefore either complete or
+     absent; no partial node mapping is defined.
+
+   - For TPs, 'ne-ref' MUST be present and MUST equal the
+     'ne-ref' of the parent node (enforced by a 'must'
+     statement), because component identifiers are scoped to a
+     network element.  A TP with both 'ne-ref' and 'port-ref'
+     has a complete mapping that identifies a port component
+     identifier within the NE scope. A TP with only 'ne-ref' has a partial mapping: the
+     NE is known but the port is unresolved (e.g., CPE with
+     limited discovery capability).  Consumers MUST NOT use a
+     partial mapping for port-level resource validation.  A
+     'port-ref' never occurs without its accompanying 'ne-ref';
+     this is enforced by the 'must' statement on the TP mapping
+     container.
+
+   - For links, 'link-type' MUST be present (enforced by a
+     'must' statement).  A link mapping is therefore either
+     complete or absent; no partial link mapping is defined.
+
 # Network Inventory Topology YANG Module {#sec-module}
 
 This module augments the Network Topology module defined in {{!RFC8345}}.
