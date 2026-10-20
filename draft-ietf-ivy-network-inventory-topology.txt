@@ -5,12 +5,12 @@
 Network Inventory YANG                                        B. Wu, Ed.
 Internet-Draft                                                    Huawei
 Intended status: Standards Track                            M. Boucadair
-Expires: 15 March 2027                                            Orange
+Expires: 23 April 2027                                            Orange
                                                                  C. Zhou
                                                             China Mobile
                                                                    Q. Wu
                                                                   Huawei
-                                                       11 September 2026
+                                                         20 October 2026
 
 
         A YANG Network Data Model for Inventory Topology Mapping
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 March 2027.
+   This Internet-Draft will expire on 23 April 2027.
 
 Copyright Notice
 
@@ -73,7 +73,6 @@ Table of Contents
    1.  Introduction
      1.1.  Editorial Note (To be removed by RFC Editor)
    2.  Conventions and Definitions
-     2.1.  Requirements Notations
    3.  Sample Use Cases of the Data Model
      3.1.  Determine Available Resources of Service Attachment Points
            (SAPs)
@@ -82,6 +81,7 @@ Table of Contents
    4.  Module Tree Structure
      4.1.  Link Extensions
      4.2.  Port-Breakout Capability
+     4.3.  Semantics of Inventory Mappings
    5.  Network Inventory Topology YANG Module
    6.  Operational Considerations
    7.  Security Considerations
@@ -90,7 +90,7 @@ Table of Contents
      9.1.  Normative References
      9.2.  Informative References
    Appendix A.  'link-type' Usage Examples
-   Appendix B.  JSON Example of an Multi-fibre Push On (MPO)
+   Appendix B.  JSON Example of a Multi-fibre Push On (MPO)
            Breakout-Channel Port
    Acknowledgments
    Contributors
@@ -147,8 +147,6 @@ Table of Contents
    *  2026-09-11 --> the actual date of the publication of this document
 
 2.  Conventions and Definitions
-
-2.1.  Requirements Notations
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -307,11 +305,12 @@ Table of Contents
 
     Figure 2: The Structure of the Network Inventory Mapping Data Model
 
-   The module augments the "ietf-network-topology" module as follows:
+   The module augments the "ietf-network" and "ietf-network-topology"
+   module as follows:
 
-   Inventory mapping attributes for nodes, and termination points:  The
-      corresponding containers augments the topology module with the
-      references to the base network inventory
+   Inventory mapping attributes for nodes, links, and termination
+   points:  The corresponding containers augments the topology module
+      with the references to the base network inventory
 
 4.1.  Link Extensions
 
@@ -331,7 +330,7 @@ Table of Contents
 
       For example, wired media ("fiber" or "copper") typically
       references a passive network inventory model such as the one
-      defined in [I-D.ygb-ivy-passive-network-inventory].
+      defined in [I-D.ietf-ivy-passive-network-inventory].
 
 4.2.  Port-Breakout Capability
 
@@ -355,10 +354,10 @@ Table of Contents
 
    Breakout channel is an atomic resource element obtained by
    partitioning a breakout port.  One physical interface may be
-   associated with one or more breakout channels, but one breakout
-   channel MUST NOT be associated with more than one physical interface.
-   Appendix B provides a JSON instance [RFC7951] example for a port with
-   breakout capabilities.
+   associated with one or more breakout channels; a breakout channel is
+   associated with at most one physical interface.  Appendix B provides
+   a JSON instance [RFC7951] example for a port with breakout
+   capabilities.
 
    It is assumed that a port which supports breakout can be configured
    either as a trunk port or as a breakout port.  The "port-breakout"
@@ -372,6 +371,29 @@ Table of Contents
    interfaces) is also outside the scope of this document and is
    addressed by the Layer 2 network topology model [RFC8944].
 
+4.3.  Semantics of Inventory Mappings
+
+   The "inventory-topology" network type establishes a physical
+   topology.  Nodes, TPs, and links within this topology represent
+   physical entities, regardless of whether an inventory mapping is
+   declared.
+
+   The "inventory-mapping-attributes" container expresses whether an
+   inventory mapping is declared for a physical object.
+
+   When the container is present, the mapping is complete if it contains
+   all attributes needed to identify the mapped object: "ne-ref" for
+   nodes, "link-type" for links, and both "ne-ref" and "port-ref" for
+   TPs.  A TP with only 'ne-ref' has a partial mapping: the NE is known
+   but the port is unresolved (e.g., CPE with limited discovery
+   capability).  A partial mapping is a valid state, not an error.
+   Consumers MUST NOT use a partial mapping for port-level resource
+   validation, but MAY use it for NE-level correlation.
+
+   The "port-breakout" container is independent of inventory mapping.
+   It reports a physical capability of the port and may be present
+   without an inventory mapping.
+
 5.  Network Inventory Topology YANG Module
 
    This module augments the Network Topology module defined in
@@ -380,7 +402,7 @@ Table of Contents
    This module imports the base network inventory
    [I-D.ietf-ivy-network-inventory-yang].
 
-   <CODE BEGINS> file "ietf-network-inventory-topology@2026-09-11.yang"
+   <CODE BEGINS> file "ietf-network-inventory-topology@2026-10-19.yang"
    module ietf-network-inventory-topology {
      yang-version 1.1;
      namespace
@@ -438,9 +460,15 @@ Table of Contents
         (https://www.iana.org/assignments/yang-parameters).
 
         This version of this YANG module is part of RFC XXXX; see
-        the RFC itself for full legal notices.";
+        the RFC itself for full legal notices.
 
-     revision 2026-09-11 {
+        The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+        NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+        'MAY', and 'OPTIONAL' in this document are to be interpreted as
+        described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+        they appear in all capitals, as shown here.";
+
+     revision 2026-10-19 {
        description
          "Initial revision.";
        reference
@@ -499,7 +527,7 @@ Table of Contents
           cannot be classified into any of the other defined types.
 
           When a discovery system is unable to determine the media
-          type, it should use this identity rather than leaving the
+          type, it SHOULD use this identity rather than leaving the
           leaf unset. An unset leaf indicates that the link type has
           not been assessed, whereas unknown explicitly records that
           the medium could not be classified.";
@@ -541,23 +569,34 @@ Table of Contents
        when '../nw:network-types/nwit:inventory-topology';
        description
          "Augments the network topology node with inventory mapping
-          attributes. This enables correlation between the logical node
-          and its physical network element.";
+          attributes. This enables correlation between the physical node
+          and its corresponding network element in the inventory.";
        container inventory-mapping-attributes {
+         must 'ne-ref' {
+           error-message
+             "A physical node must include ne-ref to identify the
+              corresponding network element.";
+         }
          presence
-           "If present, it indicates this is a physical node, which
-            maps to a network element. If not present, it indicates it
-            is an abstract node.";
+           "If present, an inventory mapping is declared for this node.
+            If absent, no inventory mapping is declared.";
          description
-           "Container for inventory mapping attributes of a node.";
+           "Container for inventory mapping attributes of a node.
+
+            In typical deployments, the ne-ref leaf SHOULD be populated
+            through automatic discovery.  It SHOULD NOT be configured
+            manually except where discovery is not possible (e.g.,
+            Customer Premises Equipment (CPE) outside the operator's
+            management domain).";
          leaf ne-ref {
            type nwi:ne-ref;
            description
              "Reference to the NE in the inventory that corresponds to
               this topology node.
 
-              This reference establishes a 1:1 mapping between the
-              logical node and its physical NE.";
+              When the container inventory-mapping-attributes
+              is present, this reference identifies the NE that the
+              topology node maps to.";
          }
        }
      }
@@ -565,11 +604,17 @@ Table of Contents
      augment "/nw:networks/nw:network/nt:link" {
        when '../nw:network-types/nwit:inventory-topology';
        description
-         "Augments the network topology link with inventory-related
-          attributes.";
+         "Augments the physical network topology link with
+          inventory-related attributes.";
        container inventory-mapping-attributes {
-         presence "Indicates a physical link, at the lowest underlay
-                   abstraction level.";
+         must 'link-type' {
+           error-message
+             "A physical link must include link-type to classify the
+              link media type.";
+         }
+         presence
+           "If present, an inventory mapping is declared for this link.
+            If absent, no inventory mapping is declared.";
          description
            "Container for inventory-related attributes of a link.
 
@@ -582,7 +627,12 @@ Table of Contents
               inventory
 
               Detailed inventory references may be added in future
-              modules.";
+              modules.
+
+              In typical deployments, the link-type leaf SHOULD be
+              populated through automatic discovery.  It SHOULD NOT be
+              configured manually except where discovery is not possible
+              (e.g., leased lines).";
          leaf link-type {
            type identityref {
              base link-type;
@@ -611,31 +661,52 @@ Table of Contents
          "Augments the termination point (TP) with inventory mapping
           and port breakout.";
        container inventory-mapping-attributes {
+         must "nwit:ne-ref =
+               ../../nwit:inventory-mapping-attributes/nwit:ne-ref" {
+           error-message
+             "A physical TP must have a ne-ref that matches the
+              ne-ref of its parent node, so that port-ref is
+              resolved within a single unambiguous network element
+              scope.";
+         }
          presence
-           "If present, it indicates this is a physical TP, which
-            maps to a port component. If not present, it indicates it
-            is a logical TP.";
+           "If present, an inventory mapping is declared for this TP.
+            If absent, no inventory mapping is declared.";
          description
-           "Container for inventory mapping attributes of a TP.";
+           "Container for inventory mapping attributes of a TP.
+
+            In typical deployments, the port-ref leaves SHOULD be
+            populated through automatic discovery.  They SHOULD NOT
+            be configured manually except where discovery is not
+            possible (e.g., CPE outside the operator's management
+            domain, leased lines).";
          uses nwi:port-ref {
            refine "port-ref" {
              description
                "Reference to the physical port component in the
-                network inventory. This reference establishes a 1:1
-                mapping between the logical TP and its physical port
-                component.";
+                network inventory.
+
+                When the container inventory-mapping-attributes
+                is present, this reference identifies the port
+                component that the TP maps to. The ne-ref leaf must
+                also be present, as component identifiers are scoped
+                to a network element.";
            }
          }
        }
        container port-breakout {
-         presence "Indicates the port supports channel breakout.";
+         presence
+           "Indicates the physical port supports channel breakout.";
          config false;
          description
            "Breakout capability of the physical port represented by
             this TP. One TP maps to one physical port; channels are
             listed here. This container is present only when the
             underlying hardware supports partitioning the port into
-            multiple independent channels (e.g., 400G to 4x100G).";
+            multiple independent channels (e.g., 400G to 4x100G).
+
+            This container is read-only (config false) as it reflects
+            hardware-determined state.";
          list breakout-channel {
            key "channel-id";
            description
@@ -665,10 +736,10 @@ Table of Contents
 
    For typical operations such as service provisioning and network
    planning, the model offers read-only query access to authoritative
-   mappings between logical topology and physical inventory.  The
-   inventory-mapping-attributes containers are defined as read-write
-   (config true) to accommodate cases where automatic discovery is not
-   possible, including:
+   mappings between topology view of physical objects and their
+   inventory entities.  The inventory-mapping-attributes containers are
+   defined as read-write (config true) to accommodate cases where
+   automatic discovery is not possible, including:
 
    *  Customer Premises Equipment (CPE) outside the operator's
       management domain
@@ -686,19 +757,6 @@ Table of Contents
    port-breakout:  Hardware capability determined by physical port
       characteristics
 
-   Therefore, in typical deployments, "ne-ref", "port-ref", and "link-
-   type" SHOULD be populated through automatic discovery but MAY only be
-   overridden manually in exceptional cases (e.g., CPE, leased lines, or
-   planned resources).  The "port-breakout" container MUST always
-   reflect hardware-determined state and therefore MUST NOT be manually
-   configured.
-
-   The "inventory-topology" presence container under "network-types" is
-   typically set by the network controller when it discovers or
-   provisions network instance representing the physical layer.  It MAY
-   be configured manually to declare a network as an inventory topology
-   when discovery is not available.
-
 7.  Security Considerations
 
    This section is modeled after the template described in Section 3.7.1
@@ -707,10 +765,10 @@ Table of Contents
    The "ietf-network-inventory-topology" YANG module defines a data
    model that is designed to be accessed via YANG-based management
    protocols, such as Network Configuration (NETCONF) [RFC6241] and
-   RESTCONF [RFC8040].  These YANG-based management (1) have to use a
-   secure transport layer and (2) have to use mutual authentication
-   (e.g., Secure Shell (SSH) [RFC4252], TLS [RFC9846], and QUIC
-   [RFC9000]).
+   RESTCONF [RFC8040].  These YANG-based management protocols (1) have
+   to use a secure transport layer (e.g., Secure Shell (SSH) [RFC4252],
+   TLS [RFC9846], and QUIC [RFC9000]) and (2) have to use mutual
+   authentication.
 
    The Network Configuration Access Control Model (NACM) [RFC8341]
    provides the means to restrict access for particular NETCONF or
@@ -751,8 +809,8 @@ Table of Contents
 
       'port-breakout':  This node exposes hardware capabilities.
 
-   There are no particularly sensitive RPC or action operations defined
-   in this module.
+   There are no sensitive RPC or action operations defined in this
+   module.
 
    As this module augments the network topology model defined in
    [RFC8345], the module also inherits the security considerations
@@ -787,9 +845,9 @@ Table of Contents
               Yu, C., Belotti, S., Bouquier, J., Peruzzini, F., and P.
               Bedard, "A Base YANG Data Model for Network Inventory",
               Work in Progress, Internet-Draft, draft-ietf-ivy-network-
-              inventory-yang-18, 27 May 2026,
+              inventory-yang-20, 29 September 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
-              network-inventory-yang-18>.
+              network-inventory-yang-20>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -841,13 +899,21 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
               network-inventory-software-04>.
 
+   [I-D.ietf-ivy-passive-network-inventory]
+              Guo, A., van caenegem, T., Davis, N., Tilocca, M., and B.
+              Peters, "A YANG Data Model for Passive Network Inventory",
+              Work in Progress, Internet-Draft, draft-ietf-ivy-passive-
+              network-inventory-01, 10 September 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-ivy-
+              passive-network-inventory-01>.
+
    [I-D.ietf-nmop-simap-concept]
               Havel, O., Claise, B., de Dios, O. G., and T. Graf,
               "SIMAP: Concept, Requirements, and Use Cases", Work in
               Progress, Internet-Draft, draft-ietf-nmop-simap-concept-
-              13, 4 September 2026,
+              14, 2 October 2026,
               <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
-              simap-concept-13>.
+              simap-concept-14>.
 
    [I-D.irtf-nmrg-network-digital-twin-arch]
               Zhou, C., Yang, H., Duan, X., Lopez, D., Pastor, A., Wu,
@@ -857,14 +923,6 @@ Table of Contents
               twin-arch-13, 1 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-irtf-nmrg-
               network-digital-twin-arch-13>.
-
-   [I-D.ygb-ivy-passive-network-inventory]
-              Guo, A., van caenegem, T., Davis, N., Tilocca, M., and B.
-              Peters, "A YANG Data Model for Passive Network Inventory",
-              Work in Progress, Internet-Draft, draft-ygb-ivy-passive-
-              network-inventory-05, 26 May 2026,
-              <https://datatracker.ietf.org/doc/html/draft-ygb-ivy-
-              passive-network-inventory-05>.
 
    [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
@@ -1022,7 +1080,7 @@ Appendix A.  'link-type' Usage Examples
      }
    }
 
-Appendix B.  JSON Example of an Multi-fibre Push On (MPO) Breakout-
+Appendix B.  JSON Example of a Multi-fibre Push On (MPO) Breakout-
              Channel Port
 
    This appendix provides an example of a 400 Gb/s DR4 port that is
