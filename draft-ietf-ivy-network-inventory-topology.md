@@ -286,33 +286,29 @@ also outside the scope of this document and is addressed by the Layer 2 network 
 
 ## Semantics of Inventory Mappings
 
-   The interpretation of "inventory-mapping-attributes" follows
-   the rules below.  The absence of the container indicates that
-   no inventory mapping is asserted for the object.
+   The "inventory-topology" network type establishes a physical
+   topology.  Nodes and TPs within this topology represent
+   physical entities, regardless of whether an inventory mapping
+   is declared.
 
-   When the container is present, it asserts a physical mapping,
-   and its content determines the mapping semantics:
+   The "inventory-mapping-attributes" container expresses
+   whether an inventory mapping exists for a physical object.
+   Its absence indicates only that no inventory mapping is
+   declared.
+   
+   When the container is present, the mapping is complete if it
+   contains all attributes needed to identify the mapped object:
+   'ne-ref' for nodes, 'link-type' for links, and both 'ne-ref'
+   and 'port-ref' for TPs.  A TP with only 'ne-ref' has a
+   partial mapping: the NE is known but the port is unresolved
+   (e.g., CPE with limited discovery capability).  A partial
+   mapping is a valid state, not an error.  Consumers MUST NOT
+   use a partial mapping for port-level resource validation,
+   but MAY use it for NE-level correlation.
 
-   - For nodes, 'ne-ref' MUST be present (enforced by a 'must'
-     statement).  A node mapping is therefore either complete or
-     absent; no partial node mapping is defined.
-
-   - For TPs, 'ne-ref' MUST be present and MUST equal the
-     'ne-ref' of the parent node (enforced by a 'must'
-     statement), because component identifiers are scoped to a
-     network element.  A TP with both 'ne-ref' and 'port-ref'
-     has a complete mapping that identifies a port component
-     identifier within the NE scope. A TP with only 'ne-ref' has a partial mapping: the
-     NE is known but the port is unresolved (e.g., CPE with
-     limited discovery capability).  Consumers MUST NOT use a
-     partial mapping for port-level resource validation.  A
-     'port-ref' never occurs without its accompanying 'ne-ref';
-     this is enforced by the 'must' statement on the TP mapping
-     container.
-
-   - For links, 'link-type' MUST be present (enforced by a
-     'must' statement).  A link mapping is therefore either
-     complete or absent; no partial link mapping is defined.
+   The "port-breakout" container is independent of inventory
+   mapping.  It reports a physical capability of the port and
+   may be present without an inventory mapping.
 
 # Network Inventory Topology YANG Module {#sec-module}
 
