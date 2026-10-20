@@ -286,27 +286,27 @@ also outside the scope of this document and is addressed by the Layer 2 network 
 
 ## Semantics of Inventory Mappings
 
-   The "inventory-topology" network type establishes a physical
-   topology.  Nodes, TPs, and links within this topology represent
-   physical entities, regardless of whether an inventory mapping
-   is declared.
+The "inventory-topology" network type establishes a physical
+topology.  Nodes, TPs, and links within this topology represent
+physical entities, regardless of whether an inventory mapping
+is declared.
 
-   The "inventory-mapping-attributes" container expresses
-   whether an inventory mapping is declared for a physical object.
-   
-   When the container is present, the mapping is complete if it
-   contains all attributes needed to identify the mapped object:
-   'ne-ref' for nodes, 'link-type' for links, and both 'ne-ref'
-   and 'port-ref' for TPs.  A TP with only 'ne-ref' has a
-   partial mapping: the NE is known but the port is unresolved
-   (e.g., CPE with limited discovery capability).  A partial
-   mapping is a valid state, not an error.  Consumers MUST NOT
-   use a partial mapping for port-level resource validation,
-   but MAY use it for NE-level correlation.
+The "inventory-mapping-attributes" container expresses
+whether an inventory mapping is declared for a physical object.
 
-   The "port-breakout" container is independent of inventory
-   mapping.  It reports a physical capability of the port and
-   may be present without an inventory mapping.
+When the container is present, the mapping is complete if it
+contains all attributes needed to identify the mapped object:
+"ne-ref" for nodes, "link-type" for links, and both "ne-ref"
+and "port-ref" for TPs.  A TP with only 'ne-ref' has a
+partial mapping: the NE is known but the port is unresolved
+(e.g., CPE with limited discovery capability).  A partial
+mapping is a valid state, not an error.  Consumers MUST NOT
+use a partial mapping for port-level resource validation,
+but MAY use it for NE-level correlation.
+
+The "port-breakout" container is independent of inventory
+mapping.  It reports a physical capability of the port and
+may be present without an inventory mapping.
 
 # Network Inventory Topology YANG Module {#sec-module}
 
