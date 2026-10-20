@@ -164,8 +164,8 @@ module ietf-network-inventory-topology {
     when '../nw:network-types/nwit:inventory-topology';
     description
       "Augments the network topology node with inventory mapping
-       attributes. This enables correlation between the logical node
-       and its physical network element.";
+       attributes. This enables correlation between the physical node
+       and its corresponding network element in the inventory.";
     container inventory-mapping-attributes {
       must 'ne-ref' {
         error-message
@@ -173,9 +173,8 @@ module ietf-network-inventory-topology {
            corresponding network element.";
       }
       presence
-        "If present, it indicates this is a physical node, which
-         maps to a network element. If not present, it indicates it
-         is an abstract node.";
+        "If present, an inventory mapping is declared for this node.
+         If absent, no inventory mapping is declared.";
       description
         "Container for inventory mapping attributes of a node.
 
@@ -200,16 +199,17 @@ module ietf-network-inventory-topology {
   augment "/nw:networks/nw:network/nt:link" {
     when '../nw:network-types/nwit:inventory-topology';
     description
-      "Augments the network topology link with inventory-related
-       attributes.";
+      "Augments the physical network topology link with
+       inventory-related attributes.";
     container inventory-mapping-attributes {
       must 'link-type' {
         error-message
           "A physical link must include link-type to classify the
            link media type.";
       }
-      presence "Indicates a physical link, at the lowest underlay
-                abstraction level.";
+      presence
+        "If present, an inventory mapping is declared for this link.
+         If absent, no inventory mapping is declared.";
       description
         "Container for inventory-related attributes of a link.
 
@@ -265,16 +265,16 @@ module ietf-network-inventory-topology {
            scope.";
       }
       presence
-        "If present, it indicates this is a physical TP, which
-         maps to a port component. If not present, it indicates it
-         is a logical TP.";
+        "If present, an inventory mapping is declared for this TP.
+         If absent, no inventory mapping is declared.";
       description
         "Container for inventory mapping attributes of a TP.
 
-         In typical deployments, the port-ref leaves SHOULD be populated
-         through automatic discovery.  They SHOULD NOT be configured
-         manually except where discovery is not possible (e.g.,
-         CPE outside the operator's management domain, leased lines).";
+         In typical deployments, the port-ref leaves SHOULD be
+         populated through automatic discovery.  They SHOULD NOT
+         be configured manually except where discovery is not
+         possible (e.g., CPE outside the operator's management
+         domain, leased lines).";
       uses nwi:port-ref {
         refine "port-ref" {
           description
@@ -282,16 +282,16 @@ module ietf-network-inventory-topology {
              network inventory.
 
              When the container inventory-mapping-attributes
-             is present, this reference identifies the port component
-             that the TP maps to. The ne-ref leaf must
-             also be present, as component identifiers are scoped to a
-             network element.";
+             is present, this reference identifies the port
+             component that the TP maps to. The ne-ref leaf must
+             also be present, as component identifiers are scoped
+             to a network element.";
         }
       }
     }
     container port-breakout {
-      when '../inventory-mapping-attributes';
-      presence "Indicates the port supports channel breakout.";
+      presence
+        "Indicates the physical port supports channel breakout.";
       config false;
       description
         "Breakout capability of the physical port represented by
@@ -319,4 +319,3 @@ module ietf-network-inventory-topology {
     }
   }
 }
-
