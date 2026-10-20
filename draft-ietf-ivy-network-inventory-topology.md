@@ -100,8 +100,6 @@ Please apply the following replacements:
 
 # Conventions and Definitions
 
-## Requirements Notations
-
 {::boilerplate bcp14}
 
 The following terms are defined in {{!RFC7950}} and are not redefined here:
@@ -233,9 +231,9 @@ Both architectures require accurate mapping between logical network topology
 ~~~~~~~~~~
 {: #tree title="The Structure of the Network Inventory Mapping Data Model" artwork-align="center"}
 
-The module augments the "ietf-network-topology" module as follows:
+The module augments the "ietf-network" and "ietf-network-topology" module as follows:
 
-Inventory mapping attributes for nodes, and termination points:
+Inventory mapping attributes for nodes, links, and termination points:
 : The corresponding containers augments the topology module with the references to the base network inventory
 
 
@@ -249,7 +247,7 @@ This document adds a lightweight "link-type" leaf to the topology link mapping t
 : The "link-type" serves as a lightweight discriminator that guides to the
  appropriate specialized inventory model for detailed resource information.
 : For example, wired media ("fiber" or "copper") typically references a passive
-  network inventory model such as the one defined in {{?I-D.ygb-ivy-passive-network-inventory}}.
+  network inventory model such as the one defined in {{?I-D.ietf-ivy-passive-network-inventory}}.
 
 ## Port-Breakout Capability
 
@@ -273,8 +271,8 @@ common non-breakout case.
 
 Breakout channel is an atomic resource element obtained by partitioning a breakout port.
 One physical interface may be associated with one or more breakout
-channels, but one breakout channel MUST NOT be associated with more
-than one physical interface. Appendix B provides a JSON instance {{?RFC7951}} example for a port with breakout capabilities.
+channels; a breakout channel is associated with at most one physical interface.
+Appendix B provides a JSON instance {{?RFC7951}} example for a port with breakout capabilities.
 
 It is assumed that a port which supports breakout can be configured
 either as a trunk port or as a breakout port. The "port-breakout"
@@ -286,6 +284,30 @@ lower-speed termination-point is outside the scope of this document and
 is expected to be provided by a future companion module. Interface channelisation (e.g., VLAN sub-interfaces) is
 also outside the scope of this document and is addressed by the Layer 2 network topology model {{?RFC8944}}.
 
+## Semantics of Inventory Mappings
+
+The "inventory-topology" network type establishes a physical
+topology.  Nodes, TPs, and links within this topology represent
+physical entities, regardless of whether an inventory mapping
+is declared.
+
+The "inventory-mapping-attributes" container expresses
+whether an inventory mapping is declared for a physical object.
+
+When the container is present, the mapping is complete if it
+contains all attributes needed to identify the mapped object:
+"ne-ref" for nodes, "link-type" for links, and both "ne-ref"
+and "port-ref" for TPs.  A TP with only 'ne-ref' has a
+partial mapping: the NE is known but the port is unresolved
+(e.g., CPE with limited discovery capability).  A partial
+mapping is a valid state, not an error.  Consumers MUST NOT
+use a partial mapping for port-level resource validation,
+but MAY use it for NE-level correlation.
+
+The "port-breakout" container is independent of inventory
+mapping.  It reports a physical capability of the port and
+may be present without an inventory mapping.
+
 # Network Inventory Topology YANG Module {#sec-module}
 
 This module augments the Network Topology module defined in {{!RFC8345}}.
@@ -295,14 +317,14 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 ~~~~ yang
 {::include-fold ./yang/ietf-network-inventory-topology.yang}
 ~~~~
-{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-09-11.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-10-19.yang"}
 
 # Operational Considerations
 
 The "ietf-network-inventory-topology" YANG module enables a network controller to report discovered network topology and inventory information. Automatic discovery serves as the primary mechanism, with selective configuration capabilities provided for scenarios where discovery is not feasible.
 
 For typical operations such as service provisioning and network planning, the model offers read-only query
-access to authoritative mappings between logical topology and physical inventory.
+access to authoritative mappings between topology view of physical objects and their inventory entities.
 The inventory-mapping-attributes containers are defined as read-write (config true) to accommodate cases where automatic discovery is not possible, including:
 
 - Customer Premises Equipment (CPE) outside the operator's management domain
@@ -316,28 +338,15 @@ The following nodes are read-only (config false) as they represent hardware-dete
 port-breakout:
 : Hardware capability determined by physical port characteristics
 
-Therefore, in typical deployments, "ne-ref", "port-ref", and "link-type"
-SHOULD be populated through automatic discovery but MAY
-only be overridden manually in exceptional cases (e.g., CPE,
-leased lines, or planned resources). The "port-breakout" container
-MUST always reflect hardware-determined state and therefore MUST
-NOT be manually configured.
-
-The "inventory-topology" presence container under "network-types" is
-typically set by the network controller when it discovers or
-provisions network instance representing the physical layer.
-It MAY be configured manually to declare a network as an
-inventory topology when discovery is not available.
-
 # Security Considerations
 
 This section is modeled after the template described in {{Section 3.7.1 of ?RFC9907}}.
 
 The "ietf-network-inventory-topology" YANG module defines a data model that is
 designed to be accessed via YANG-based management protocols, such as
-Network Configuration (NETCONF) {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management (1) have to
-use a secure transport layer and (2) have to use mutual authentication (e.g., Secure Shell (SSH) {{?RFC4252}}, TLS {{?RFC9846}}, and
-QUIC {{?RFC9000}}).
+Network Configuration (NETCONF) {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management protocols (1) have to
+use a secure transport layer (e.g., Secure Shell (SSH) {{?RFC4252}}, TLS {{?RFC9846}}, and
+QUIC {{?RFC9000}}) and (2) have to use mutual authentication.
 
 The Network Configuration Access Control Model (NACM) {{!RFC8341}}
 provides the means to restrict access for particular NETCONF or
@@ -380,7 +389,7 @@ vulnerabilities:
 > 'port-breakout':
 > : This node exposes hardware capabilities.
 
-There are no particularly sensitive RPC or action operations defined in this module.
+There are no sensitive RPC or action operations defined in this module.
 
 As this module augments the network topology model defined in {{!RFC8345}},
 the module also inherits the security considerations discussed in
@@ -434,7 +443,7 @@ Key parts of the JSON example are as follows:
 {::include-fold ./yang/examples/link-type-example.json}
 ~~~~
 
-# JSON Example of an Multi-fibre Push On (MPO) Breakout-Channel Port
+# JSON Example of a Multi-fibre Push On (MPO) Breakout-Channel Port
 
 This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding {{?RFC7951}} of the "port-breakout" container for this port.
 
