@@ -231,9 +231,9 @@ Both architectures require accurate mapping between logical network topology
 ~~~~~~~~~~
 {: #tree title="The Structure of the Network Inventory Mapping Data Model" artwork-align="center"}
 
-The module augments the "ietf-network-topology" module as follows:
+The module augments the "ietf-network" and "ietf-network-topology" module as follows:
 
-Inventory mapping attributes for nodes, and termination points:
+Inventory mapping attributes for nodes, links, and termination points:
 : The corresponding containers augments the topology module with the references to the base network inventory
 
 
@@ -287,14 +287,12 @@ also outside the scope of this document and is addressed by the Layer 2 network 
 ## Semantics of Inventory Mappings
 
    The "inventory-topology" network type establishes a physical
-   topology.  Nodes and TPs within this topology represent
+   topology.  Nodes, TPs, and links within this topology represent
    physical entities, regardless of whether an inventory mapping
    is declared.
 
    The "inventory-mapping-attributes" container expresses
-   whether an inventory mapping exists for a physical object.
-   Its absence indicates only that no inventory mapping is
-   declared.
+   whether an inventory mapping is declared for a physical object.
    
    When the container is present, the mapping is complete if it
    contains all attributes needed to identify the mapped object:
@@ -319,14 +317,14 @@ This module imports the base network inventory {{!I-D.ietf-ivy-network-inventory
 ~~~~ yang
 {::include-fold ./yang/ietf-network-inventory-topology.yang}
 ~~~~
-{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-09-11.yang"}
+{: sourcecode-markers="true" sourcecode-name="ietf-network-inventory-topology@2026-10-19.yang"}
 
 # Operational Considerations
 
 The "ietf-network-inventory-topology" YANG module enables a network controller to report discovered network topology and inventory information. Automatic discovery serves as the primary mechanism, with selective configuration capabilities provided for scenarios where discovery is not feasible.
 
 For typical operations such as service provisioning and network planning, the model offers read-only query
-access to authoritative mappings between logical topology and physical inventory.
+access to authoritative mappings between topology view of physical objects and their inventory entities.
 The inventory-mapping-attributes containers are defined as read-write (config true) to accommodate cases where automatic discovery is not possible, including:
 
 - Customer Premises Equipment (CPE) outside the operator's management domain
@@ -445,7 +443,7 @@ Key parts of the JSON example are as follows:
 {::include-fold ./yang/examples/link-type-example.json}
 ~~~~
 
-# JSON Example of an Multi-fibre Push On (MPO) Breakout-Channel Port
+# JSON Example of a Multi-fibre Push On (MPO) Breakout-Channel Port
 
 This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding {{?RFC7951}} of the "port-breakout" container for this port.
 
