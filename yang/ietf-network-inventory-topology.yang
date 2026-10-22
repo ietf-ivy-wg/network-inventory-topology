@@ -67,7 +67,7 @@ module ietf-network-inventory-topology {
     description
       "Initial revision.";
     reference
-      "RFC XXXX: A Network Data Model for Inventory Topology
+      "RFC XXXX: A YANG Network Data Model for Inventory Topology
                  Mapping";
   }
 
