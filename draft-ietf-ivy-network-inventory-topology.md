@@ -69,7 +69,7 @@ network maintenance, and capacity planning.
   firmware, and software components.  Examples
    of inventory hardware components could be rack, shelf, slot, board,
    or physical port.  Examples of inventory software components could
-   be platform Operating System (OS), software-modules, BIOS, or bootloader {{?I-D.ietf-ivy-network-inventory-software}}.
+   be platform Operating System (OS), software modules, BIOS, or bootloader {{?I-D.ietf-ivy-network-inventory-software}}.
 
 In order to ease navigation between inventory and network topologies,
 this document extends the network topology data model {{!RFC8345}} for network
@@ -238,7 +238,7 @@ Network types:
   "network-types" container.
 
 Inventory mapping attributes for nodes, links, and termination points:
-: The corresponding containers augment the topology module with the references to the base network inventory
+: The corresponding containers augment the topology modules with the references to the base network inventory.
 
 Port breakout capability:
 : The "port-breakout" container augments termination points
