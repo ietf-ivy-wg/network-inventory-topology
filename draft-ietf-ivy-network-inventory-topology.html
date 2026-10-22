@@ -1057,7 +1057,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Wu, et al.</td>
-<td class="center">Expires 23 April 2027</td>
+<td class="center">Expires 25 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg {
 <dd class="internet-draft">draft-ietf-ivy-network-inventory-topology-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-20" class="published">20 October 2026</time>
+<time datetime="2026-10-22" class="published">22 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-23">23 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-25">25 April 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1138,7 +1138,7 @@ network maintenance, and capacity planning.<a href="#section-abstract-1" class="
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1258,7 +1258,7 @@ network maintenance, and capacity planning.<a href="#section-abstract-1" class="
   firmware, and software components.  Examples
    of inventory hardware components could be rack, shelf, slot, board,
    or physical port.  Examples of inventory software components could
-   be platform Operating System (OS), software-modules, bios, or boot-loader <span>[<a href="#I-D.ietf-ivy-network-inventory-software" class="cite xref">I-D.ietf-ivy-network-inventory-software</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
+   be platform Operating System (OS), software modules, BIOS, or bootloader <span>[<a href="#I-D.ietf-ivy-network-inventory-software" class="cite xref">I-D.ietf-ivy-network-inventory-software</a>]</span>.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">In order to ease navigation between inventory and network topologies,
 this document extends the network topology data model <span>[<a href="#RFC8345" class="cite xref">RFC8345</a>]</span> for network
 inventory mapping: "ietf-network-inventory-topology" (<a href="#sec-module" class="auto internal xref">Section 5</a>).
@@ -1518,9 +1518,22 @@ module: ietf-network-inventory-topology
 </div>
 <p id="section-4-3">The module augments the "ietf-network" and "ietf-network-topology" module as follows:<a href="#section-4-3" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-4-4">
-        <dt id="section-4-4.1">Inventory mapping attributes for nodes, links, and termination points:</dt>
+        <dt id="section-4-4.1">Network types:</dt>
         <dd style="margin-left: 1.5em" id="section-4-4.2">
-          <p id="section-4-4.2.1">The corresponding containers augments the topology module with the references to the base network inventory<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
+          <p id="section-4-4.2.1">The "inventory-topology" container augments the
+"network-types" container.<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-4.3">Inventory mapping attributes for nodes, links, and termination points:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-4.4">
+          <p id="section-4-4.4.1">The corresponding containers augment the topology modules with the references to the base network inventory.<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-4.5">Port breakout capability:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-4.6">
+          <p id="section-4-4.6.1">The "port-breakout" container augments termination points
+to report the channel breakout capability of the underlying
+physical port.<a href="#section-4-4.6.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
@@ -1697,7 +1710,7 @@ module ietf-network-inventory-topology {
     description
       "Initial revision.";
     reference
-      "RFC XXXX: A Network Data Model for Inventory Topology
+      "RFC XXXX: A YANG Network Data Model for Inventory Topology
                  Mapping";
   }
 
@@ -2284,9 +2297,7 @@ the module also inherits the security considerations discussed in
                 "ietf-network-inventory-topology:inventory-mapping-\
                                                        attributes": {
                   "ne-ref": "example:NE-SW1",
-                  "port-ref": "/nwi:network-inventory/nwi:network-\
-elements/nwi:network-element[ne-id='example:NE-SW1']/nwi:components/\
-                            nwi:component[component-id='eth-port-1']"
+                  "port-ref": "example:eth-port-1"
                 }
               }
             ]
@@ -2299,13 +2310,11 @@ elements/nwi:network-element[ne-id='example:NE-SW1']/nwi:components/\
             },
             "ietf-network-topology:termination-point": [
               {
-                "tp-id": "example:TP-SW2-P1",
+                "tp-id": "example:TP-SW2-P2",
                 "ietf-network-inventory-topology:inventory-mapping-\
                                                        attributes": {
                   "ne-ref": "example:NE-SW2",
-                  "port-ref": "/nwi:network-inventory/nwi:network-\
-elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:\
-                                component[component-id='eth-port-1']"
+                  "port-ref": "example:eth-port-2"
                 }
               }
             ]
@@ -2320,7 +2329,7 @@ elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:\
             },
             "destination": {
               "dest-node": "example:SW-2",
-              "dest-tp": "example:TP-SW2-P1"
+              "dest-tp": "example:TP-SW2-P2"
             },
             "ietf-network-inventory-topology:inventory-mapping-\
                                                        attributes": {
@@ -2342,7 +2351,7 @@ elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:\
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-json-example-of-a-multi-fib" class="section-name selfRef">JSON Example of a Multi-fibre Push On (MPO) Breakout-Channel Port</a>
       </h2>
 <p id="appendix-B-1">This appendix provides an example of a 400 Gb/s DR4 port that is physically implemented as four independent 100 Gb/s lanes (an MPO breakout). The lanes are exposed as breakout-channel entries so that the port can later be configured as either a single 400G trunk or four 100G breakout interfaces. The instance data below shows the minimal JSON encoding <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> of the "port-breakout" container for this port.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
-<div class="lang-json sourcecode" id="appendix-B-2">
+<div class="breakable lang-json sourcecode" id="appendix-B-2">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -2357,6 +2366,10 @@ elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:\
         "node": [
           {
             "node-id": "example:n1",
+            "ietf-network-inventory-topology:inventory-mapping-\
+                                                       attributes": {
+              "ne-ref": "example:NE-1"
+            },
             "ietf-network-topology:termination-point": [
               {
                 "tp-id": "example:400g-1/0/1",
