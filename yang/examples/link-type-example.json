@@ -17,7 +17,7 @@
                 "tp-id": "example:TP-SW1-P1",
                 "ietf-network-inventory-topology:inventory-mapping-attributes": {
                   "ne-ref": "example:NE-SW1",
-                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='example:NE-SW1']/nwi:components/nwi:component[component-id='eth-port-1']"
+                  "port-ref": "example:eth-port-1"
                 }
               }
             ]
@@ -29,10 +29,10 @@
             },
             "ietf-network-topology:termination-point": [
               {
-                "tp-id": "example:TP-SW2-P1",
+                "tp-id": "example:TP-SW2-P2",
                 "ietf-network-inventory-topology:inventory-mapping-attributes": {
                   "ne-ref": "example:NE-SW2",
-                  "port-ref": "/nwi:network-inventory/nwi:network-elements/nwi:network-element[ne-id='NE-SW2']/nwi:components/nwi:component[component-id='eth-port-1']"
+                  "port-ref": "example:eth-port-2"
                 }
               }
             ]
@@ -47,7 +47,7 @@
             },
             "destination": {
               "dest-node": "example:SW-2",
-              "dest-tp": "example:TP-SW2-P1"
+              "dest-tp": "example:TP-SW2-P2"
             },
             "ietf-network-inventory-topology:inventory-mapping-attributes": {
               "link-type": "ietf-network-inventory-topology:fiber"

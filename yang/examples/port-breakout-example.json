@@ -9,6 +9,9 @@
         "node": [
           {
             "node-id": "example:n1",
+            "ietf-network-inventory-topology:inventory-mapping-attributes": {
+              "ne-ref": "example:NE-1"
+            },
             "ietf-network-topology:termination-point": [
               {
                 "tp-id": "example:400g-1/0/1",
